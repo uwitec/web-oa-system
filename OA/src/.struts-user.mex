@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Struts2Diagram version="2.0">
+  <package name="userPack" location="0,0" size="0,0">
+    <action name="login" location="0,0" size="0,0">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="index.jsp" />
+      </result>
+      <result name="login">
+        <resourceEdge source="login" routing="0" target="login.jsp" />
+      </result>
+    </action>
+    <action name="userlist" location="0,0" size="0,0">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="userlist.jsp" />
+      </result>
+    </action>
+    <action name="getuser" location="0,0" size="0,0">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="checkuser.jsp" />
+      </result>
+    </action>
+    <action name="vcode" location="0,0" size="0,0" />
+  </package>
+  <webResource name="index.jsp" path="/index.jsp" location="0,0" size="0,0" />
+  <webResource name="login.jsp" path="/login.jsp" location="0,0" size="0,0" />
+  <webResource name="userlist.jsp" path="/back/userlist.jsp" location="0,0" size="0,0" />
+  <webResource name="checkuser.jsp" path="/back/checkuser.jsp" location="0,0" size="0,0" />
+</Struts2Diagram>
+
