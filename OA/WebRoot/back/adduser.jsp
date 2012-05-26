@@ -62,6 +62,9 @@ body {
 }
 -->
 </style>
+
+
+
 	</head>
 
 	<body>
@@ -98,13 +101,23 @@ body {
 			</tr>
 		</table>
 
-		<s:form>
+		<s:form action="user/adduser" method="post">
 			<s:textfield label="用户名 *" name="userInfo.user.userid"></s:textfield>
 			<s:textfield label="密码" name="userInfo.user.password" value="888888"
 				disabled="true"></s:textfield>
 			<s:textfield label="真实姓名 *" name="userInfo.user.realname"></s:textfield>
-			<s:select list="{'1','2'}" label="所属部门"></s:select>
-			<s:select list="{'1', '2'}" label="职务"></s:select>
+			<s:select list="#request.departmentList" label="所属部门"
+				name="userInfo.user.department.dataid" listKey="dataid"
+				listValue="dataname"></s:select>
+			<s:select list="#request.jobList" label="职务" listKey="dataid"
+				listValue="dataname" name="userInfo.user.job.dataid"></s:select>
+			<s:doubleselect label="城市" doubleList="top.datas"
+				doubleListKey="dataid" doubleListValue="dataname"
+				list="#request.provinceList" doubleName="userInfo.user.city.dataid"
+				listKey="dataid" listValue="dataname"></s:doubleselect>
+				
+			<s:checkboxlist list=""></s:checkboxlist>	
+				
 			<s:radio label="性别" list="#{'1' : '男',  '0' : '女'}" listKey="key"
 				listValue="value" value="1"></s:radio>
 			<s:textfield label="身份证 " name="userInfo.user.idcard"></s:textfield>

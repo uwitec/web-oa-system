@@ -64,6 +64,14 @@ body {
 -->
 </style>
 
+
+		<SCRIPT type="text/javascript">
+	function deleteUser(userid){
+		if(confirm('确认删除?')){
+			window.location.href = "<%=path%>/user/deluser?userInfo.user.userid=" + userid;
+		}
+	}
+</SCRIPT>
 	</head>
 
 	<body>
@@ -135,7 +143,8 @@ body {
 				<s:submit value="提交"></s:submit>
 				<s:property value='#report.conversion.errors' />
 			</s:form>
-
+			<s:a action="user/preadd">添加用户</s:a>
+			
 			<script>
 var departmentObj = document.getElementById("department")
 var optionObj = document.createElement("option");
@@ -229,9 +238,8 @@ departmentObj.add(optionObj);
 										<a>修改</a>|
 										<form name="deleteForm" method="post" action=""></form>
 										<a
-											href="javascript:if(confirm('确认删除') == true){document.deleteForm.action='user/deluser?userInfo.user.userid=<s:property value="#user.userid" />'; document.deleteForm.submit(); alert(1111);}">删除</a><%--
-											document.deleteForm.action='user/deluser?userInfo.user.userid=<s:property value="#user.userid" />'; 
-									--%></div>
+											href="javascript:deleteUser(<s:property value="#user.userid" />);">删除</a>
+									</div>
 								</td>
 							</tr>
 

@@ -27,8 +27,8 @@ public class UserTest {
 	 */
 	public static void main(String[] args) {
 		// getUser();
-		// login();
-		delete();
+		login();
+		// delete();
 		// findUsers();
 		// testAdd();
 	}
