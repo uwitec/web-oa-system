@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.oa.common.UserInfo;
 import com.oa.dao.inf.DataDao;
+import com.oa.dao.inf.RoleDao;
 import com.oa.dao.inf.UserDao;
 import com.oa.dao.pojo.TData;
 import com.oa.dao.pojo.TUser;
@@ -53,4 +54,10 @@ public class UserServiceImpl implements UserService {
 	public void deleteUser(TUser user) {
 		userDao.deleteUser(user);
 	}
+
+	@Override
+	public void addUser(TUser user) {
+		userDao.addUser(user);
+	}
+
 }

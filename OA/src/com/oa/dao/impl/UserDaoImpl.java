@@ -19,6 +19,7 @@ import com.oa.action.BaseAction;
 import com.oa.common.UserInfo;
 import com.oa.dao.inf.UserDao;
 import com.oa.dao.pojo.TData;
+import com.oa.dao.pojo.TTips;
 import com.oa.dao.pojo.TUser;
 import com.sun.xml.internal.messaging.saaj.packaging.mime.util.QEncoderStream;
 
@@ -43,6 +44,8 @@ public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
 
 	@Override
 	public void addUser(TUser user) {
+		TTips tips = new TTips(user);
+		user.setTips(tips);
 		getHibernateTemplate().save(user);
 	}
 

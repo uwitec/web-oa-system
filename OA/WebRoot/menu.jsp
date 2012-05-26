@@ -99,35 +99,28 @@ body {
 
 	<body>
 
-		<s:iterator value="#session.user.roles" var="role">
-			<s:append id="userMenus">
-				<s:param value="#role.menus"></s:param>
-			</s:append>
-		</s:iterator>
-
-
-
 		<div style="height: 100%;">
 			<ul id="navigation">
-				<s:iterator value="#userMenus" var="menu">
-					<li>
-						<a class="head"><s:property value="#menu.menuname" /> </a>
-						<ul>
-							<s:iterator value="#menu.sonMenus" var="sonMenu">
+				<s:iterator value="#session.user.roles" var="role">
+					<s:iterator value="#role.menus" var="userMenus">
+						<s:iterator value="#userMenus" var="menu">
+							<li>
+								<a class="head"><s:property value="#menu.menuname" /> </a>
+								<ul>
+									<s:iterator value="#menu.sonMenus" var="sonMenu">
 
-								<li>
-									<a href="<s:property value='#sonMenu.menulink'/>"
-										target="rightFrame"><s:property value="#sonMenu.menuname" />
-									</a>
-								</li>
+										<li>
+											<a href="<s:property value='#sonMenu.menulink'/>"
+												target="rightFrame"><s:property
+													value="#sonMenu.menuname" /> </a>
+										</li>
 
-							</s:iterator>
-						</ul>
-					</li>
+									</s:iterator>
+								</ul>
+							</li>
+						</s:iterator>
+					</s:iterator>
 				</s:iterator>
-
-
-
 			</ul>
 
 

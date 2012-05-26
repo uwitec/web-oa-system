@@ -30,7 +30,14 @@
 				<param name="actionName">userlist</param>
 			</result>
 		</action>
-
+		<action name="preadd" class="com.oa.action.UserAction" method="preAddUser">
+			<result name="success">/back/adduser.jsp</result>
+		</action>
+		<action name="adduser" class="com.oa.action.UserAction" method="addUser">
+			<result name="success" type="redirectAction">
+				<param name="actionName">userlist</param>
+			</result>
+		</action>
 
 
 		<action name="vcode" class="com.oa.action.ValidationCodeAction"></action>

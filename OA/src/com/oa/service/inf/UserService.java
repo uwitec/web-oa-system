@@ -16,4 +16,8 @@ public interface UserService {
 	TUser getUser(String userid);
 
 	void deleteUser(TUser user);
+	
+	
+	void addUser(TUser user);
+	
 }

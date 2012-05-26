@@ -19,6 +19,9 @@
         <resourceEdge source="success" routing="0" target="checkuser.jsp" />
       </result>
     </action>
+    <action name="deluser" location="0,0" size="0,0">
+      <result name="success" />
+    </action>
     <action name="vcode" location="0,0" size="0,0" />
   </package>
   <webResource name="index.jsp" path="/index.jsp" location="0,0" size="0,0" />

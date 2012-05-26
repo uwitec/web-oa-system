@@ -1,11 +1,13 @@
 package com.oa.action;
 
 import java.util.List;
+import java.util.Set;
 
 import com.oa.common.UserInfo;
 import com.oa.dao.inf.DataDao;
 import com.oa.dao.pojo.TData;
 import com.oa.dao.pojo.TMenu;
+import com.oa.dao.pojo.TRole;
 import com.oa.dao.pojo.TUser;
 import com.oa.service.inf.UserService;
 import com.opensymphony.xwork2.ActionContext;
@@ -53,10 +55,19 @@ public class UserAction extends BaseAction {
 	}
 
 	public String preAddUser() {
+		List<TData> departmentList = userService
+				.getDatas(DataDao.TYPE_DEPARTMENT);
+		List<TData> jobList = userService.getDatas(DataDao.TYPE_JOB);
+		List<TData> provinceList = userService.getDatas(DataDao.TYPE_PROVINCE);
+		request.setAttribute("departmentList", departmentList);
+		request.setAttribute("jobList", jobList);
+		request.setAttribute("provinceList", provinceList);
+		
 		return SUCCESS;
 	}
 
 	public String addUser() {
+		userService.addUser(userInfo.getUser());
 		return SUCCESS;
 	}
 
