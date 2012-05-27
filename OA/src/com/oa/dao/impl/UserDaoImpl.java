@@ -3,6 +3,7 @@ package com.oa.dao.impl;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
@@ -19,6 +20,7 @@ import com.oa.action.BaseAction;
 import com.oa.common.UserInfo;
 import com.oa.dao.inf.UserDao;
 import com.oa.dao.pojo.TData;
+import com.oa.dao.pojo.TRole;
 import com.oa.dao.pojo.TTips;
 import com.oa.dao.pojo.TUser;
 import com.sun.xml.internal.messaging.saaj.packaging.mime.util.QEncoderStream;
@@ -46,6 +48,10 @@ public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
 	public void addUser(TUser user) {
 		TTips tips = new TTips(user);
 		user.setTips(tips);
+		Set<TRole> roles = user.getRoles();
+		for (TRole tRole : roles) {
+			System.out.println(tRole.getRoleid());
+		}
 		getHibernateTemplate().save(user);
 	}
 
