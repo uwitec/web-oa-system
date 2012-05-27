@@ -9,11 +9,15 @@ import com.oa.dao.pojo.TData;
 import com.oa.dao.pojo.TMenu;
 import com.oa.dao.pojo.TRole;
 import com.oa.dao.pojo.TUser;
+import com.oa.service.inf.RoleService;
 import com.oa.service.inf.UserService;
 import com.opensymphony.xwork2.ActionContext;
 
 public class UserAction extends BaseAction {
 	private UserService userService;
+	private RoleService roleService;
+
+	private Set<TRole> roles;
 
 	public String login() {
 		String sessionVcode = (String) ActionContext.getContext().getSession()
@@ -62,11 +66,14 @@ public class UserAction extends BaseAction {
 		request.setAttribute("departmentList", departmentList);
 		request.setAttribute("jobList", jobList);
 		request.setAttribute("provinceList", provinceList);
-		
+
+		List<TRole> roleList = roleService.getRoles(null);
+		request.setAttribute("roleList", roleList);
 		return SUCCESS;
 	}
 
 	public String addUser() {
+		userInfo.getUser().setRoles(roles);
 		userService.addUser(userInfo.getUser());
 		return SUCCESS;
 	}
@@ -86,4 +93,21 @@ public class UserAction extends BaseAction {
 	public UserInfo getUserInfo() {
 		return userInfo;
 	}
+
+	public void setRoleService(RoleService roleService) {
+		this.roleService = roleService;
+	}
+
+	public RoleService getRoleService() {
+		return roleService;
+	}
+
+	public void setRoles(Set<TRole> roles) {
+		this.roles = roles;
+	}
+
+	public Set<TRole> getRoles() {
+		return roles;
+	}
+
 }

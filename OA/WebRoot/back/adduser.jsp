@@ -102,7 +102,8 @@ body {
 		</table>
 
 		<s:form action="user/adduser" method="post">
-			<s:textfield label="用户名 *" name="userInfo.user.userid"></s:textfield>
+			<s:textfield label="用户名 *" name="userInfo.user.userid"
+				required="true"></s:textfield>
 			<s:textfield label="密码" name="userInfo.user.password" value="888888"
 				disabled="true"></s:textfield>
 			<s:textfield label="真实姓名 *" name="userInfo.user.realname"></s:textfield>
@@ -115,13 +116,13 @@ body {
 				doubleListKey="dataid" doubleListValue="dataname"
 				list="#request.provinceList" doubleName="userInfo.user.city.dataid"
 				listKey="dataid" listValue="dataname"></s:doubleselect>
-				
-			<s:checkboxlist list=""></s:checkboxlist>	
-				
+
+			<s:checkboxlist label="角色" list="#request.roleList"
+				name="roles" listKey="roleid" listValue="rolename"></s:checkboxlist>
+
 			<s:radio label="性别" list="#{'1' : '男',  '0' : '女'}" listKey="key"
 				listValue="value" value="1"></s:radio>
 			<s:textfield label="身份证 " name="userInfo.user.idcard"></s:textfield>
-			<s:textfield label="籍贯" name="userInfo.user.userid"></s:textfield>
 			<s:textfield label="联系电话" name="userInfo.user.phone"></s:textfield>
 			<s:textfield label="手机" name="userInfo.user.handset"></s:textfield>
 			<s:textfield label="电子邮件" name="userInfo.user.email"></s:textfield>

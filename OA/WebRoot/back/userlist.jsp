@@ -144,7 +144,7 @@ body {
 				<s:property value='#report.conversion.errors' />
 			</s:form>
 			<s:a action="user/preadd">添加用户</s:a>
-			
+
 			<script>
 var departmentObj = document.getElementById("department")
 var optionObj = document.createElement("option");
@@ -236,9 +236,8 @@ departmentObj.add(optionObj);
 										<a
 											href="user/getuser?userInfo.user.userid=<s:property value="#user.userid"/>">查看</a>|
 										<a>修改</a>|
-										<form name="deleteForm" method="post" action=""></form>
 										<a
-											href="javascript:deleteUser(<s:property value="#user.userid" />);">删除</a>
+											href="javascript:deleteUser('<s:property value='#user.userid'/>')">删除</a>
 									</div>
 								</td>
 							</tr>

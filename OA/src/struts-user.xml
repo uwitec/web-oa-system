@@ -8,9 +8,11 @@
 	<constant name="struts.configuration.xml.reload" value="true"></constant>
 	<constant name="struts.i18n.encoding" value="GBK"></constant>
 	<constant name="struts.ognl.allowStaticMethodAccess" value="true"></constant>
+	<constant name="struts.devMode" value="true"></constant>
 
 
 	<package name="userPack" extends="struts-default" namespace="/user">
+	
 		<action name="login" class="com.oa.action.UserAction" method="login">
 			<result name="success">
 				/index.jsp
@@ -36,6 +38,7 @@
 		<action name="adduser" class="com.oa.action.UserAction" method="addUser">
 			<result name="success" type="redirectAction">
 				<param name="actionName">userlist</param>
+				<param name="input">/back/adduser.jsp</param>
 			</result>
 		</action>
 

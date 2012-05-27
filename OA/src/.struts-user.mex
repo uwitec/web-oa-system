@@ -22,11 +22,20 @@
     <action name="deluser" location="0,0" size="0,0">
       <result name="success" />
     </action>
+    <action name="preadd" location="0,0" size="0,0">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="adduser.jsp" />
+      </result>
+    </action>
+    <action name="adduser" location="0,0" size="0,0">
+      <result name="success" />
+    </action>
     <action name="vcode" location="0,0" size="0,0" />
   </package>
   <webResource name="index.jsp" path="/index.jsp" location="0,0" size="0,0" />
   <webResource name="login.jsp" path="/login.jsp" location="0,0" size="0,0" />
   <webResource name="userlist.jsp" path="/back/userlist.jsp" location="0,0" size="0,0" />
   <webResource name="checkuser.jsp" path="/back/checkuser.jsp" location="0,0" size="0,0" />
+  <webResource name="adduser.jsp" path="/back/adduser.jsp" location="0,0" size="0,0" />
 </Struts2Diagram>
 
