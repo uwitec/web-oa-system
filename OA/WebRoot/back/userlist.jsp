@@ -143,7 +143,6 @@ body {
 				<s:submit value="提交"></s:submit>
 				<s:property value='#report.conversion.errors' />
 			</s:form>
-			<s:a action="user/preadd">添加用户</s:a>
 
 			<script>
 var departmentObj = document.getElementById("department")
@@ -192,7 +191,7 @@ departmentObj.add(optionObj);
 							</td>
 							<td width="14%" height="20" bgcolor="d3eaef" class="STYLE6">
 								<div align="center">
-									<span class="STYLE10">基本操作</span>
+									<span class="STYLE10">基本操作[<s:a href="user/preadd">添加用户</s:a>]</span>
 								</div>
 							</td>
 						</tr>

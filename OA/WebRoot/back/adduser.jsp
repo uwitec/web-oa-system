@@ -36,29 +36,8 @@ body {
 	font-size: 12px;
 }
 
-.STYLE6 {
-	color: #000000;
-	font-size: 12;
-}
-
-.STYLE10 {
-	color: #000000;
-	font-size: 12px;
-}
-
-.STYLE19 {
-	color: #344b50;
-	font-size: 12px;
-}
-
-.STYLE21 {
-	font-size: 12px;
-	color: #3b6375;
-}
-
-.STYLE22 {
-	font-size: 12px;
-	color: #295568;
+.STYLE24 {
+	font-size: 14px;
 }
 -->
 </style>
@@ -81,13 +60,11 @@ body {
 											<table width="100%" border="0" cellspacing="0"
 												cellpadding="0">
 												<tr>
-													<td width="6%" height="19" valign="bottom">
-														<div align="center">
-															<img src="images/tb.gif" width="14" height="14" />
-														</div>
-													</td>
+
 													<td width="100%" valign="bottom">
-														<span class="STYLE1"> &nbsp;添加用户</span>
+														<div align="center">
+															<span class="STYLE1">添加用户</span>
+														</div>
 													</td>
 												</tr>
 											</table>
@@ -101,34 +78,252 @@ body {
 			</tr>
 		</table>
 
-		<s:form action="user/adduser" method="post">
-			<s:textfield label="用户名 *" name="userInfo.user.userid"
-				required="true"></s:textfield>
-			<s:textfield label="密码" name="userInfo.user.password" value="888888"
-				disabled="true"></s:textfield>
-			<s:textfield label="真实姓名 *" name="userInfo.user.realname"></s:textfield>
-			<s:select list="#request.departmentList" label="所属部门"
-				name="userInfo.user.department.dataid" listKey="dataid"
-				listValue="dataname"></s:select>
-			<s:select list="#request.jobList" label="职务" listKey="dataid"
-				listValue="dataname" name="userInfo.user.job.dataid"></s:select>
-			<s:doubleselect label="城市" doubleList="top.datas"
-				doubleListKey="dataid" doubleListValue="dataname"
-				list="#request.provinceList" doubleName="userInfo.user.city.dataid"
-				listKey="dataid" listValue="dataname"></s:doubleselect>
 
-			<s:checkboxlist label="角色" list="#request.roleList"
-				name="roles" listKey="roleid" listValue="rolename"></s:checkboxlist>
+		<s:form action="user/adduser" method="post" theme="simple">
+			<table width="60%" height="100%" border="0" align="center">
+				<tr>
+					<td width="30%" height="20">
+						<h1 align="right">
+							用户名：
+						</h1>
+					</td>
+					<td width="37%" height="20">
+						<h1>
+							<s:textfield name="userInfo.user.userid" required="true"></s:textfield>
+						</h1>
+					</td>
+					<td width="33%" height="20">
+						<h1>
+							&nbsp;
+						</h1>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<h1 align="right">
+							密码:
+						</h1>
+					</td>
+					<td>
+						<h1>
+							<s:textfield name="userInfo.user.password" value="888888"
+								disabled="true"></s:textfield>
+						</h1>
+					</td>
+					<td>
+						<h1>
+							&nbsp;
+						</h1>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<h1 align="right" class="STYLE24">
+							真实姓名:
+						</h1>
+					</td>
+					<td>
+						<h1>
+							<s:textfield name="userInfo.user.realname"></s:textfield>
+						</h1>
+					</td>
+					<td>
+						<h1>
+							&nbsp;
+						</h1>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<h1 align="right" class="STYLE24">
+							所属部门
+						</h1>
+					</td>
+					<td>
+						<h1>
+							<s:select list="#request.departmentList"
+								name="userInfo.user.department.dataid" listKey="dataid"
+								listValue="dataname"></s:select>
+						</h1>
+					</td>
+					<td>
+						<h1>
+							&nbsp;
+						</h1>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<h1 align="right" class="STYLE24">
+							职务
+						</h1>
+					</td>
+					<td>
+						<h1>
+							<s:select list="#request.jobList" listKey="dataid"
+								listValue="dataname" name="userInfo.user.job.dataid"></s:select>
+						</h1>
+					</td>
+					<td>
+						<h1>
+							&nbsp;
+						</h1>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<h1 align="right" class="STYLE24">
+							城市
+						</h1>
+					</td>
+					<td>
+						<h1>
+							<s:doubleselect doubleList="top.datas" doubleListKey="dataid"
+								doubleListValue="dataname" list="#request.provinceList"
+								doubleName="userInfo.user.city.dataid" listKey="dataid"
+								listValue="dataname"></s:doubleselect>
+						</h1>
+					</td>
+					<td>
+						<h1>
+							&nbsp;
+						</h1>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<h1 align="right" class="STYLE24">
+							角色
+						</h1>
+					</td>
+					<td>
+						<h1>
+							<s:checkboxlist list="#request.roleList" name="roles"
+								listKey="roleid" listValue="rolename"></s:checkboxlist>
+						</h1>
+					</td>
+					<td>
+						<h1>
+							&nbsp;
+						</h1>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<h1 align="right" class="STYLE24">
+							性别
+						</h1>
+					</td>
+					<td>
+						<h1>
+							<s:radio list="#{'1' : '男',  '0' : '女'}" listKey="key"
+								listValue="value" value="1"></s:radio>
+						</h1>
+					</td>
+					<td>
+						<h1>
+							&nbsp;
+						</h1>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<h1 align="right" class="STYLE24">
+							身份证
+						</h1>
+					</td>
+					<td>
+						<h1>
+							<s:textfield name="userInfo.user.idcard"></s:textfield>
+						</h1>
+					</td>
+					<td>
+						<h1>
+							&nbsp;
+						</h1>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<h1 align="right" class="STYLE24">
+							联系电话
+						</h1>
+					</td>
+					<td>
+						<h1>
+							<s:textfield name="userInfo.user.phone"></s:textfield>
+						</h1>
+					</td>
+					<td>
+						<h1>
+							&nbsp;
+						</h1>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<h1 align="right" class="STYLE24">
+							手机
+						</h1>
+					</td>
+					<td>
+						<h1>
+							<s:textfield name="userInfo.user.handset"></s:textfield>
+						</h1>
+					</td>
+					<td>
+						<h1>
+							&nbsp;
+						</h1>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<h1 align="right" class="STYLE24">
+							电子邮件
+						</h1>
+					</td>
+					<td>
+						<h1>
+							<s:textfield name="userInfo.user.email"></s:textfield>
+						</h1>
+					</td>
+					<td>
+						<h1>
+							&nbsp;
+						</h1>
+					</td>
+				</tr>
+				<tr>
+					<td height="28">
+						<h1 align="right" class="STYLE24">
+							地址
+						</h1>
+					</td>
+					<td>
+						<h1>
+							<s:textfield label="地址" name="userInfo.user.address"></s:textfield>
+						</h1>
+					</td>
+					<td>
+						<h1>
+							&nbsp;
+						</h1>
+					</td>
+				</tr>
+				<tr>
+					<td height="22">
 
-			<s:radio label="性别" list="#{'1' : '男',  '0' : '女'}" listKey="key"
-				listValue="value" value="1"></s:radio>
-			<s:textfield label="身份证 " name="userInfo.user.idcard"></s:textfield>
-			<s:textfield label="联系电话" name="userInfo.user.phone"></s:textfield>
-			<s:textfield label="手机" name="userInfo.user.handset"></s:textfield>
-			<s:textfield label="电子邮件" name="userInfo.user.email"></s:textfield>
-			<s:textfield label="地址" name="userInfo.user.address"></s:textfield>
-			<s:submit value="添加"></s:submit>
-			<s:reset value="重置"></s:reset>
+						<div align="right"></div>
+					</td>
+					<td>
+						&nbsp;
+					</td>
+					<td>
+						&nbsp;
+					</td>
+				</tr>
+			</table>
 		</s:form>
 	</body>
 </html>
