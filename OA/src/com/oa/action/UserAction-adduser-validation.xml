@@ -14,4 +14,26 @@
 			<message>用户名为字母数字下划线，长度为3~15</message>
 		</field-validator>
 	</field>
+	<field name="userInfo.user.realname">
+		<field-validator type="requiredstring">
+			<param name="trim">true</param>
+			<message>真实姓名不能为空</message>
+		</field-validator>
+		<field-validator type="stringlength">
+			<param name="minLength">2</param>
+			<param name="maxLength">8</param>
+			<message>真实姓名必须在${minLength}~${maxLength}之间</message>
+		</field-validator>
+	</field>
+	<field name="userInfo.user.realname">
+		<field-validator type="requiredstring">
+			<param name="trim">true</param>
+			<message>真实姓名不能为空</message>
+		</field-validator>
+		<field-validator type="stringlength">
+			<param name="minLength">2</param>
+			<param name="maxLength">8</param>
+			<message>真实姓名必须在${minLength}~${maxLength}之间</message>
+		</field-validator>
+	</field>
 </validators>
