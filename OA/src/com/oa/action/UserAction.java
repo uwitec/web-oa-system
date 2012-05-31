@@ -19,8 +19,6 @@ public class UserAction extends BaseAction {
 	private UserService userService;
 	private RoleService roleService;
 
-	private Set<TRole> roles;
-
 	public String login() {
 		String sessionVcode = (String) ActionContext.getContext().getSession()
 				.get(VCODE);
@@ -75,14 +73,12 @@ public class UserAction extends BaseAction {
 		request.getSession().setAttribute("departmentList", departmentList);
 		request.getSession().setAttribute("jobList", jobList);
 		request.getSession().setAttribute("provinceList", provinceList);
-
 		List<TRole> roleList = roleService.getRoles(null);
 		request.getSession().setAttribute("roleList", roleList);
 		return SUCCESS;
 	}
 
 	public String addUser() {
-		userInfo.getUser().setRoles(roles);
 		userService.addUser(userInfo.getUser());
 		return SUCCESS;
 	}
@@ -101,6 +97,12 @@ public class UserAction extends BaseAction {
 		} else {
 			userInfo.setMessage("用户名可以使用");
 			return "true";
+		}
+	}
+
+	public void validateAdduser() {
+		if (null == userInfo.getUser().getRoles()) {
+			addFieldError("userInfo.user.roles", "角色不能为空");
 		}
 	}
 
@@ -128,14 +130,6 @@ public class UserAction extends BaseAction {
 	@JSON(serialize = false)
 	public RoleService getRoleService() {
 		return roleService;
-	}
-
-	public void setRoles(Set<TRole> roles) {
-		this.roles = roles;
-	}
-
-	public Set<TRole> getRoles() {
-		return roles;
 	}
 
 }
