@@ -12,7 +12,7 @@
 
 
 	<package name="userPack" extends="struts-default" namespace="/user">
-	
+
 		<action name="login" class="com.oa.action.UserAction" method="login">
 			<result name="success">
 				/index.jsp
@@ -44,5 +44,16 @@
 
 
 		<action name="vcode" class="com.oa.action.ValidationCodeAction"></action>
+	</package>
+
+
+
+
+	<package name="ajaxPack" extends="json-default">
+		<action name="checkuserid" class="com.oa.action.UserAction"
+			method="isUserIdExists">
+			<result name="true"></result>
+			<result name="false"></result>
+		</action>
 	</package>
 </struts>

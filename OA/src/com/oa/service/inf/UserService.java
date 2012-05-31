@@ -20,4 +20,6 @@ public interface UserService {
 	
 	void addUser(TUser user);
 	
+	boolean isUserIdExists(String userid);
+	
 }

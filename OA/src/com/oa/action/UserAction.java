@@ -24,7 +24,7 @@ public class UserAction extends BaseAction {
 				.get(VCODE);
 		String vcode = userInfo.getVcode();
 		if (vcode.equalsIgnoreCase(sessionVcode) == false) {
-			addActionMessage("验证码错误!");
+			addActionError("验证码错误!");
 			return LOGIN;
 		}
 		TUser loginUser = userService.login(userInfo.getUser());
@@ -33,9 +33,16 @@ public class UserAction extends BaseAction {
 			request.getSession().setAttribute(LOGIN_USER, loginUser);
 			return SUCCESS;
 		} else {
-			addActionMessage("用户名或密码错误!");
+			addActionError("用户名或密码错误!");
 			return LOGIN;
 		}
+
+	}
+
+	public String logout() {
+		clearActionErrors();
+		request.getSession().removeAttribute(LOGIN_USER);
+		return LOGIN;
 	}
 
 	public String findUsers() {
@@ -76,6 +83,18 @@ public class UserAction extends BaseAction {
 		userInfo.getUser().setRoles(roles);
 		userService.addUser(userInfo.getUser());
 		return SUCCESS;
+	}
+
+	public String isUserIdExists() {
+		boolean exists = userService.isUserIdExists(userInfo.getUser()
+				.getUserid());
+		if (exists) {
+			userInfo.setMessage("<span>用户名存在</span>");
+			return "false";
+		} else {
+			userInfo.setMessage("<span>用户名可以使用</span>");
+			return "true";
+		}
 	}
 
 	public void setUserService(UserService userService) {

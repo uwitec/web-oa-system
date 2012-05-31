@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="GB18030"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
@@ -81,15 +82,13 @@ a img {
 													<td height="17">
 														<div align="right">
 															<a href="pwd.php" target="rightFrame"><img
-																	src="images/pass.gif" width="69" height="17" />
-															</a>
+																	src="images/pass.gif" width="69" height="17" /> </a>
 														</div>
 													</td>
 													<td>
 														<div align="right">
 															<a href="user.php" target="rightFrame"><img
-																	src="images/user.gif" width="69" height="17" />
-															</a>
+																	src="images/user.gif" width="69" height="17" /> </a>
 														</div>
 													</td>
 													<td>
@@ -216,7 +215,8 @@ a img {
 								<table width="100%" border="0" cellspacing="0" cellpadding="0">
 									<tr>
 										<td height="20" valign="bottom">
-											<span class="STYLE1">当前登录用户：admin &nbsp;用户角色：管理员</span>
+											<span class="STYLE1">当前登录用户：<s:property
+													value="#session.user.userid" /> &nbsp; </span>
 										</td>
 										<td valign="bottom" class="STYLE1">
 											<div align="right"></div>

@@ -11,14 +11,13 @@ public interface UserDao {
 	void addUser(TUser user);
 
 	/**
-	 * 按用户账号或姓名模糊查询、按所属部门精确查询
-	 * 分页
-	 * */ 
+	 * 按用户账号或姓名模糊查询、按所属部门精确查询 分页
+	 * */
 	void findUsers(UserInfo userInfo);
-	
-	
+
 	void deleteUser(TUser user);
-	
-	
+
 	TUser getUser(String userid);
+
+	boolean isUserIdExists(String userid);
 }

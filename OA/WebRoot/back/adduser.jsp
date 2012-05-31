@@ -64,12 +64,29 @@ body {
 .nobr br {
 	display: none
 }
-
 -->
 </style>
 
-
-
+		<SCRIPT type="text/javascript" src="js/oa/jquery-1.7.2.js">
+		</SCRIPT>
+		<script type="text/javascript">
+$(document).ready(function() {
+	$("#userid").blur(function() {
+		var userid = $("#userid").val();
+		var params = 'userInfo.user.userid = ' + userid;
+		$.ajax( {
+			url : 'checkuserid?userInfo.user.userid = ' + userid,
+			type : 'post',
+			dataType : 'json',
+			data : params,
+			success : callback
+		});
+		function callback(message){
+			alert(message);
+		}
+	});
+});
+</script>
 	</head>
 
 	<body>
@@ -108,7 +125,8 @@ body {
 
 
 
-		<s:form action="user/adduser" method="post" theme="simple">
+		<s:form action="user/adduser" method="post" theme="simple"
+			id="adduser">
 
 
 			<table width="100%" border="0" cellpadding="0" cellspacing="1"
@@ -127,19 +145,23 @@ body {
 						用户名:
 					</td>
 					<td height="20" class="STYLE6">
-						<s:textfield name="userInfo.user.userid" required="true"></s:textfield>
+						<s:textfield name="userInfo.user.userid" required="true"
+							id="userid"></s:textfield>
 					</td>
-					<td height="20" class="STYLE6"></td>
+					<td height="20" width="30%" class="STYLE6">
+						<span style="color: red">111</span>
+					</td>
 				</tr>
 				<tr bgcolor="#FFFFFF">
-					<td height="20" bgcolor="#FFFFFF" class="STYLE6" width="45%" align="right">
+					<td height="20" bgcolor="#FFFFFF" class="STYLE6" width="45%"
+						align="right">
 						密码:
 					</td>
 					<td height="20" class="STYLE6">
 						<s:textfield name="userInfo.user.password" value="888888"
 							disabled="true"></s:textfield>
 					</td>
-					 <td height="20" class="STYLE6"></td>
+					<td height="20" class="STYLE6"></td>
 				</tr>
 				<tr bgcolor="#FFFFFF">
 					<td height="20" class="STYLE6" width="45%" align="right">
@@ -234,7 +256,7 @@ body {
 					</td>
 					<td height="20" class="STYLE6"></td>
 				</tr>
-				<tr bgcolor="#FFFFFF" >
+				<tr bgcolor="#FFFFFF">
 					<td height="20" class="STYLE6" width="45%" align="right">
 						电子邮件:
 					</td>
