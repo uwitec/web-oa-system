@@ -69,22 +69,58 @@ body {
 
 		<SCRIPT type="text/javascript" src="js/oa/jquery-1.7.2.js">
 		</SCRIPT>
+		<SCRIPT type="text/javascript" src="js/oa/jquery.validate.js">
+		</SCRIPT>
 		<script type="text/javascript">
 $(document).ready(function() {
+	var ok = true;
+
+	$(function() {
+		$("#adduser").validate( {
+			errorClass : "error",
+			submitHandler : function(form) {
+				//如果想提交表单, 需要使用form.submit()而不要使用$(form).submit()
+			form.submit();
+		},
+		rules : {
+			//为name为email的控件添加两个验证方法:required()和email()
+			userid : {
+				required : true
+			}
+		},
+		messages : {
+			//为name为email的控件的required()和email()验证方法设置验证失败的消息内容
+			userid : {
+				required : "用户名必需"
+			}
+		}
+
+		});
+	});
+
 	$("#userid").blur(function() {
-		var userid = $("#userid").val();
-		var params = 'userInfo.user.userid = ' + userid;
+		var userid = $(this).val();
+		alert(userid);
+
+		var params = 'userInfo.user.userid=' + userid;
 		$.ajax( {
-			url : 'checkuserid?userInfo.user.userid = ' + userid,
+			url : 'checkuserid',
 			type : 'post',
 			dataType : 'json',
 			data : params,
 			success : callback
 		});
-		function callback(message){
-			alert(message);
-		}
+
 	});
+	$("#realname").blur(function() {
+		var realname = $(this).val();
+
+	});
+
+	function callback(json) {
+		alert(json.userInfo.message);
+		$("#useridspan").html(json.userInfo.message);
+	}
 });
 </script>
 	</head>
@@ -149,7 +185,7 @@ $(document).ready(function() {
 							id="userid"></s:textfield>
 					</td>
 					<td height="20" width="30%" class="STYLE6">
-						<span style="color: red">111</span>
+						<span style="color: red" id="useridspan">111</span>
 					</td>
 				</tr>
 				<tr bgcolor="#FFFFFF">
@@ -159,7 +195,7 @@ $(document).ready(function() {
 					</td>
 					<td height="20" class="STYLE6">
 						<s:textfield name="userInfo.user.password" value="888888"
-							disabled="true"></s:textfield>
+							disabled="true" dataType="requeired"></s:textfield>
 					</td>
 					<td height="20" class="STYLE6"></td>
 				</tr>
@@ -168,7 +204,7 @@ $(document).ready(function() {
 						真实姓名:
 					</td>
 					<td height="20" class="STYLE6">
-						<s:textfield name="userInfo.user.realname"></s:textfield>
+						<s:textfield name="userInfo.user.realname" id="realname"></s:textfield>
 					</td>
 					<td height="20" class="STYLE6"></td>
 				</tr>

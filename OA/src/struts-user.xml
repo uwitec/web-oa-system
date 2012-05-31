@@ -52,8 +52,16 @@
 	<package name="ajaxPack" extends="json-default">
 		<action name="checkuserid" class="com.oa.action.UserAction"
 			method="isUserIdExists">
-			<result name="true"></result>
-			<result name="false"></result>
+			<result name="true" type="json">
+				<param name="includeProperties">
+					userInfo\.message
+				</param>
+			</result>
+			<result name="false" type="json">
+				<param name="includeProperties">
+					userInfo\.message
+				</param>
+			</result>
 		</action>
 	</package>
 </struts>
