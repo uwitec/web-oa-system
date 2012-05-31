@@ -72,12 +72,12 @@ public class UserAction extends BaseAction {
 				.getDatas(DataDao.TYPE_DEPARTMENT);
 		List<TData> jobList = userService.getDatas(DataDao.TYPE_JOB);
 		List<TData> provinceList = userService.getDatas(DataDao.TYPE_PROVINCE);
-		request.setAttribute("departmentList", departmentList);
-		request.setAttribute("jobList", jobList);
-		request.setAttribute("provinceList", provinceList);
+		request.getSession().setAttribute("departmentList", departmentList);
+		request.getSession().setAttribute("jobList", jobList);
+		request.getSession().setAttribute("provinceList", provinceList);
 
 		List<TRole> roleList = roleService.getRoles(null);
-		request.setAttribute("roleList", roleList);
+		request.getSession().setAttribute("roleList", roleList);
 		return SUCCESS;
 	}
 
@@ -88,8 +88,13 @@ public class UserAction extends BaseAction {
 	}
 
 	public String isUserIdExists() {
-		boolean exists = userService.isUserIdExists(userInfo.getUser()
-				.getUserid());
+		String userid = userInfo.getUser().getUserid();
+		if (userid == null || userid.equals("")
+				|| userid.matches("\\w{3,15}") == false) {
+			userInfo.setMessage("用户名为字母数字下划线，长度为3~15");
+			return "false";
+		}
+		boolean exists = userService.isUserIdExists(userid);
 		if (exists) {
 			userInfo.setMessage("用户名存在");
 			return "false";
