@@ -48,14 +48,14 @@ public class PageTag extends SimpleTagSupport {
 		// html.append("</td>");
 		// html.append("</tr>");
 		html
-				.append("<table><tr><td width='33%'><div align='left'><span class='STYLE22'>&nbsp;&nbsp;&nbsp;&nbsp;共有<strong>"
+				.append("<table width='100%'><tr><td width='40%'><div align='left'><span class='STYLE22'>&nbsp;&nbsp;&nbsp;&nbsp;共有 <strong>"
 						+ totalCount
-						+ "</strong> 条记录，当前第<strong> "
+						+ "</strong> 条记录，当前第 <strong> "
 						+ currPage
 						+ "</strong> 页，共 <strong>"
 						+ totalPage
 						+ "</strong> 页</span></div></td>"
-						+ "<td width='67%'>"
+						+ "<td width='60%'>"
 						+ "<div align='right'><span class='STYLE22'>");
 
 		if (currPage > 1) {
@@ -86,7 +86,7 @@ public class PageTag extends SimpleTagSupport {
 			html.append("尾页");
 			html.append("&nbsp;&nbsp;&nbsp;");
 		}
-		html.append("转到");
+		html.append("转到 ");
 		html
 				.append("<select name='currPage' onchange='javascript:ChangePage(this.value);'>");
 		for (int i = 1; i <= totalPage; i++) {
@@ -98,7 +98,7 @@ public class PageTag extends SimpleTagSupport {
 			html.append("" + i + "");
 			html.append("</option>");
 		}
-		html.append("</select>页");
+		html.append("</select> 页");
 
 		html.append("</span></div></td></tr></table>");
 

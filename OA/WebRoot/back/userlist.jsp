@@ -71,6 +71,10 @@ body {
 			window.location.href = "<%=path%>/user/deluser?userInfo.user.userid=" + userid;
 		}
 	}
+	
+	
+	
+	
 </SCRIPT>
 	</head>
 
@@ -88,27 +92,11 @@ body {
 											<table width="100%" border="0" cellspacing="0"
 												cellpadding="0">
 												<tr>
-													<td width="6%" height="19" valign="bottom">
-														<div align="center">
-															<img src="images/tb.gif" width="14" height="14" />
-														</div>
-													</td>
-													<td width="94%" valign="bottom">
-														<span class="STYLE1"> 管理人员基本信息列表</span>
+													<td width="94%" valign="bottom" align="center">
+														<span class="STYLE1"> 用户列表</span>
 													</td>
 												</tr>
 											</table>
-										</td>
-										<td>
-											<div align="right">
-												<span class="STYLE1"> <input type="checkbox"
-														name="checkbox11" id="checkbox11" /> 全选 &nbsp;&nbsp;<img
-														src="images/add.gif" width="10" height="10" /> 添加 &nbsp;
-													<img src="images/del.gif" width="10" height="10" /> 删除
-													&nbsp;&nbsp;<img src="images/edit.gif" width="10"
-														height="10" /> 编辑 &nbsp;</span><span class="STYLE1">
-													&nbsp;</span>
-											</div>
 										</td>
 									</tr>
 								</table>
@@ -131,19 +119,25 @@ body {
 
 
 
-			<s:form action="user/userlist" method="post" id="form">
-				<s:textfield label="用户名" name="userInfo.user.userid"></s:textfield>
-
-				<s:textfield label="真实姓名" name="userInfo.user.realname"></s:textfield>
-
-				<s:select list="#request.departmentList" listKey="dataid"
-					listValue="dataname" label="所属部门"
-					name="userInfo.user.department.dataid" id="department">
-				</s:select>
-				<s:submit value="提交"></s:submit>
-				<s:property value='#report.conversion.errors' />
-			</s:form>
-
+			<s:form action="user/userlist" method="post" id="form" theme="simple">
+				<table width="100%" border="0" cellpadding="0" cellspacing="1">
+					<tr>
+						<TD height="20" bgcolor="d3eaef" class="STYLE6" align="center">
+							用户名:
+							<s:textfield label="用户名" name="userInfo.user.userid"></s:textfield>
+							真实姓名:
+							<s:textfield label="真实姓名" name="userInfo.user.realname"></s:textfield>
+							所属部门:
+							<s:select list="#request.departmentList" listKey="dataid"
+								listValue="dataname" label="所属部门"
+								name="userInfo.user.department.dataid" id="department">
+							</s:select>
+							&nbsp; &nbsp; &nbsp;
+							<s:submit value="查询" />
+						</TD>
+					</tr>
+				</table>
+			</s:form><!--
 			<script>
 var departmentObj = document.getElementById("department")
 var optionObj = document.createElement("option");
@@ -154,16 +148,11 @@ departmentObj.add(optionObj);
 </script>
 
 
-			<tr>
+			--><tr>
 				<td>
 					<table width="100%" border="0" cellpadding="0" cellspacing="1"
 						bgcolor="#a8c7ce">
 						<tr>
-							<td width="4%" height="20" bgcolor="d3eaef" class="STYLE10">
-								<div align="center">
-									<input type="checkbox" name="checkbox" id="checkbox" />
-								</div>
-							</td>
 							<td width="10%" height="20" bgcolor="d3eaef" class="STYLE6">
 								<div align="center">
 									<span class="STYLE10">用户名</span>
@@ -189,7 +178,7 @@ departmentObj.add(optionObj);
 									<span class="STYLE10">添加时间</span>
 								</div>
 							</td>
-							<td width="14%" height="20" bgcolor="d3eaef" class="STYLE6">
+							<td width="18%" height="20" bgcolor="d3eaef" class="STYLE6">
 								<div align="center">
 									<span class="STYLE10">基本操作[<s:a href="user/preadd">添加用户</s:a>]</span>
 								</div>
@@ -198,11 +187,6 @@ departmentObj.add(optionObj);
 
 						<s:iterator value="#request.userInfo.userList" var="user">
 							<tr>
-								<td height="20" bgcolor="#FFFFFF">
-									<div align="center">
-										<input type="checkbox" name="checkbox2" id="checkbox2" />
-									</div>
-								</td>
 
 								<td height="20" bgcolor="#FFFFFF" class="STYLE6">
 									<div align="center">
@@ -227,7 +211,7 @@ departmentObj.add(optionObj);
 								</td>
 								<td height="20" bgcolor="#FFFFFF">
 									<div align="center" class="STYLE21">
-										<s:property value="#user.addtime" />
+										<s:date name="#user.addtime" format="yyyy-MM-dd hh:mm:ss"/>
 									</div>
 								</td>
 								<td height="20" bgcolor="#FFFFFF">
