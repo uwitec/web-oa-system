@@ -9,6 +9,7 @@
 	<constant name="struts.i18n.encoding" value="GBK"></constant>
 	<constant name="struts.ognl.allowStaticMethodAccess" value="true"></constant>
 	<constant name="struts.devMode" value="true"></constant>
+	<constant name="struts.ui.theme" value="simple"></constant>
 
 
 	<package name="userPack" extends="struts-default" namespace="/user">
