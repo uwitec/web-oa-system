@@ -36,8 +36,47 @@ body {
 	font-size: 12px;
 }
 
-.STYLE24 {
-	font-size: 14px;
+.STYLE6 {
+	color: #000000;
+	font-size: 12;
+}
+
+.STYLE10 {
+	color: #000000;
+	font-size: 12px;
+}
+
+.STYLE19 {
+	color: #344b50;
+	font-size: 12px;
+}
+
+.STYLE21 {
+	font-size: 12px;
+	color: #3b6375;
+}
+
+.STYLE22 {
+	font-size: 12px;
+	color: #295568;
+}
+
+.nobr br {
+	display: none
+}
+
+.border {
+	border: 1px solid #D6F2F3;
+	line-height: 24px;
+}
+
+.border_bottom {
+	border-bottom: 1px solid #D6F2F3;
+}
+
+.border_both {
+	border-right: 1px solid #D6F2F3;
+	border-bottom: 1px solid #D6F2F3;
 }
 -->
 </style>
@@ -79,251 +118,172 @@ body {
 		</table>
 
 
+
+
+
 		<s:form action="user/adduser" method="post" theme="simple">
-			<table width="60%" height="100%" border="0" align="center">
+
+
+			<table width="100%" border="0" cellpadding="0" cellspacing="1"
+				bgcolor="#a8c7ce">
 				<tr>
-					<td width="30%" height="20">
-						<h1 align="right">
-							用户名：
-						</h1>
-					</td>
-					<td width="37%" height="20">
-						<h1>
-							<s:textfield name="userInfo.user.userid" required="true"></s:textfield>
-						</h1>
-					</td>
-					<td width="33%" height="20">
-						<h1>
-							&nbsp;
-						</h1>
+					<td width="10%" height="20" bgcolor="d3eaef" class="STYLE6"
+						colspan="3">
+						<div align="center">
+							<span class="STYLE10">用户信息编辑</span>
+						</div>
 					</td>
 				</tr>
-				<tr>
-					<td>
-						<h1 align="right">
-							密码:
-						</h1>
+				<tr bgcolor="#FFFFFF">
+					<td height="20" bgcolor="#FFFFFF" class="STYLE6" width="45%"
+						align="right">
+						用户名:
 					</td>
-					<td>
-						<h1>
-							<s:textfield name="userInfo.user.password" value="888888"
-								disabled="true"></s:textfield>
-						</h1>
+					<td height="20" class="STYLE6">
+						<s:textfield name="userInfo.user.userid" required="true"></s:textfield>
 					</td>
-					<td>
-						<h1>
-							&nbsp;
-						</h1>
-					</td>
+					<td height="20" class="STYLE6"></td>
 				</tr>
-				<tr>
-					<td>
-						<h1 align="right" class="STYLE24">
-							真实姓名:
-						</h1>
+				<tr bgcolor="#FFFFFF">
+					<td height="20" bgcolor="#FFFFFF" class="STYLE6" width="45%" align="right">
+						密码:
 					</td>
-					<td>
-						<h1>
-							<s:textfield name="userInfo.user.realname"></s:textfield>
-						</h1>
+					<td height="20" class="STYLE6">
+						<s:textfield name="userInfo.user.password" value="888888"
+							disabled="true"></s:textfield>
 					</td>
-					<td>
-						<h1>
-							&nbsp;
-						</h1>
-					</td>
+					 <td height="20" class="STYLE6"></td>
 				</tr>
-				<tr>
-					<td>
-						<h1 align="right" class="STYLE24">
-							所属部门
-						</h1>
+				<tr bgcolor="#FFFFFF">
+					<td height="20" class="STYLE6" width="45%" align="right">
+						真实姓名:
 					</td>
-					<td>
-						<h1>
-							<s:select list="#request.departmentList"
-								name="userInfo.user.department.dataid" listKey="dataid"
-								listValue="dataname"></s:select>
-						</h1>
+					<td height="20" class="STYLE6">
+						<s:textfield name="userInfo.user.realname"></s:textfield>
 					</td>
-					<td>
-						<h1>
-							&nbsp;
-						</h1>
-					</td>
+					<td height="20" class="STYLE6"></td>
 				</tr>
-				<tr>
-					<td>
-						<h1 align="right" class="STYLE24">
-							职务
-						</h1>
+				<tr bgcolor="#FFFFFF">
+					<td height="20" class="STYLE6" width="45%" align="right">
+						所属部门:
 					</td>
-					<td>
-						<h1>
-							<s:select list="#request.jobList" listKey="dataid"
-								listValue="dataname" name="userInfo.user.job.dataid"></s:select>
-						</h1>
+					<td height="20" class="STYLE6">
+						<s:select list="#request.departmentList"
+							name="userInfo.user.department.dataid" listKey="dataid"
+							listValue="dataname"></s:select>
 					</td>
-					<td>
-						<h1>
-							&nbsp;
-						</h1>
-					</td>
+					<td height="20" class="STYLE6"></td>
 				</tr>
-				<tr>
-					<td>
-						<h1 align="right" class="STYLE24">
-							城市
-						</h1>
+				<tr bgcolor="#FFFFFF">
+					<td height="20" class="STYLE6" width="45%" align="right">
+						职务:
 					</td>
-					<td>
-						<h1>
+					<td height="20" class="STYLE6">
+						<s:select list="#request.jobList" listKey="dataid"
+							listValue="dataname" name="userInfo.user.job.dataid"></s:select>
+					</td>
+					<td height="20" class="STYLE6"></td>
+				</tr>
+				<tr bgcolor="#FFFFFF">
+					<td height="20" class="STYLE6" width="45%" align="right">
+						城市:
+					</td>
+					<td height="20" class="STYLE6">
+						<DIV class="nobr">
 							<s:doubleselect doubleList="top.datas" doubleListKey="dataid"
 								doubleListValue="dataname" list="#request.provinceList"
 								doubleName="userInfo.user.city.dataid" listKey="dataid"
 								listValue="dataname"></s:doubleselect>
-						</h1>
+						</DIV>
 					</td>
-					<td>
-						<h1>
-							&nbsp;
-						</h1>
-					</td>
+					<td height="20" class="STYLE6"></td>
 				</tr>
-				<tr>
-					<td>
-						<h1 align="right" class="STYLE24">
-							角色
-						</h1>
+				<tr bgcolor="#FFFFFF">
+					<td height="20" class="STYLE6" width="45%" align="right">
+						角色:
 					</td>
-					<td>
-						<h1>
+					<td height="20" class="STYLE6">
+						<DIV class="nobr">
 							<s:checkboxlist list="#request.roleList" name="roles"
 								listKey="roleid" listValue="rolename"></s:checkboxlist>
-						</h1>
+						</DIV>
 					</td>
-					<td>
-						<h1>
-							&nbsp;
-						</h1>
-					</td>
+					<td height="20" class="STYLE6"></td>
 				</tr>
-				<tr>
-					<td>
-						<h1 align="right" class="STYLE24">
-							性别
-						</h1>
+				<tr bgcolor="#FFFFFF">
+					<td height="20" class="STYLE6" width="45%" align="right">
+						性别:
 					</td>
-					<td>
-						<h1>
-							<s:radio list="#{'1' : '男',  '0' : '女'}" listKey="key"
-								listValue="value" value="1"></s:radio>
-						</h1>
+					<td height="20" class="STYLE6">
+						<s:radio list="#{'1' : '男',  '0' : '女'}" listKey="key"
+							listValue="value" value="1"></s:radio>
 					</td>
-					<td>
-						<h1>
-							&nbsp;
-						</h1>
-					</td>
+					<td height="20" class="STYLE6"></td>
 				</tr>
-				<tr>
-					<td>
-						<h1 align="right" class="STYLE24">
-							身份证
-						</h1>
+				<tr bgcolor="#FFFFFF">
+					<td height="20" class="STYLE6" width="45%" align="right">
+						身份证:
 					</td>
-					<td>
-						<h1>
-							<s:textfield name="userInfo.user.idcard"></s:textfield>
-						</h1>
+					<td height="20" class="STYLE6">
+						<s:textfield name="userInfo.user.idcard"></s:textfield>
 					</td>
-					<td>
-						<h1>
-							&nbsp;
-						</h1>
-					</td>
+					<td height="20" class="STYLE6"></td>
 				</tr>
-				<tr>
-					<td>
-						<h1 align="right" class="STYLE24">
-							联系电话
-						</h1>
+				<tr bgcolor="#FFFFFF">
+					<td height="20" class="STYLE6" width="45%" align="right">
+						电话:
 					</td>
-					<td>
-						<h1>
-							<s:textfield name="userInfo.user.phone"></s:textfield>
-						</h1>
+					<td height="20" class="STYLE6">
+						<s:textfield name="userInfo.user.phone"></s:textfield>
 					</td>
-					<td>
-						<h1>
-							&nbsp;
-						</h1>
-					</td>
+					<td height="20" class="STYLE6"></td>
 				</tr>
-				<tr>
-					<td>
-						<h1 align="right" class="STYLE24">
-							手机
-						</h1>
+				<tr bgcolor="#FFFFFF">
+					<td height="20" class="STYLE6" width="45%" align="right">
+						手机:
 					</td>
-					<td>
-						<h1>
-							<s:textfield name="userInfo.user.handset"></s:textfield>
-						</h1>
+					<td height="20" class="STYLE6">
+						<s:textfield name="userInfo.user.handset"></s:textfield>
 					</td>
-					<td>
-						<h1>
-							&nbsp;
-						</h1>
-					</td>
+					<td height="20" class="STYLE6"></td>
 				</tr>
-				<tr>
-					<td>
-						<h1 align="right" class="STYLE24">
-							电子邮件
-						</h1>
+				<tr bgcolor="#FFFFFF" >
+					<td height="20" class="STYLE6" width="45%" align="right">
+						电子邮件:
 					</td>
-					<td>
-						<h1>
-							<s:textfield name="userInfo.user.email"></s:textfield>
-						</h1>
+					<td height="20" class="STYLE6">
+						<s:textfield name="userInfo.user.email"></s:textfield>
 					</td>
-					<td>
-						<h1>
-							&nbsp;
-						</h1>
-					</td>
+					<td height="20" class="STYLE6"></td>
 				</tr>
-				<tr>
-					<td height="28">
-						<h1 align="right" class="STYLE24">
-							地址
-						</h1>
+				<tr bgcolor="#FFFFFF">
+					<td height="20" class="STYLE6" width="45%" align="right">
+						地址:
 					</td>
-					<td>
-						<h1>
-							<s:textfield label="地址" name="userInfo.user.address"></s:textfield>
-						</h1>
+					<td height="20" class="STYLE6">
+						<s:textfield label="地址" name="userInfo.user.address"></s:textfield>
 					</td>
-					<td>
-						<h1>
-							&nbsp;
-						</h1>
-					</td>
+					<td height="20" class="STYLE6"></td>
 				</tr>
-				<tr>
-					<td height="22">
-
-						<div align="right"></div>
-					</td>
-					<td>
-						&nbsp;
-					</td>
-					<td>
-						&nbsp;
-					</td>
+				<tr bgcolor="#FFFFFF">
+					<TD colspan="3" align="center">
+						<s:submit value="添加"></s:submit>
+						<s:reset value="重置"></s:reset>
+					</TD>
 				</tr>
 			</table>
 		</s:form>
+
+
+
+
+
+
+
+
+
+
+
+
 	</body>
 </html>

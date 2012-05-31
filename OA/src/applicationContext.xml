@@ -36,7 +36,10 @@
 				<value>com/oa/dao/pojo/TData.hbm.xml</value>
 				<value>com/oa/dao/pojo/TRole.hbm.xml</value>
 				<value>com/oa/dao/pojo/TTips.hbm.xml</value>
-				<value>com/oa/dao/pojo/TMenu.hbm.xml</value></list>
+				<value>com/oa/dao/pojo/TMenu.hbm.xml</value>
+				<value>com/oa/dao/pojo/TEmail.hbm.xml</value>
+				<value>com/oa/dao/pojo/TEmailFile.hbm.xml</value>
+				<value>com/oa/dao/pojo/TUserEmail.hbm.xml</value></list>
 
 		</property>
 	</bean>
