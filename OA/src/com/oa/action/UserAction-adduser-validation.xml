@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC 
+"-//OpenSymphony Group//XWork Validator 1.0.3//EN" 
+"http://www.opensymphony.com/xwork/xwork-validator-1.0.3.dtd">
+
+<validators>
+	<field name="userInfo.user.userid">
+		<field-validator type="requiredstring">
+			<param name="trim">true</param>
+			<message>用户名不能为空</message>
+		</field-validator>
+		<field-validator type="regex">
+			<param name="expression"><![CDATA[([\w_]{3,15})]]></param>
+			<message>用户名为字母数字下划线，长度为3~15</message>
+		</field-validator>
+	</field>
+</validators>

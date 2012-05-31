@@ -38,7 +38,9 @@
 		<action name="adduser" class="com.oa.action.UserAction" method="addUser">
 			<result name="success" type="redirectAction">
 				<param name="actionName">userlist</param>
-				<param name="input">/back/adduser.jsp</param>
+			</result>
+			<result name="input">
+				/back/adduser.jsp
 			</result>
 		</action>
 

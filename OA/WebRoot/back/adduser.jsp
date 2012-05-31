@@ -75,29 +75,6 @@ body {
 $(document).ready(function() {
 	var ok = true;
 
-	$(function() {
-		$("#adduser").validate( {
-			errorClass : "error",
-			submitHandler : function(form) {
-				//如果想提交表单, 需要使用form.submit()而不要使用$(form).submit()
-			form.submit();
-		},
-		rules : {
-			//为name为email的控件添加两个验证方法:required()和email()
-			userid : {
-				required : true
-			}
-		},
-		messages : {
-			//为name为email的控件的required()和email()验证方法设置验证失败的消息内容
-			userid : {
-				required : "用户名必需"
-			}
-		}
-
-		});
-	});
-
 	$("#userid").blur(function() {
 		var userid = $(this).val();
 		alert(userid);
@@ -185,7 +162,8 @@ $(document).ready(function() {
 							id="userid"></s:textfield>
 					</td>
 					<td height="20" width="30%" class="STYLE6">
-						<span style="color: red" id="useridspan">111</span>
+						<span style="color: red" id="useridspan"><s:fielderror
+								name="userInfo.user.userid" theme="simple"></s:fielderror> </span>
 					</td>
 				</tr>
 				<tr bgcolor="#FFFFFF">
@@ -195,7 +173,7 @@ $(document).ready(function() {
 					</td>
 					<td height="20" class="STYLE6">
 						<s:textfield name="userInfo.user.password" value="888888"
-							disabled="true" dataType="requeired"></s:textfield>
+							disabled="true"></s:textfield>
 					</td>
 					<td height="20" class="STYLE6"></td>
 				</tr>
@@ -213,7 +191,7 @@ $(document).ready(function() {
 						所属部门:
 					</td>
 					<td height="20" class="STYLE6">
-						<s:select list="#request.departmentList"
+						<s:select list="#session.departmentList"
 							name="userInfo.user.department.dataid" listKey="dataid"
 							listValue="dataname"></s:select>
 					</td>
@@ -224,7 +202,7 @@ $(document).ready(function() {
 						职务:
 					</td>
 					<td height="20" class="STYLE6">
-						<s:select list="#request.jobList" listKey="dataid"
+						<s:select list="#session.jobList" listKey="dataid"
 							listValue="dataname" name="userInfo.user.job.dataid"></s:select>
 					</td>
 					<td height="20" class="STYLE6"></td>
@@ -236,7 +214,7 @@ $(document).ready(function() {
 					<td height="20" class="STYLE6">
 						<DIV class="nobr">
 							<s:doubleselect doubleList="top.datas" doubleListKey="dataid"
-								doubleListValue="dataname" list="#request.provinceList"
+								doubleListValue="dataname" list="#session.provinceList"
 								doubleName="userInfo.user.city.dataid" listKey="dataid"
 								listValue="dataname"></s:doubleselect>
 						</DIV>
@@ -249,7 +227,7 @@ $(document).ready(function() {
 					</td>
 					<td height="20" class="STYLE6">
 						<DIV class="nobr">
-							<s:checkboxlist list="#request.roleList" name="roles"
+							<s:checkboxlist list="#session.roleList" name="roles"
 								listKey="roleid" listValue="rolename"></s:checkboxlist>
 						</DIV>
 					</td>
