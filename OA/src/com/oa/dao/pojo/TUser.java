@@ -19,7 +19,7 @@ public class TUser implements java.io.Serializable {
 	private String realname;
 	private Date addtime;
 	private String sex;
-	private Integer city;
+	private TData city;
 	private Boolean married;
 	private String idcard;
 	private String phone;
@@ -108,13 +108,6 @@ public class TUser implements java.io.Serializable {
 		this.sex = sex;
 	}
 
-	public Integer getCity() {
-		return city;
-	}
-
-	public void setCity(Integer city) {
-		this.city = city;
-	}
 
 	public Boolean getMarried() {
 		return married;
@@ -186,6 +179,14 @@ public class TUser implements java.io.Serializable {
 
 	public void setTips(TTips tips) {
 		this.tips = tips;
+	}
+
+	public void setCity(TData city) {
+		this.city = city;
+	}
+
+	public TData getCity() {
+		return city;
 	}
 
 }
