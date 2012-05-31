@@ -12,13 +12,13 @@ public interface EmailDao {
 	int TYPE_DRAFT = 3;
 	int TYPE_DUST = 4;
 
-	void sendEmail(TUser user, TEmail email, int emailType);
+	void saveEmail(TUser user, TEmail email, int emailType);
 
 	List<TEmail> getEmails(int emailType, boolean isRead);
 
 	void deleteToDust(TEmail email);
 
 	TEmail getSingleEmail(int emailId);
-	
+
 	void deleteEmail(TEmail email);
 }
