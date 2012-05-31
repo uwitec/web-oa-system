@@ -19,6 +19,10 @@
 			fetch="select">
 			<column name="JOB" precision="8" scale="0" />
 		</many-to-one>
+		<many-to-one name="city" class="com.oa.dao.pojo.TData"
+			fetch="select">
+			<column name="CITY" precision="8" scale="0" />
+		</many-to-one>
 		<property name="password" type="java.lang.String">
 			<column name="PASSWORD" length="16" />
 		</property>
@@ -30,9 +34,6 @@
 		</property>
 		<property name="sex" type="java.lang.String">
 			<column name="SEX" length="1" />
-		</property>
-		<property name="city" type="java.lang.Integer">
-			<column name="CITY" precision="8" scale="0" />
 		</property>
 		<property name="married" type="java.lang.Boolean">
 			<column name="MARRIED" precision="1" scale="0" />

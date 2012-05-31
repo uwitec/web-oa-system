@@ -65,19 +65,6 @@ body {
 	display: none
 }
 
-.border {
-	border: 1px solid #D6F2F3;
-	line-height: 24px;
-}
-
-.border_bottom {
-	border-bottom: 1px solid #D6F2F3;
-}
-
-.border_both {
-	border-right: 1px solid #D6F2F3;
-	border-bottom: 1px solid #D6F2F3;
-}
 -->
 </style>
 
