@@ -3,6 +3,8 @@ package com.oa.action;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.struts2.json.annotations.JSON;
+
 import com.oa.common.UserInfo;
 import com.oa.dao.inf.DataDao;
 import com.oa.dao.pojo.TData;
@@ -89,10 +91,10 @@ public class UserAction extends BaseAction {
 		boolean exists = userService.isUserIdExists(userInfo.getUser()
 				.getUserid());
 		if (exists) {
-			userInfo.setMessage("<span>用户名存在</span>");
+			userInfo.setMessage("用户名存在");
 			return "false";
 		} else {
-			userInfo.setMessage("<span>用户名可以使用</span>");
+			userInfo.setMessage("用户名可以使用");
 			return "true";
 		}
 	}
@@ -101,6 +103,7 @@ public class UserAction extends BaseAction {
 		this.userService = userService;
 	}
 
+	@JSON(serialize = false)
 	public UserService getUserService() {
 		return userService;
 	}
@@ -117,6 +120,7 @@ public class UserAction extends BaseAction {
 		this.roleService = roleService;
 	}
 
+	@JSON(serialize = false)
 	public RoleService getRoleService() {
 		return roleService;
 	}
