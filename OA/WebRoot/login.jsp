@@ -99,7 +99,7 @@ $(document).ready(function() {
 				</div>
 
 				<div id="center_right">
-					<span> <s:actionmessage theme="simple"/> </span>
+					<span> <s:actionerror theme="simple" /> </span>
 				</div>
 			</div>
 

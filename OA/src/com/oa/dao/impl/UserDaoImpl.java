@@ -127,4 +127,20 @@ public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
 
 		});
 	}
+
+	@Override
+	public boolean isUserIdExists(final String userid) {
+
+		return getHibernateTemplate().execute(new HibernateCallback<Boolean>() {
+
+			@Override
+			public Boolean doInHibernate(Session session)
+					throws HibernateException, SQLException {
+				String hql = "select count(*) from TUser user where user.userid = :userid";
+				Query query = session.createQuery(hql);
+				query.setString("userid", userid);
+				return (Long) query.uniqueResult() == 0L ? false : true;
+			}
+		});
+	}
 }

@@ -60,4 +60,9 @@ public class UserServiceImpl implements UserService {
 		userDao.addUser(user);
 	}
 
+	@Override
+	public boolean isUserIdExists(String userid) {
+		return userDao.isUserIdExists(userid);
+	}
+
 }
