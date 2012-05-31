@@ -48,10 +48,6 @@ public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
 	public void addUser(TUser user) {
 		TTips tips = new TTips(user);
 		user.setTips(tips);
-		Set<TRole> roles = user.getRoles();
-		for (TRole tRole : roles) {
-			System.out.println(tRole.getRoleid());
-		}
 		getHibernateTemplate().save(user);
 	}
 
@@ -139,8 +135,6 @@ public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
 				String hql = "select count(*) from TUser user where user.userid = :userid";
 				Query query = session.createQuery(hql);
 				query.setString("userid", userid);
-				System.out.println(userid);
-				System.out.println(query.uniqueResult());
 				return (Long) query.uniqueResult() == 0L ? false : true;
 			}
 		});

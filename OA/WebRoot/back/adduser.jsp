@@ -77,7 +77,6 @@ $(document).ready(function() {
 
 	$("#userid").blur(function() {
 		var userid = $(this).val();
-		alert(userid);
 
 		var params = 'userInfo.user.userid=' + userid;
 		$.ajax( {
@@ -91,11 +90,9 @@ $(document).ready(function() {
 	});
 	$("#realname").blur(function() {
 		var realname = $(this).val();
-
 	});
 
 	function callback(json) {
-		alert(json.userInfo.message);
 		$("#useridspan").html(json.userInfo.message);
 	}
 });
@@ -163,7 +160,9 @@ $(document).ready(function() {
 					</td>
 					<td height="20" width="30%" class="STYLE6">
 						<span style="color: red" id="useridspan"><s:fielderror
-								name="userInfo.user.userid" theme="simple"></s:fielderror> </span>
+								theme="simple">
+								<s:param>userInfo.user.userid</s:param>
+							</s:fielderror> </span>
 					</td>
 				</tr>
 				<tr bgcolor="#FFFFFF">
@@ -184,7 +183,12 @@ $(document).ready(function() {
 					<td height="20" class="STYLE6">
 						<s:textfield name="userInfo.user.realname" id="realname"></s:textfield>
 					</td>
-					<td height="20" class="STYLE6"></td>
+					<td height="20" class="STYLE6">
+						<span style="color: red" id="useridspan"><s:fielderror
+								theme="simple">
+								<s:param>userInfo.user.realname</s:param>
+							</s:fielderror> </span>
+					</td>
 				</tr>
 				<tr bgcolor="#FFFFFF">
 					<td height="20" class="STYLE6" width="45%" align="right">
@@ -227,11 +231,16 @@ $(document).ready(function() {
 					</td>
 					<td height="20" class="STYLE6">
 						<DIV class="nobr">
-							<s:checkboxlist list="#session.roleList" name="roles"
-								listKey="roleid" listValue="rolename"></s:checkboxlist>
+							<s:checkboxlist list="#session.roleList"
+								name="userInfo.user.roles" listKey="roleid" listValue="rolename"></s:checkboxlist>
 						</DIV>
 					</td>
-					<td height="20" class="STYLE6"></td>
+					<td height="20" class="STYLE6">
+						<span style="color: red" id="useridspan"><s:fielderror
+								theme="simple">
+								<s:param>userInfo.user.roles</s:param>
+							</s:fielderror> </span>
+					</td>
 				</tr>
 				<tr bgcolor="#FFFFFF">
 					<td height="20" class="STYLE6" width="45%" align="right">
@@ -239,7 +248,7 @@ $(document).ready(function() {
 					</td>
 					<td height="20" class="STYLE6">
 						<s:radio list="#{'1' : 'ÄÐ',  '0' : 'Å®'}" listKey="key"
-							listValue="value" value="1"></s:radio>
+							listValue="value" value="1" name="userInfo.user.sex"></s:radio>
 					</td>
 					<td height="20" class="STYLE6"></td>
 				</tr>
