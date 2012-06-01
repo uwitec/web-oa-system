@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import oracle.sql.CLOB;
+
 /**
  * TEmail entity. @author MyEclipse Persistence Tools
  */
@@ -15,7 +17,7 @@ public class TEmail implements java.io.Serializable {
 	private Integer emailid;
 	private TUser senduser;
 	private String title;
-	private String content;
+	private CLOB content;
 	private String receusers;
 	private Date sendtime;
 	private Boolean hasfile;
@@ -42,7 +44,6 @@ public class TEmail implements java.io.Serializable {
 		super();
 		this.emailid = emailid;
 		this.title = title;
-		this.content = content;
 		this.receusers = receusers;
 		this.sendtime = sendtime;
 		this.hasfile = hasfile;
@@ -63,13 +64,6 @@ public class TEmail implements java.io.Serializable {
 		this.title = title;
 	}
 
-	public String getContent() {
-		return this.content;
-	}
-
-	public void setContent(String content) {
-		this.content = content;
-	}
 
 	public String getReceusers() {
 		return this.receusers;
@@ -118,5 +112,14 @@ public class TEmail implements java.io.Serializable {
 	public TUser getSenduser() {
 		return senduser;
 	}
+
+	public void setContent(CLOB content) {
+		this.content = content;
+	}
+
+	public CLOB getContent() {
+		return content;
+	}
+
 
 }
