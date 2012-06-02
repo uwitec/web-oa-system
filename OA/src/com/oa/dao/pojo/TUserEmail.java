@@ -9,7 +9,7 @@ public class TUserEmail implements java.io.Serializable {
 	// Fields
 
 	private TUserEmailId id;
-	private Boolean type;
+	private Integer type;
 	private Boolean isread;
 
 	// Constructors
@@ -24,9 +24,9 @@ public class TUserEmail implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public TUserEmail(TUserEmailId id, Boolean type, Boolean isread) {
+	public TUserEmail(TUserEmailId id, Integer type, Boolean isread) {
 		this.id = id;
-		this.type = type;
+		this.setType(type);
 		this.isread = isread;
 	}
 
@@ -40,14 +40,6 @@ public class TUserEmail implements java.io.Serializable {
 		this.id = id;
 	}
 
-	public Boolean getType() {
-		return this.type;
-	}
-
-	public void setType(Boolean type) {
-		this.type = type;
-	}
-
 	public Boolean getIsread() {
 		return this.isread;
 	}
@@ -55,5 +47,14 @@ public class TUserEmail implements java.io.Serializable {
 	public void setIsread(Boolean isread) {
 		this.isread = isread;
 	}
+
+	public void setType(Integer type) {
+		this.type = type;
+	}
+
+	public Integer getType() {
+		return type;
+	}
+
 
 }

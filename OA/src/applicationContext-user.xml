@@ -9,9 +9,7 @@
 	<bean id="userDao" class="com.oa.dao.impl.UserDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
-	<bean id="dataDao" class="com.oa.dao.impl.DataDaoImpl">
-		<property name="sessionFactory" ref="sessionFactory"></property>
-	</bean>
+	
 	<bean id="roleDao" class="com.oa.dao.impl.RoleDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
@@ -29,7 +27,6 @@
 
 	<bean id="userService" class="com.oa.service.impl.UserServiceImpl">
 		<property name="userDao" ref="userDao"></property>
-		<property name="dataDao" ref="dataDao"></property>
 	</bean>
 	<bean id="roleService" class="com.oa.service.impl.RoleServiceImpl">
 		<property name="roleDao" ref="roleDao" />

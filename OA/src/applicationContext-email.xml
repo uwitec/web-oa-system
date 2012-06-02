@@ -5,7 +5,11 @@
 
 
 	<import resource="applicationContext.xml" />
-
+	
+	
+	<bean id="dataDao" class="com.oa.dao.impl.DataDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
 	<bean id="emailDao" class="com.oa.dao.impl.EmailDaoImpl">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
@@ -17,8 +21,9 @@
 
 
 
-
-
+	<bean id="dataService" class="com.oa.service.impl.DataServiceImpl">
+		<property name="dataDao" ref="dataDao"></property>
+	</bean>
 
 
 	<bean id="emailService" class="com.oa.service.impl.EmailServiceImpl">

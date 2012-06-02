@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Struts2Diagram version="2.0">
+  <package name="emailPack" location="0,0" size="0,0">
+    <action name="presend" location="0,0" size="0,0">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="send_email.jsp" />
+      </result>
+    </action>
+    <action name="saveEmail" location="0,0" size="0,0">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="send_email.jsp" />
+      </result>
+    </action>
+  </package>
+  <webResource name="index.jsp" path="/index.jsp" location="895,185" size="150,55" />
+  <webResource name="login.jsp" path="/login.jsp" location="650,10" size="150,55" />
+  <webResource name="self_update.jsp" path="/back/self_update.jsp" location="909,360" size="150,55" />
+  <webResource name="self_updatea_succ.jsp" path="/back/self_updatea_succ.jsp" location="891,535" size="150,55" />
+  <webResource name="update_user.jsp" path="/back/update_user.jsp" location="907,710" size="150,55" />
+  <webResource name="userlist.jsp" path="/back/userlist.jsp" location="888,885" size="150,55" />
+  <webResource name="checkuser.jsp" path="/back/checkuser.jsp" location="879,1060" size="150,55" />
+  <webResource name="adduser.jsp" path="/back/adduser.jsp" location="10,1445" size="150,55" />
+  <webResource name="send_email.jsp" path="/email/send_email.jsp" location="0,0" size="0,0" />
+</Struts2Diagram>
+

@@ -1,10 +1,11 @@
 package com.oa.dao.pojo;
 
+import java.sql.Clob;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import oracle.sql.CLOB;
+
 
 /**
  * TEmail entity. @author MyEclipse Persistence Tools
@@ -17,7 +18,8 @@ public class TEmail implements java.io.Serializable {
 	private Integer emailid;
 	private TUser senduser;
 	private String title;
-	private CLOB content;
+	private Clob content;
+	private String strContent;
 	private String receusers;
 	private Date sendtime;
 	private Boolean hasfile;
@@ -113,13 +115,24 @@ public class TEmail implements java.io.Serializable {
 		return senduser;
 	}
 
-	public void setContent(CLOB content) {
+
+	public void setStrContent(String strContent) {
+		this.strContent = strContent;
+	}
+
+	public String getStrContent() {
+		return strContent;
+	}
+
+
+	public void setContent(Clob content) {
 		this.content = content;
 	}
 
-	public CLOB getContent() {
+	public Clob getContent() {
 		return content;
 	}
+
 
 
 }

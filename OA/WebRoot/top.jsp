@@ -55,6 +55,98 @@ a img {
 }
 -->
 </style>
+
+
+
+
+
+
+
+
+
+
+		<script type="text/javascript">
+
+var interval= <s:property value="#session.user.tips.interval"/>;
+alert(interval);
+var oPopup = window.createPopup();//创建动态窗口
+var popTop = 50;
+var width = 226;
+
+//【注意：在执行下面的js脚本前，要判断是否要显示小贴士，如果不显示，就不执行以下脚本】
+//【注意：判断是否要显示小贴士由数据库读取】
+
+popmsg();//加载该页面即执行该函数，该函数往动态窗口输出内容。
+window.setInterval("popmsg();", Number.valueOf(interval) * 1000);//间隔10秒循环执行popmsg()函数，【注意：10秒的间隔数由数据库读取。】
+
+//未读邮件和未读公告的数量由数据库读取，并利用AJAX动态变化。
+function popmsg() {
+	var showTips = <s:property value="#session.user.tips.showtips"/>;
+	if (showTips == true) {
+		var winstr = "<table width=\"226\" height=\"151\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" background=\"images/taobao_msg.gif\">  <tr>    <td width=\"27\" height=\"20\">&nbsp;</td>    <td width=\"168\">&nbsp;</td>    <td width=\"29\"><div align=\"center\"><img src=\"images/close.gif\" width=\"14\" height=\"13\"  style=\"cursor:hand\" onclick=\"alert(\'close me!\')\"/></div></td>  </tr>  <tr>    <td width=\"50\" height=\"100\">&nbsp;</td>    <td><br>		<div align=\"center\" style=\"line-height:22px;\">			<font size=\"2\">				<a href=\"#\" id=\"amail\">你有未读邮件 " +
+	"<font color=\"#FF0000\">"+ 1 +"</font> 封</a> <br />        	  <a href=\"#\" id=\"ameet\">你有未读 <font color=\"#FF0000\">N</font> 个</a> <br />        	  <a href=\"#\" id=\"atrans\">你待处理事务 <font color=\"#FF0000\">N</font> 个</a> <br />    		设置 关闭</font></div>		</td>    <td>&nbsp;</td>  </tr>  <tr>    <td height=\"5\">&nbsp;</td>    <td>&nbsp;</td>    <td>&nbsp;</td>  </tr></table>";
+	
+	var showEmail = <s:property value="#session.user.tips.showemail"/>;
+	var showPost = <s:property value="#session.user.tips.showpost"/>;
+	
+	var strEmail = "<a href=\"#\" id=\"ameet\">你有未读邮件 <font color=\"#FF0000\">N</font> 个</a> <br />";
+	
+	if(showEmail) {
+		//ajax读邮件数目 拼strEmail
+		
+	}
+	
+	oPopup.document.body.innerHTML = winstr;
+	popshow();
+	popTop = 50;
+
+	//下面两个if是判断是否要显示邮件和公告。以及查看未读邮件和公告的地址。
+	//【注意：是否显示邮件和公告由数据库读取】
+	if (oPopup.document.getElementById("amail") != null) {
+		oPopup.document.getElementById("amail").onclick = function() {
+			parent.mainFrame.location = "main1.html";
+		}
+	}
+
+	if (oPopup.document.getElementById("ameet") != null) {
+		oPopup.document.getElementById("ameet").onclick = function() {
+			parent.mainFrame.location = "main2.html";
+		}
+	}
+	}
+	
+	
+
+}
+
+//这个函数是表示动态弹出窗口的停留时间，基本不会变动
+function popshow() {
+	window.status = popTop;
+	if (popTop > 1720) {
+		clearTimeout(mytime);
+		oPopup.hide();
+		popTop = 50;
+		return;
+	} else if (popTop > 1520 && popTop < 1720) {
+		oPopup.show(screen.width - 260, screen.height + 30, width,
+				1720 - popTop - 20);
+	} else if (popTop > 1500 && popTop < 1720) {
+		oPopup.show(screen.width - 260, screen.height + 30 + (popTop - 1720),
+				width, 152);
+	} else if (popTop < 180) {
+		oPopup.show(screen.width - 260, screen.height + 30, width, popTop - 20);
+	} else if (popTop < 220) {
+		oPopup
+				.show(screen.width - 260, screen.height + 30 - popTop, width,
+						152);
+	}
+	popTop += 10;
+	var mytime = setTimeout("popshow();", 20);
+}
+</script>
+
+
+
 	</head>
 
 	<body>

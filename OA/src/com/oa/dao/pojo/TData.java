@@ -16,7 +16,7 @@ public class TData implements java.io.Serializable {
 	private Boolean del;
 	private Integer type;
 	private Set TUsersForJob = new HashSet(0);
-	private Set TUsersForDepartment = new HashSet(0);
+	private Set<TUser> departmentUsers = new HashSet<TUser>(0); 
 	private Set<TData> datas = new HashSet<TData>(0);
 
 	// Constructors
@@ -32,7 +32,6 @@ public class TData implements java.io.Serializable {
 		this.del = del;
 		this.setType(type);
 		this.TUsersForJob = TUsersForJob;
-		this.TUsersForDepartment = TUsersForDepartment;
 		this.datas = datas;
 	}
 
@@ -72,13 +71,6 @@ public class TData implements java.io.Serializable {
 		this.TUsersForJob = TUsersForJob;
 	}
 
-	public Set getTUsersForDepartment() {
-		return this.TUsersForDepartment;
-	}
-
-	public void setTUsersForDepartment(Set TUsersForDepartment) {
-		this.TUsersForDepartment = TUsersForDepartment;
-	}
 
 
 	public void setDatas(Set<TData> datas) {
@@ -95,6 +87,14 @@ public class TData implements java.io.Serializable {
 
 	public Integer getType() {
 		return type;
+	}
+
+	public void setDepartmentUsers(Set<TUser> departmentUsers) {
+		this.departmentUsers = departmentUsers;
+	}
+
+	public Set<TUser> getDepartmentUsers() {
+		return departmentUsers;
 	}
 
 }

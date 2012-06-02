@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+    "http://struts.apache.org/dtds/struts-2.1.7.dtd">
+
+<struts>
+	<constant name="struts.configuration.xml.reload" value="true"></constant>
+	<constant name="struts.i18n.encoding" value="GBK"></constant>
+	<constant name="struts.ognl.allowStaticMethodAccess" value="true"></constant>
+	<constant name="struts.devMode" value="true"></constant>
+	<constant name="struts.ui.theme" value="simple"></constant>
+
+
+	<package name="emailPack" extends="struts-default" namespace="/email">
+		<action name="presend" class="com.oa.action.EmailAction"
+			method="preAddEmail">
+			<result name="success">/email/send_email.jsp</result>
+		</action>
+		<action name="saveEmail" class="com.oa.action.EmailAction"
+			method="saveEmail">
+			<param name="savePath">/upload/email</param>
+			<result name="success">/email/send_email.jsp</result>
+			<result name="input">/email/send_email.jsp</result>
+		</action>
+	</package>
+</struts>

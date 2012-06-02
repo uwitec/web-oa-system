@@ -1,16 +1,16 @@
 package com.oa.action;
 
+import java.io.File;
 import java.util.List;
-import java.util.Set;
 
 import org.apache.struts2.json.annotations.JSON;
 
 import com.oa.common.UserInfo;
 import com.oa.dao.inf.DataDao;
 import com.oa.dao.pojo.TData;
-import com.oa.dao.pojo.TMenu;
 import com.oa.dao.pojo.TRole;
 import com.oa.dao.pojo.TUser;
+import com.oa.service.inf.DataService;
 import com.oa.service.inf.RoleService;
 import com.oa.service.inf.UserService;
 import com.opensymphony.xwork2.ActionContext;
@@ -18,6 +18,9 @@ import com.opensymphony.xwork2.ActionContext;
 public class UserAction extends BaseAction {
 	private UserService userService;
 	private RoleService roleService;
+	private DataService dataService;
+
+
 
 	public String login() {
 		String sessionVcode = (String) ActionContext.getContext().getSession()
@@ -41,14 +44,18 @@ public class UserAction extends BaseAction {
 
 	public String logout() {
 		clearActionErrors();
-		request.getSession().removeAttribute(LOGIN_USER);
+		request.getSession().invalidate();
 		return LOGIN;
 	}
 
 	public String findUsers() {
 		userService.findUsers(userInfo);
-		List<TData> departmentList = userService
+		List<TData> departmentList = dataService
 				.getDatas(DataDao.TYPE_DEPARTMENT);
+		TData data = new TData();
+		data.setDataid(0);
+		data.setDataname("全部");
+		departmentList.add(data);
 		request.setAttribute("userInfo", userInfo);
 		request.setAttribute("departmentList", departmentList);
 		return SUCCESS;
@@ -66,10 +73,10 @@ public class UserAction extends BaseAction {
 	}
 
 	public String preAddUser() {
-		List<TData> departmentList = userService
+		List<TData> departmentList = dataService
 				.getDatas(DataDao.TYPE_DEPARTMENT);
-		List<TData> jobList = userService.getDatas(DataDao.TYPE_JOB);
-		List<TData> provinceList = userService.getDatas(DataDao.TYPE_PROVINCE);
+		List<TData> jobList = dataService.getDatas(DataDao.TYPE_JOB);
+		List<TData> provinceList = dataService.getDatas(DataDao.TYPE_PROVINCE);
 		request.getSession().setAttribute("departmentList", departmentList);
 		request.getSession().setAttribute("jobList", jobList);
 		request.getSession().setAttribute("provinceList", provinceList);
@@ -80,6 +87,37 @@ public class UserAction extends BaseAction {
 
 	public String addUser() {
 		userService.addUser(userInfo.getUser());
+		return SUCCESS;
+	}
+
+	public String preUpdate() {
+		String userid = ((TUser) request.getSession().getAttribute(LOGIN_USER))
+				.getUserid();
+		TUser user = userService.getUser(userid);
+		request.setAttribute(SINGLE_USER, user);
+		return SUCCESS;
+	}
+
+	public String selfUpdate() {
+		userService.selfUpdate(userInfo.getUser());
+		return SUCCESS;
+	}
+
+	public String updateUser() {
+		userService.updateUser(userInfo.getUser());
+		return SUCCESS;
+	}
+
+	public String preUpdateUser() {
+		List<TData> departmentList = dataService
+				.getDatas(DataDao.TYPE_DEPARTMENT);
+		List<TData> jobList = dataService.getDatas(DataDao.TYPE_JOB);
+		request.getSession().setAttribute("departmentList", departmentList);
+		request.getSession().setAttribute("jobList", jobList);
+		List<TRole> roleList = roleService.getRoles(null);
+		request.getSession().setAttribute("roleList", roleList);
+		TUser user = userService.getUser(userInfo.getUser().getUserid());
+		request.setAttribute(SINGLE_USER, user);
 		return SUCCESS;
 	}
 
@@ -97,12 +135,6 @@ public class UserAction extends BaseAction {
 		} else {
 			userInfo.setMessage("用户名可以使用");
 			return "true";
-		}
-	}
-
-	public void validateAdduser() {
-		if (null == userInfo.getUser().getRoles()) {
-			addFieldError("userInfo.user.roles", "角色不能为空");
 		}
 	}
 
@@ -131,5 +163,14 @@ public class UserAction extends BaseAction {
 	public RoleService getRoleService() {
 		return roleService;
 	}
+
+	public void setDataService(DataService dataService) {
+		this.dataService = dataService;
+	}
+
+	public DataService getDataService() {
+		return dataService;
+	}
+
 
 }

@@ -139,4 +139,25 @@ public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
 			}
 		});
 	}
+
+	@Override
+	public void updateUser(TUser user) {
+		getHibernateTemplate().update(user);
+	}
+
+	@Override
+	public void selfUpdate(final TUser user) {
+		getHibernateTemplate().execute(new HibernateCallback<Integer>() {
+
+			@Override
+			public Integer doInHibernate(Session session)
+					throws HibernateException, SQLException {
+				String hql = "update TUser user set user.realname = :realname,user.sex = :sex,user.idcard = :idcard, user.phone = :phone"
+						+ ",user.handset = :handset , user.email = :email , user.address = :address where user.userid = :userid";
+				Query query = session.createQuery(hql);
+				query.setProperties(user);
+				return query.executeUpdate();
+			}
+		});
+	}
 }

@@ -37,6 +37,10 @@ public class TUser implements java.io.Serializable {
 	public TUser() {
 	}
 
+	public TUser(String userid) {
+		this.userid = userid;
+	}
+
 	/** minimal constructor */
 	public TUser(String userid, String password) {
 		this.userid = userid;
@@ -107,7 +111,6 @@ public class TUser implements java.io.Serializable {
 	public void setSex(String sex) {
 		this.sex = sex;
 	}
-
 
 	public Boolean getMarried() {
 		return married;
