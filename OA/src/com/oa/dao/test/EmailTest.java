@@ -7,6 +7,7 @@ import java.io.Writer;
 import java.sql.Clob;
 import java.sql.SQLException;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import oracle.sql.CLOB;
@@ -14,6 +15,7 @@ import oracle.sql.CLOB;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.oa.common.UserInfo;
 import com.oa.dao.inf.EmailDao;
 import com.oa.dao.pojo.TEmail;
 import com.oa.dao.pojo.TEmailFile;
@@ -27,7 +29,22 @@ public class EmailTest {
 
 	public static void main(String[] args) {
 		add();
+		slect();
+	}
 
+	private static void slect() {
+		ApplicationContext context = new ClassPathXmlApplicationContext(PATH);
+		EmailDao emailDao = (EmailDao) context.getBean("emailDao");
+
+		UserInfo userInfo = new UserInfo();
+		TUser user = new TUser();
+		user.setUserid("admin");
+		userInfo.setUser(user);
+		List<TUserEmail> userEmails = emailDao.getEmails(EmailDao.TYPE_SEND, false,
+				userInfo);
+		for (TUserEmail e : userEmails) {
+			System.out.println(e.getId().getEmail().getTitle());
+		}
 	}
 
 	private static void add() {
@@ -51,6 +68,6 @@ public class EmailTest {
 		id.setUser(user);
 		id.setEmail(email);
 		userEmail.setId(id);
-		
+
 	}
 }

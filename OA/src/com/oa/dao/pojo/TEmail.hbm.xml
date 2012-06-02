@@ -6,7 +6,7 @@
 	-->
 <hibernate-mapping>
 	<class dynamic-insert="true" name="com.oa.dao.pojo.TEmail"
-		schema="OA" table="T_EMAIL">
+		schema="OA" table="T_EMAIL" lazy="false">
 		<id name="emailid" type="java.lang.Integer">
 			<column name="EMAILID" precision="8" scale="0" />
 			<generator class="sequence">
@@ -42,7 +42,7 @@
 			</key>
 			<one-to-many class="com.oa.dao.pojo.TEmailFile" />
 		</set>
-		<set inverse="true" name="TUserEmails" sort="unsorted">
+		<set inverse="true" name="userEmails" sort="unsorted">
 			<key>
 				<column name="EMAILID" not-null="true" precision="8" scale="0" />
 			</key>

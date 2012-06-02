@@ -31,10 +31,10 @@ public class EmailServiceImpl implements EmailService {
 			List<String> uploadFileName, List<String> uploadContentType,
 			String savePath) {
 
-		
 		TEmail email = userEmail.getId().getEmail();
 		Set<TEmailFile> emailFiles = new HashSet<TEmailFile>();
 		if (null != upload) {
+			email.setHasfile(true);
 			for (int i = 0; i < upload.size(); ++i) {
 				String newFileName = FileUtil.makeNewFileName(uploadFileName
 						.get(i));
@@ -48,8 +48,11 @@ public class EmailServiceImpl implements EmailService {
 				emailFile.setEmail(email);
 				emailFiles.add(emailFile);
 			}
+		} else {
+			email.setHasfile(false);
 		}
 		email.setEmailFiles(emailFiles);
+
 		Integer emailid = emailDao.saveEmail(email);
 
 		email.setEmailid(emailid);
@@ -69,8 +72,41 @@ public class EmailServiceImpl implements EmailService {
 	}
 
 	@Override
-	public void saveEmailToDraft(TUserEmail userEmail) {
+	public void saveEmailToDraft(TUserEmail userEmail, List<File> upload,
+			List<String> uploadFileName, List<String> uploadContentType,
+			String savePath) {
+		TEmail email = userEmail.getId().getEmail();
+		Set<TEmailFile> emailFiles = new HashSet<TEmailFile>();
+		if (null != upload) {
+			email.setHasfile(true);
+			for (int i = 0; i < upload.size(); ++i) {
+				String newFileName = FileUtil.makeNewFileName(uploadFileName
+						.get(i));
+				String newFilePath = savePath + newFileName;
+				File newFile = new File(newFilePath);
+				FileUtil.copyFile(upload.get(i), newFile);
+				TEmailFile emailFile = new TEmailFile();
+				emailFile.setDel(false);
+				emailFile.setNewname(newFileName);
+				emailFile.setOldname(uploadFileName.get(i));
+				emailFile.setEmail(email);
+				emailFiles.add(emailFile);
+			}
+		} else {
+			email.setHasfile(false);
+		}
+		email.setEmailFiles(emailFiles);
 
+		Integer emailid = emailDao.saveEmail(email);
+
+		email.setEmailid(emailid);
+		emailDao.saveUserEmail(userEmail);
+	}
+
+	@Override
+	public List<TEmail> getEmails(int emailType) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

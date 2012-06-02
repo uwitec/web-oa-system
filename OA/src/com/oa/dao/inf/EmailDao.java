@@ -2,6 +2,7 @@ package com.oa.dao.inf;
 
 import java.util.List;
 
+import com.oa.common.UserInfo;
 import com.oa.dao.pojo.TEmail;
 import com.oa.dao.pojo.TUser;
 import com.oa.dao.pojo.TUserEmail;
@@ -18,7 +19,7 @@ public interface EmailDao {
 
 	void saveUserEmail(TUserEmail userEmail);
 
-	List<TEmail> getEmails(int emailType, boolean isRead);
+	List<TUserEmail> getEmails(int emailType, boolean isRead, UserInfo userInfo);
 
 	void deleteToDust(TEmail email);
 
