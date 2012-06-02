@@ -15,15 +15,32 @@ public interface EmailDao {
 	int TYPE_DUST = 4;
 	int TYPE_NEW = 0;
 
+	/**
+	 * 保存邮件表 邮件附件表
+	 * */
 	Integer saveEmail(TEmail email);
 
+	/**
+	 * 保存用户邮件表
+	 * */
 	void saveUserEmail(TUserEmail userEmail);
 
-	List<TUserEmail> getEmails(int emailType, boolean isRead, UserInfo userInfo);
+	List<TUserEmail> getEmails(TUserEmail userEmail, UserInfo userInfo);
 
-	void deleteToDust(TEmail email);
+	/**
+	 * 删除纸垃圾箱
+	 * */
+	void deleteToDust(TUserEmail userEmail);
 
-	TEmail getSingleEmail(int emailId);
+	/**
+	 * 垃圾箱至收件箱
+	 * */
+	void dustToInbox(TUserEmail userEmail);
 
-	void deleteEmail(TEmail email);
+	TEmail getSingleEmail(TUserEmail userEmail);
+
+	/**
+	 * 永久删除
+	 * */
+	void deleteEmail(TUserEmail userEmail);
 }

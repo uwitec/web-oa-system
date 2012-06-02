@@ -7,12 +7,18 @@
       </result>
     </action>
     <action name="saveEmail" location="0,0" size="0,0">
-      <result name="success">
-        <resourceEdge source="success" routing="0" target="send_email.jsp" />
-      </result>
+      <result name="success" />
       <result name="input">
         <resourceEdge source="input" routing="0" target="send_email.jsp" />
       </result>
+    </action>
+    <action name="getemail" location="0,0" size="0,0">
+      <result name="outbox">
+        <resourceEdge source="outbox" routing="0" target="outbox.jsp" />
+      </result>
+    </action>
+    <action name="deleteEmail" location="0,0" size="0,0">
+      <result name="success" />
     </action>
   </package>
   <webResource name="index.jsp" path="/index.jsp" location="895,185" size="150,55" />
@@ -24,5 +30,6 @@
   <webResource name="checkuser.jsp" path="/back/checkuser.jsp" location="879,1060" size="150,55" />
   <webResource name="adduser.jsp" path="/back/adduser.jsp" location="10,1445" size="150,55" />
   <webResource name="send_email.jsp" path="/email/send_email.jsp" location="0,0" size="0,0" />
+  <webResource name="outbox.jsp" path="/email/outbox.jsp" location="0,0" size="0,0" />
 </Struts2Diagram>
 

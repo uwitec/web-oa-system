@@ -5,15 +5,18 @@ import java.util.List;
 
 import org.apache.struts2.ServletActionContext;
 
+import com.oa.common.UserInfo;
 import com.oa.dao.inf.DataDao;
 import com.oa.dao.inf.EmailDao;
 import com.oa.dao.pojo.TData;
+import com.oa.dao.pojo.TEmail;
 import com.oa.dao.pojo.TUser;
 import com.oa.dao.pojo.TUserEmail;
 import com.oa.service.inf.DataService;
 import com.oa.service.inf.EmailService;
+import com.opensymphony.xwork2.ModelDriven;
 
-public class EmailAction extends BaseAction {
+public class EmailAction extends BaseAction implements ModelDriven<UserInfo> {
 	private DataService dataService;
 	private EmailService emailService;
 
@@ -24,8 +27,10 @@ public class EmailAction extends BaseAction {
 	private List<String> uploadContentType;
 
 	private String savePath;
-	private int emailType;
-	private boolean isRead;
+
+	private List<TEmail> selectedEmails;
+
+	private UserInfo userInfo = new UserInfo();
 
 	public String preAddEmail() {
 		List<TData> departmentUsers = dataService.getDatasWithUsers(dataService
@@ -41,12 +46,18 @@ public class EmailAction extends BaseAction {
 
 	public String getEmails() {
 		userInfo.setUser((TUser) request.getSession().getAttribute(LOGIN_USER));
-		List<TUserEmail> userEmails = emailService.getEmails(emailType, isRead,
+		List<TUserEmail> userEmails = emailService.getEmails(userEmail,
 				userInfo);
 		request.setAttribute(USER_EMAILS, userEmails);
-		request.setAttribute(USER_INFO, userInfo);
-		if (emailType == EmailDao.TYPE_SEND) {// 发件箱
+		request.setAttribute(USER_INFO, getUserInfo());
+		if (userEmail.getType() == EmailDao.TYPE_SEND) {// 发件箱
 			return "outbox";
+		} else if (userEmail.getType() == EmailDao.TYPE_RECE) { // 收件箱
+			return "inbox";
+		} else if (userEmail.getType() == EmailDao.TYPE_DUST) { // 垃圾箱
+			return "dust";
+		} else if (userEmail.getType() == EmailDao.TYPE_DRAFT) { // 草稿箱
+			return "draft";
 		}
 
 		return SUCCESS;
@@ -64,6 +75,11 @@ public class EmailAction extends BaseAction {
 			emailService.saveEmail(userEmail, upload, uploadFileName,
 					uploadContentType, getSavePath());
 		}
+		return SUCCESS;
+	}
+
+	public String deleteEmail() {
+		emailService.deleteEmail(userEmail);
 		return SUCCESS;
 	}
 
@@ -123,19 +139,25 @@ public class EmailAction extends BaseAction {
 		return ServletActionContext.getServletContext().getRealPath(savePath);
 	}
 
-	public void setEmailType(int emailType) {
-		this.emailType = emailType;
+	public void setUserInfo(UserInfo userInfo) {
+		this.userInfo = userInfo;
 	}
 
-	public int getEmailType() {
-		return emailType;
+	public UserInfo getUserInfo() {
+		return userInfo;
 	}
 
-	public void setRead(boolean isRead) {
-		this.isRead = isRead;
+	@Override
+	public UserInfo getModel() {
+		// TODO Auto-generated method stub
+		return userInfo;
 	}
 
-	public boolean isRead() {
-		return isRead;
+	public void setSelectedEmails(List<TEmail> selectedEmails) {
+		this.selectedEmails = selectedEmails;
+	}
+
+	public List<TEmail> getSelectedEmails() {
+		return selectedEmails;
 	}
 }

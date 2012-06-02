@@ -23,6 +23,7 @@
 		<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
+
 		<style type="text/css">
 <!--
 body {
@@ -91,7 +92,7 @@ body {
 												cellpadding="0">
 												<tr>
 													<td width="100%" valign="bottom" align="center">
-														<span class="STYLE1"> 发件箱列表</span>
+														<span class="STYLE1"> 收件箱列表</span>
 													</td>
 												</tr>
 											</table>
@@ -110,8 +111,7 @@ body {
 			<tr>
 				<td>
 					<s:form id="form" action="email/getemail" method="post">
-						<s:hidden name="userEmail.type" value="1"></s:hidden>
-						
+						<s:hidden name="userEmail.type" value="2"></s:hidden>
 						<table width="100%" border="0" cellpadding="0" cellspacing="1"
 							bgcolor="#a8c7ce">
 							<tr>
@@ -189,9 +189,6 @@ body {
 									<td height="20" bgcolor="#FFFFFF" class="STYLE19"
 										align="center">
 										<a href="email/">查看</a>
-										<s:a
-											href="javascript:deleteEmail('%{#userEmail.id.email.emailid}', '%{#session.user.userid}');">删除</s:a>
-
 									</td>
 
 

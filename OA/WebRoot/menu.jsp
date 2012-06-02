@@ -113,7 +113,6 @@ body {
 												target="rightFrame"><s:property
 													value="#sonMenu.menuname" /> </a>
 										</li>
-
 									</s:iterator>
 								</ul>
 							</li>

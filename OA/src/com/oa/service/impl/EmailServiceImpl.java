@@ -105,10 +105,13 @@ public class EmailServiceImpl implements EmailService {
 	}
 
 	@Override
-	public List<TUserEmail> getEmails(int emailType, boolean isRead,
-			UserInfo userInfo) {
-		return emailDao.getEmails(emailType, isRead, userInfo);
+	public List<TUserEmail> getEmails(TUserEmail userEmail, UserInfo userInfo) {
+		return emailDao.getEmails(userEmail, userInfo);
 	}
 
+	@Override
+	public void deleteEmail(TUserEmail userEmail) {
+		emailDao.deleteEmail(userEmail);
+	}
 
 }
