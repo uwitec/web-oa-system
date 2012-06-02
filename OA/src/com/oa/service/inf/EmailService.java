@@ -11,7 +11,8 @@ public interface EmailService {
 	 * ·¢ËÍÓÊ¼ş
 	 * */
 	void saveEmail(TUserEmail userEmail, List<File> upload,
-			List<String> uploadFileName, List<String> uploadContentType,String savePath);
+			List<String> uploadFileName, List<String> uploadContentType,
+			String savePath);
 
 	/**
 	 * ±£´æ²İ¸åÏä
