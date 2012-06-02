@@ -14,11 +14,13 @@ import oracle.sql.CLOB;
 import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.LockMode;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.dialect.Oracle10gDialect;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
+import com.oa.common.UserInfo;
 import com.oa.dao.inf.EmailDao;
 import com.oa.dao.pojo.TEmail;
 import com.oa.dao.pojo.TUser;
@@ -36,14 +38,52 @@ public class EmailDaoImpl extends HibernateDaoSupport implements EmailDao {
 
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public List<TEmail> getEmails(int emailType, boolean isRead) {
-		return null;
+	public List<TUserEmail> getEmails(final int emailType,
+			final boolean isRead, final UserInfo userInfo) {
+		return getHibernateTemplate().executeFind(
+				new HibernateCallback<List<TEmail>>() {
+
+					/*
+					 * (non-Javadoc)
+					 * 
+					 * @see
+					 * org.springframework.orm.hibernate3.HibernateCallback#
+					 * doInHibernate(org.hibernate.Session)
+					 */
+					@Override
+					public List<TEmail> doInHibernate(Session session)
+							throws HibernateException, SQLException {
+						Query query = null;
+						String hql = null;
+						int currPage = userInfo.getCurrPage();
+						currPage = currPage == 0 ? 1 : currPage;
+						switch (emailType) {
+						case TYPE_SEND:// ·¢¼þÏä
+							hql = " from TUserEmail t where t.id.user.userid = :userid";
+							query = session.createQuery(hql);
+							query.setParameter("userid", userInfo.getUser()
+									.getUserid());
+							break;
+						default:
+							break;
+						}
+						userInfo.setTotalCount(query.list().size());
+						System.out.println(userInfo.getTotalCount());
+						query.setFirstResult((currPage - 1)
+								* UserInfo.PAGE_SIZE);
+						query.setMaxResults(currPage * UserInfo.PAGE_SIZE);
+
+						return query.list();
+					}
+				});
+
 	}
 
 	@Override
 	public TEmail getSingleEmail(int emailId) {
-		// TODO Auto-generated method stub
+
 		return null;
 	}
 

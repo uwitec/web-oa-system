@@ -48,7 +48,7 @@ public class EmailAction extends BaseAction {
 		if (userEmail.getType() == EmailDao.TYPE_SEND) {
 			emailService.saveEmail(userEmail, upload, uploadFileName,
 					uploadContentType, getSavePath());
-		}
+		} 
 		return SUCCESS;
 	}
 
