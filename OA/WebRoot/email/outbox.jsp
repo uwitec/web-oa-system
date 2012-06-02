@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="GB18030"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
@@ -130,9 +131,28 @@ body {
 								</div>
 							</td>
 						</tr>
+
+						<s:iterator value="#request.userEmails" var="userEmail">
+							<tr>
+								<td height="20" class="STYLE10">
+									<div align="center">
+										<input type="checkbox" name="checkbox" id="checkbox" />
+									</div>
+								</td>
+								<td height="20" class="STYLE10">
+									<s:property value="#userEmail.id.user.userid"/>
+								</td>
+								<td height="20" class="STYLE10"></td>
+								<td height="20" class="STYLE10"></td>
+								<td height="20" class="STYLE10"></td>
+								<td height="20" class="STYLE10"></td>
+								<td height="20" class="STYLE10"></td>
+							</tr>
+						</s:iterator>
 					</table>
 				</td>
 			</tr>
 		</table>
+		<s:debug></s:debug>
 	</body>
 </html>

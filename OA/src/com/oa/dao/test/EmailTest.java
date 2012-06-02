@@ -40,8 +40,10 @@ public class EmailTest {
 		TUser user = new TUser();
 		user.setUserid("admin");
 		userInfo.setUser(user);
-		List<TUserEmail> userEmails = emailDao.getEmails(EmailDao.TYPE_SEND, false,
-				userInfo);
+		userInfo.setCurrPage(2);
+		List<TUserEmail> userEmails = emailDao.getEmails(EmailDao.TYPE_SEND,
+				false, userInfo);
+
 		for (TUserEmail e : userEmails) {
 			System.out.println(e.getId().getEmail().getTitle());
 		}

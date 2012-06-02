@@ -17,11 +17,17 @@
 			method="preAddEmail">
 			<result name="success">/email/send_email.jsp</result>
 		</action>
+
 		<action name="saveEmail" class="com.oa.action.EmailAction"
 			method="saveEmail">
 			<param name="savePath">/upload/email</param>
 			<result name="success">/email/send_email.jsp</result>
 			<result name="input">/email/send_email.jsp</result>
+		</action>
+
+		<action name="getemail" class="com.oa.action.EmailAction"
+			method="getEmails">
+			<result name="outbox">/email/outbox.jsp</result>
 		</action>
 	</package>
 </struts>

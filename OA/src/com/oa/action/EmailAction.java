@@ -24,6 +24,8 @@ public class EmailAction extends BaseAction {
 	private List<String> uploadContentType;
 
 	private String savePath;
+	private int emailType;
+	private boolean isRead;
 
 	public String preAddEmail() {
 		List<TData> departmentUsers = dataService.getDatasWithUsers(dataService
@@ -37,6 +39,19 @@ public class EmailAction extends BaseAction {
 		return super.execute();
 	}
 
+	public String getEmails() {
+		userInfo.setUser((TUser) request.getSession().getAttribute(LOGIN_USER));
+		List<TUserEmail> userEmails = emailService.getEmails(emailType, isRead,
+				userInfo);
+		request.setAttribute(USER_EMAILS, userEmails);
+		request.setAttribute(USER_INFO, userInfo);
+		if (emailType == EmailDao.TYPE_SEND) {// 发件箱
+			return "outbox";
+		}
+
+		return SUCCESS;
+	}
+
 	/**
 	 * 发送 或 保存草稿
 	 * */
@@ -48,7 +63,7 @@ public class EmailAction extends BaseAction {
 		if (userEmail.getType() == EmailDao.TYPE_SEND) {
 			emailService.saveEmail(userEmail, upload, uploadFileName,
 					uploadContentType, getSavePath());
-		} 
+		}
 		return SUCCESS;
 	}
 
@@ -105,8 +120,22 @@ public class EmailAction extends BaseAction {
 	}
 
 	public String getSavePath() {
-		TUser user = (TUser) request.getSession().getAttribute(LOGIN_USER);
-		return ServletActionContext.getServletContext().getRealPath(
-				savePath + File.separator + user.getUserid() + File.separator);
+		return ServletActionContext.getServletContext().getRealPath(savePath);
+	}
+
+	public void setEmailType(int emailType) {
+		this.emailType = emailType;
+	}
+
+	public int getEmailType() {
+		return emailType;
+	}
+
+	public void setRead(boolean isRead) {
+		this.isRead = isRead;
+	}
+
+	public boolean isRead() {
+		return isRead;
 	}
 }

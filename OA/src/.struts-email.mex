@@ -10,6 +10,9 @@
       <result name="success">
         <resourceEdge source="success" routing="0" target="send_email.jsp" />
       </result>
+      <result name="input">
+        <resourceEdge source="input" routing="0" target="send_email.jsp" />
+      </result>
     </action>
   </package>
   <webResource name="index.jsp" path="/index.jsp" location="895,185" size="150,55" />

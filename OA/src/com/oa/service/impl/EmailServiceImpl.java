@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.oa.common.FileUtil;
+import com.oa.common.UserInfo;
 import com.oa.dao.inf.DataDao;
 import com.oa.dao.inf.EmailDao;
 import com.oa.dao.pojo.TEmail;
@@ -38,7 +39,7 @@ public class EmailServiceImpl implements EmailService {
 			for (int i = 0; i < upload.size(); ++i) {
 				String newFileName = FileUtil.makeNewFileName(uploadFileName
 						.get(i));
-				String newFilePath = savePath + newFileName;
+				String newFilePath = savePath + File.separator + newFileName;
 				File newFile = new File(newFilePath);
 				FileUtil.copyFile(upload.get(i), newFile);
 				TEmailFile emailFile = new TEmailFile();
@@ -104,9 +105,10 @@ public class EmailServiceImpl implements EmailService {
 	}
 
 	@Override
-	public List<TEmail> getEmails(int emailType) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<TUserEmail> getEmails(int emailType, boolean isRead,
+			UserInfo userInfo) {
+		return emailDao.getEmails(emailType, isRead, userInfo);
 	}
+
 
 }

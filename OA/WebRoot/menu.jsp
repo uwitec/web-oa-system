@@ -108,7 +108,6 @@ body {
 								<a class="head"><s:property value="#menu.menuname" /> </a>
 								<ul>
 									<s:iterator value="#menu.sonMenus" var="sonMenu">
-
 										<li>
 											<a href="<s:property value='#sonMenu.menulink'/>"
 												target="rightFrame"><s:property

@@ -21,6 +21,7 @@ public class BaseAction extends ActionSupport implements ServletRequestAware,
 	public static String VCODE = "vcode";
 	public static String USER_INFO = "userInfo";
 	public static String SINGLE_USER = "singleuser";
+	public static String USER_EMAILS = "userEmails";
 
 	protected UserInfo userInfo = new UserInfo();
 
