@@ -64,6 +64,10 @@ body {
 -->
 </style>
 
+		<script type="text/javascript" src="js/oa/jquery-1.7.2.js">
+</script>
+
+	
 
 		<SCRIPT type="text/javascript">
 	function deleteUser(userid){
@@ -71,7 +75,6 @@ body {
 			window.location.href = "<%=path%>/user/deluser?userInfo.user.userid=" + userid;
 		}
 	}
-	
 	
 	
 	
@@ -137,7 +140,8 @@ body {
 						</TD>
 					</tr>
 				</table>
-			</s:form><!--
+			</s:form>
+			<!--
 			<script>
 var departmentObj = document.getElementById("department")
 var optionObj = document.createElement("option");
@@ -148,7 +152,8 @@ departmentObj.add(optionObj);
 </script>
 
 
-			--><tr>
+			-->
+			<tr>
 				<td>
 					<table width="100%" border="0" cellpadding="0" cellspacing="1"
 						bgcolor="#a8c7ce">
@@ -211,14 +216,15 @@ departmentObj.add(optionObj);
 								</td>
 								<td height="20" bgcolor="#FFFFFF">
 									<div align="center" class="STYLE21">
-										<s:date name="#user.addtime" format="yyyy-MM-dd hh:mm:ss"/>
+										<s:date name="#user.addtime" format="yyyy-MM-dd hh:mm:ss" />
 									</div>
 								</td>
 								<td height="20" bgcolor="#FFFFFF">
 									<div align="center" class="STYLE21">
 										<a
 											href="user/getuser?userInfo.user.userid=<s:property value="#user.userid"/>">查看</a>|
-										<a>修改</a>|
+										<a
+											href="user/preupdateuser?userInfo.user.userid=<s:property value="#user.userid"/>">修改</a>|
 										<a
 											href="javascript:deleteUser('<s:property value='#user.userid'/>')">删除</a>
 									</div>

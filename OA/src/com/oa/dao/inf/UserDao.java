@@ -20,4 +20,8 @@ public interface UserDao {
 	TUser getUser(String userid);
 
 	boolean isUserIdExists(String userid);
+	
+	void updateUser(TUser user);
+	
+	void selfUpdate(TUser user);
 }

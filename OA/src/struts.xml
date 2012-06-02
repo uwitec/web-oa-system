@@ -8,6 +8,7 @@
 	<constant name="struts.configuration.xml.reload" value="true"></constant>
 	<constant name="struts.i18n.encoding" value="GBK"></constant>
 	<constant name="struts.ognl.allowStaticMethodAccess" value="true"></constant>
-	
+
 	<include file="struts-user.xml"></include>
+	<include file="struts-email.xml"></include>
 </struts>

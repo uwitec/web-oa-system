@@ -10,6 +10,7 @@ public interface DataDao {
 	public static int TYPE_DEPARTMENT = 3;
 	public static int TYPE_JOB = 4;
 
-
 	List<TData> getDatas(int type);
+
+	List<TData> getDatasWithUsers(List<TData> dataList);
 }

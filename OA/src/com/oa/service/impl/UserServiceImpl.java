@@ -12,7 +12,6 @@ import com.oa.service.inf.UserService;
 
 public class UserServiceImpl implements UserService {
 	private UserDao userDao;
-	private DataDao dataDao;
 
 	public void setUserDao(UserDao userDao) {
 		this.userDao = userDao;
@@ -32,18 +31,8 @@ public class UserServiceImpl implements UserService {
 		userDao.findUsers(userInfo);
 	}
 
-	public void setDataDao(DataDao dataDao) {
-		this.dataDao = dataDao;
-	}
 
-	public DataDao getDataDao() {
-		return dataDao;
-	}
-
-	@Override
-	public List<TData> getDatas(int type) {
-		return dataDao.getDatas(type);
-	}
+	
 
 	@Override
 	public TUser getUser(String userid) {
@@ -63,6 +52,16 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public boolean isUserIdExists(String userid) {
 		return userDao.isUserIdExists(userid);
+	}
+
+	@Override
+	public void updateUser(TUser user) {
+		userDao.updateUser(user);
+	}
+
+	@Override
+	public void selfUpdate(TUser user) {
+		userDao.selfUpdate(user);
 	}
 
 }

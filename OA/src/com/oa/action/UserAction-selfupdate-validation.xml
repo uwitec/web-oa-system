@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC 
+"-//OpenSymphony Group//XWork Validator 1.0.3//EN" 
+"http://www.opensymphony.com/xwork/xwork-validator-1.0.3.dtd">
+
+<validators>
+	<field name="userInfo.user.realname">
+		<field-validator type="requiredstring">
+			<param name="trim">true</param>
+			<message>真实姓名不能为空</message>
+		</field-validator>
+		<field-validator type="stringlength">
+			<param name="minLength">2</param>
+			<param name="maxLength">8</param>
+			<message>真实姓名必须在${minLength}~${maxLength}之间</message>
+		</field-validator>
+	</field>
+</validators>

@@ -21,6 +21,21 @@
 			<result name="login">/login.jsp</result>
 		</action>
 
+		<action name="preupdate" class="com.oa.action.UserAction"
+			method="preUpdate">
+			<result name="success">/back/self_update.jsp</result>
+		</action>
+		<action name="selfupdate" class="com.oa.action.UserAction"
+			method="selfUpdate">
+			<result name="success">/back/self_updatea_succ.jsp</result>
+		</action>
+
+
+		<action name="preupdateuser" class="com.oa.action.UserAction"
+			method="preUpdateUser">
+			<result name="success">/back/update_user.jsp</result>
+		</action>
+
 		<action name="userlist" class="com.oa.action.UserAction"
 			method="findUsers">
 			<result name="success">/back/userlist.jsp</result>

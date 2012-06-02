@@ -11,7 +11,6 @@ public interface UserService {
 
 	void findUsers(UserInfo userInfo);
 
-	List<TData> getDatas(int type);
 
 	TUser getUser(String userid);
 
@@ -21,5 +20,10 @@ public interface UserService {
 	void addUser(TUser user);
 	
 	boolean isUserIdExists(String userid);
+	
+	void updateUser(TUser user);
+	
+	
+	void selfUpdate(TUser user);
 	
 }

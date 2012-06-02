@@ -63,7 +63,8 @@ $(document).ready(function() {
 					<div class="user">
 						<label>
 							ÓÃ»§Ãû£º
-							<input type="text" name="userInfo.user.userid" id="user" />
+							<input type="text" name="userInfo.user.userid" id="user"
+								value="${cookie.userid.value}" />
 						</label>
 					</div>
 					<div class="user">

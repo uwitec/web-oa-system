@@ -25,6 +25,7 @@ public class RoleTypeConverter extends StrutsTypeConverter {
 				context.put(ActionContext.CONVERSION_ERRORS, conversionErrors);
 			}
 			conversionErrors.put("userInfo.user.roles", "角色不能为空");
+			return null;
 		}
 		for (String s : values) {
 			TRole role = new TRole();
