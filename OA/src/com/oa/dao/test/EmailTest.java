@@ -22,14 +22,97 @@ import com.oa.dao.pojo.TEmailFile;
 import com.oa.dao.pojo.TUser;
 import com.oa.dao.pojo.TUserEmail;
 import com.oa.dao.pojo.TUserEmailId;
+import com.sun.org.apache.bcel.internal.generic.GETSTATIC;
 
 public class EmailTest {
 	private static String[] PATH = { "applicationContext.xml",
 			"applicationContext-email.xml" };
 
 	public static void main(String[] args) {
-		add();
-		slect();
+		// add();
+		// slect();
+		// delete();
+		// deleteTOdUST();
+		// dustToiNBOX();
+
+		getsingle();
+	}
+
+	private static void getsingle() {
+		// TODO Auto-generated method stub
+		ApplicationContext context = new ClassPathXmlApplicationContext(PATH);
+		EmailDao emailDao = (EmailDao) context.getBean("emailDao");
+
+		TUserEmail userEmail = new TUserEmail();
+		TUserEmailId id = new TUserEmailId();
+		TEmail email = new TEmail();
+		email.setEmailid(38);
+		TUser user = new TUser();
+		user.setUserid("aaaa2");
+		id.setEmail(email);
+		id.setUser(user);
+		userEmail.setIsread(false);
+		userEmail.setType(2);
+
+		userEmail.setId(id);
+		TEmail email2 = emailDao.getSingleEmail(userEmail);
+		System.out.println(email2.getStrContent());
+		for (TEmailFile ef : email2.getEmailFiles()) {
+			System.out.println(ef.getNewname());
+		}
+	}
+
+	private static void dustToiNBOX() {
+		// TODO Auto-generated method stub
+		ApplicationContext context = new ClassPathXmlApplicationContext(PATH);
+		EmailDao emailDao = (EmailDao) context.getBean("emailDao");
+
+		TUserEmail userEmail = new TUserEmail();
+		TUserEmailId id = new TUserEmailId();
+		TEmail email = new TEmail();
+		email.setEmailid(33);
+		TUser user = new TUser();
+		user.setUserid("aaaa5");
+		id.setEmail(email);
+		id.setUser(user);
+
+		userEmail.setId(id);
+		emailDao.dustToInbox(userEmail);
+	}
+
+	private static void deleteTOdUST() {
+		ApplicationContext context = new ClassPathXmlApplicationContext(PATH);
+		EmailDao emailDao = (EmailDao) context.getBean("emailDao");
+
+		TUserEmail userEmail = new TUserEmail();
+		TUserEmailId id = new TUserEmailId();
+		TEmail email = new TEmail();
+		email.setEmailid(33);
+		TUser user = new TUser();
+		user.setUserid("aaaa5");
+		id.setEmail(email);
+		id.setUser(user);
+
+		userEmail.setId(id);
+		emailDao.deleteToDust(userEmail);
+	}
+
+	private static void delete() {
+		ApplicationContext context = new ClassPathXmlApplicationContext(PATH);
+		EmailDao emailDao = (EmailDao) context.getBean("emailDao");
+
+		TUserEmail userEmail = new TUserEmail();
+		TUserEmailId id = new TUserEmailId();
+		TEmail email = new TEmail();
+		email.setEmailid(37);
+		TUser user = new TUser();
+		user.setUserid("admin");
+		id.setEmail(email);
+		id.setUser(user);
+
+		userEmail.setId(id);
+		emailDao.deleteEmail(userEmail);
+
 	}
 
 	private static void slect() {
@@ -41,12 +124,7 @@ public class EmailTest {
 		user.setUserid("admin");
 		userInfo.setUser(user);
 		userInfo.setCurrPage(2);
-		List<TUserEmail> userEmails = emailDao.getEmails(EmailDao.TYPE_SEND,
-				false, userInfo);
 
-		for (TUserEmail e : userEmails) {
-			System.out.println(e.getId().getEmail().getTitle());
-		}
 	}
 
 	private static void add() {

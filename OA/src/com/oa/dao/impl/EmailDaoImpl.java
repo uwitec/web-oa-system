@@ -25,52 +25,91 @@ import com.oa.dao.inf.EmailDao;
 import com.oa.dao.pojo.TEmail;
 import com.oa.dao.pojo.TUser;
 import com.oa.dao.pojo.TUserEmail;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 
 public class EmailDaoImpl extends HibernateDaoSupport implements EmailDao {
 
 	@Override
-	public void deleteEmail(TEmail email) {
+	public void deleteEmail(final TUserEmail userEmail) {
+		getHibernateTemplate().execute(new HibernateCallback<Integer>() {
 
+			@Override
+			public Integer doInHibernate(Session session)
+					throws HibernateException, SQLException {
+				String hql = "delete from TUserEmail t where t.id.user.userid = :userid and t.id.email.emailid = :emailid";
+				Query query = session.createQuery(hql);
+				query.setParameter("userid", userEmail.getId().getUser()
+						.getUserid());
+				query.setParameter("emailid", userEmail.getId().getEmail()
+						.getEmailid());
+
+				return query.executeUpdate();
+			}
+		});
 	}
 
 	@Override
-	public void deleteToDust(TEmail email) {
+	public void deleteToDust(final TUserEmail userEmail) {
+		getHibernateTemplate().execute(new HibernateCallback<Integer>() {
 
+			@Override
+			public Integer doInHibernate(Session session)
+					throws HibernateException, SQLException {
+				String hql = "update TUserEmail t set t.type = "
+						+ EmailDao.TYPE_DUST
+						+ " where t.id.user.userid = :userid and t.id.email.emailid = :emailid";
+				Query query = session.createQuery(hql);
+				query.setParameter("userid", userEmail.getId().getUser()
+						.getUserid());
+				query.setParameter("emailid", userEmail.getId().getEmail()
+						.getEmailid());
+				return query.executeUpdate();
+			}
+		});
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<TUserEmail> getEmails(final int emailType,
-			final boolean isRead, final UserInfo userInfo) {
+	public List<TUserEmail> getEmails(final TUserEmail userEmail,
+			final UserInfo userInfo) {
 		return getHibernateTemplate().executeFind(
 				new HibernateCallback<List<TEmail>>() {
-
-					/*
-					 * (non-Javadoc)
-					 * 
-					 * @see
-					 * org.springframework.orm.hibernate3.HibernateCallback#
-					 * doInHibernate(org.hibernate.Session)
-					 */
 					@Override
 					public List<TEmail> doInHibernate(Session session)
 							throws HibernateException, SQLException {
 						Query query = null;
-						String hql = null;
+						String hql = "from TUserEmail t where t.id.user.userid = :userid and t.type = :type";
 						int currPage = userInfo.getCurrPage();
 						currPage = currPage == 0 ? 1 : currPage;
-						switch (emailType) {
-						case TYPE_SEND:// 发件箱
-							hql = " from TUserEmail t where t.id.user.userid = :userid";
+
+						// 收件箱有未读 已读
+						int emailType = userEmail.getType();
+						if (emailType == TYPE_RECE) {
+							query = session.createQuery(hql);
+
+							Boolean isread = userEmail.getIsread();
+							System.out.println(isread);
+							if (isread != null) {
+								hql += " and t.isread = :isread";
+								query.setParameter("isread", userEmail
+										.getIsread());
+							}
+							query.setParameter("userid", userInfo.getUser()
+									.getUserid());
+							query.setParameter("type", userEmail.getType());
+
+						} else {
 							query = session.createQuery(hql);
 							query.setParameter("userid", userInfo.getUser()
 									.getUserid());
-							break;
-						default:
-							break;
+							query.setParameter("type", userEmail.getType());
 						}
-						userInfo.setTotalCount(query.list().size());
-						System.out.println(userInfo.getTotalCount());
+						List<TUserEmail> emails = query.list();
+						for (TUserEmail e : emails) {
+							System.out.println(e.getId().getEmail().getTitle());
+						}
+						userInfo.setTotalCount(emails.size());
+
 						query.setFirstResult((currPage - 1)
 								* UserInfo.PAGE_SIZE);
 						query.setMaxResults(currPage * UserInfo.PAGE_SIZE);
@@ -82,9 +121,26 @@ public class EmailDaoImpl extends HibernateDaoSupport implements EmailDao {
 	}
 
 	@Override
-	public TEmail getSingleEmail(int emailId) {
+	public TEmail getSingleEmail(final TUserEmail userEmail) {
 
-		return null;
+		return getHibernateTemplate().execute(new HibernateCallback<TEmail>() {
+			// 如果邮件类型为收件 设为已读
+			@Override
+			public TEmail doInHibernate(Session session)
+					throws HibernateException, SQLException {
+				TEmail email = (TEmail) session.load(TEmail.class, userEmail
+						.getId().getEmail().getEmailid());
+				Clob content = email.getContent();
+				email.setStrContent(content.getSubString(1L, (int) content
+						.length()));
+				if (userEmail.getType() == TYPE_RECE
+						&& userEmail.getIsread() == false) {
+					userEmail.setIsread(true);
+					session.update(userEmail);
+				}
+				return email;
+			}
+		});
 	}
 
 	// 保存邮件表 邮件附件
@@ -128,5 +184,26 @@ public class EmailDaoImpl extends HibernateDaoSupport implements EmailDao {
 	@Override
 	public void saveUserEmail(TUserEmail userEmail) {
 		getHibernateTemplate().save(userEmail);
+	}
+
+	@Override
+	public void dustToInbox(final TUserEmail userEmail) {
+		getHibernateTemplate().execute(new HibernateCallback<Integer>() {
+
+			@Override
+			public Integer doInHibernate(Session session)
+					throws HibernateException, SQLException {
+				String hql = "update TUserEmail t set t.type = "
+						+ EmailDao.TYPE_RECE
+						+ " where t.id.user.userid = :userid and t.id.email.emailid = :emailid";
+				Query query = session.createQuery(hql);
+				query.setParameter("userid", userEmail.getId().getUser()
+						.getUserid());
+				query.setParameter("emailid", userEmail.getId().getEmail()
+						.getEmailid());
+				return query.executeUpdate();
+			}
+		});
+
 	}
 }

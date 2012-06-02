@@ -14,13 +14,14 @@ import com.oa.service.inf.DataService;
 import com.oa.service.inf.RoleService;
 import com.oa.service.inf.UserService;
 import com.opensymphony.xwork2.ActionContext;
+import com.opensymphony.xwork2.ModelDriven;
 
-public class UserAction extends BaseAction {
+public class UserAction extends BaseAction implements ModelDriven<UserInfo> {
 	private UserService userService;
 	private RoleService roleService;
 	private DataService dataService;
 
-
+	private UserInfo userInfo = new UserInfo();
 
 	public String login() {
 		String sessionVcode = (String) ActionContext.getContext().getSession()
@@ -172,5 +173,10 @@ public class UserAction extends BaseAction {
 		return dataService;
 	}
 
+	@Override
+	public UserInfo getModel() {
+		// TODO Auto-generated method stub
+		return userInfo;
+	}
 
 }

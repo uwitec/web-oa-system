@@ -105,7 +105,7 @@ public class PageTag extends SimpleTagSupport {
 		html.append("<script language='javascript'>");
 		html.append("function ChangePage(page){");
 		html.append("document.form.action = " + "document.form.action + "
-				+ "'?userInfo.currPage='+page;");
+				+ "'?userInfo.currPage='+ page;");
 		html.append("document.form.submit();");
 		html.append("}");
 		html.append("</script>");

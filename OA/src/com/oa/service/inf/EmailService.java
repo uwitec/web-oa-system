@@ -23,5 +23,8 @@ public interface EmailService {
 			List<String> uploadFileName, List<String> uploadContentType,
 			String savePath);
 
-	List<TUserEmail> getEmails(int emailType, boolean isRead, UserInfo userInfo);
+	List<TUserEmail> getEmails(TUserEmail userEmail, UserInfo userInfo);
+	
+	
+	void deleteEmail(TUserEmail userEmail);
 }

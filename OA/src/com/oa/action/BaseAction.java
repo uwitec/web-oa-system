@@ -12,7 +12,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
 public class BaseAction extends ActionSupport implements ServletRequestAware,
-		ServletResponseAware, ModelDriven<UserInfo> {
+		ServletResponseAware {
 	protected HttpServletRequest request;
 	protected HttpServletResponse response;
 
@@ -22,8 +22,6 @@ public class BaseAction extends ActionSupport implements ServletRequestAware,
 	public static String USER_INFO = "userInfo";
 	public static String SINGLE_USER = "singleuser";
 	public static String USER_EMAILS = "userEmails";
-
-	protected UserInfo userInfo = new UserInfo();
 
 	@Override
 	public void setServletRequest(HttpServletRequest request) {
@@ -40,10 +38,5 @@ public class BaseAction extends ActionSupport implements ServletRequestAware,
 		cookie.setMaxAge(60 * 60 * 24 * 7);// 7Ìì
 		cookie.setPath("/");
 		response.addCookie(cookie);
-	}
-
-	@Override
-	public UserInfo getModel() {
-		return userInfo;
 	}
 }
