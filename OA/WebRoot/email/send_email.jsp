@@ -205,12 +205,16 @@ function setDisplay(o) {
 		document.getElementById("type").value = type;
 		document.form.submit();
 	}
+	function init(){
+		var editor = FCKeditorAPI.GetInstance("userEmail.id.email.strContent");
+		editor.EditorDocument.body.innerHTML = '<s:property value="#request.email.strContent"/>';
+	}
 </SCRIPT>
 
 
 	</head>
 
-	<body>
+	<body onload="javascript:init();">
 		<SPAN><s:fielderror></s:fielderror> </SPAN>
 		<form name="form" action='email/saveEmail' method="post"
 			enctype="multipart/form-data">
@@ -221,7 +225,7 @@ function setDisplay(o) {
 					</td>
 					<td>
 						<s:textfield name="userEmail.id.email.receusers" id="receusers"
-							readonly="true"></s:textfield>
+							readonly="true" value="%{#request.email.receusers}"></s:textfield>
 					</td>
 				</tr>
 				<tr>
@@ -229,7 +233,8 @@ function setDisplay(o) {
 						Ö÷Ìâ:
 					</td>
 					<td>
-						<s:textfield name="userEmail.id.email.title"></s:textfield>
+						<s:textfield name="userEmail.id.email.title"
+							value="%{#request.email.title}"></s:textfield>
 					</td>
 				</tr>
 				<tr>
