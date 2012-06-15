@@ -1,7 +1,6 @@
 package com.oa.common;
 
 import java.io.IOException;
-import java.util.Enumeration;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspException;
@@ -9,7 +8,6 @@ import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
 
 import com.oa.action.BaseAction;
-import com.sun.org.apache.regexp.internal.recompile;
 
 public class PageTag extends SimpleTagSupport {
 	private int currPage;
