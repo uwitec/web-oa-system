@@ -84,16 +84,13 @@ public class EmailDaoImpl extends HibernateDaoSupport implements EmailDao {
 
 						// 收件箱有未读 已读
 						int emailType = userEmail.getType();
-						if (emailType == TYPE_RECE) {
-							query = session.createQuery(hql);
+						Boolean isread = userEmail.getIsread();
 
-							Boolean isread = userEmail.getIsread();
-							System.out.println(isread);
-							if (isread != null) {
-								hql += " and t.isread = :isread";
-								query.setParameter("isread", userEmail
-										.getIsread());
-							}
+						if (emailType == TYPE_RECE && isread != null) {
+
+							hql += " and t.isread = :isread";
+							query = session.createQuery(hql);
+							query.setParameter("isread", isread.booleanValue());
 							query.setParameter("userid", userInfo.getUser()
 									.getUserid());
 							query.setParameter("type", userEmail.getType());
@@ -104,10 +101,10 @@ public class EmailDaoImpl extends HibernateDaoSupport implements EmailDao {
 									.getUserid());
 							query.setParameter("type", userEmail.getType());
 						}
+						
+						
 						List<TUserEmail> emails = query.list();
-						for (TUserEmail e : emails) {
-							System.out.println(e.getId().getEmail().getTitle());
-						}
+						
 						userInfo.setTotalCount(emails.size());
 
 						query.setFirstResult((currPage - 1)
@@ -137,6 +134,7 @@ public class EmailDaoImpl extends HibernateDaoSupport implements EmailDao {
 						&& userEmail.getIsread() == false) {
 					userEmail.setIsread(true);
 					session.update(userEmail);
+					session.flush();
 				}
 				return email;
 			}
@@ -153,7 +151,7 @@ public class EmailDaoImpl extends HibernateDaoSupport implements EmailDao {
 					public Integer doInHibernate(Session session)
 							throws HibernateException, SQLException {
 						org.hibernate.Transaction ts = session
-								.beginTransaction();// 尼玛
+								.beginTransaction();
 						// 保存TEmail
 						email.setContent(Hibernate.createClob(" "));
 						session.save(email);
