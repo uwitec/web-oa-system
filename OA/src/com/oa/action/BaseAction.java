@@ -22,6 +22,7 @@ public class BaseAction extends ActionSupport implements ServletRequestAware,
 	public static String USER_INFO = "userInfo";
 	public static String SINGLE_USER = "singleuser";
 	public static String USER_EMAILS = "userEmails";
+	public static String EMAIL = "email";
 
 	@Override
 	public void setServletRequest(HttpServletRequest request) {
