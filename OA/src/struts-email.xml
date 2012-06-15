@@ -13,6 +13,9 @@
 
 
 	<package name="emailPack" extends="struts-default" namespace="/email">
+
+
+
 		<action name="presend" class="com.oa.action.EmailAction"
 			method="preAddEmail">
 			<result name="success">/email/send_email.jsp</result>
@@ -31,6 +34,8 @@
 			method="getEmails">
 			<result name="outbox">/email/outbox.jsp</result>
 			<result name="inbox">/email/inbox.jsp</result>
+			<result name="dust">/email/dust.jsp</result>
+			<result name="draft">/email/draft.jsp</result>
 		</action>
 
 
@@ -39,6 +44,27 @@
 			<result name="success" type="chain">
 				getemail
 			</result>
+		</action>
+
+		<action name="deleteToDust" class="com.oa.action.EmailAction"
+			method="deleteToDust">
+			<result name="success" type="chain">
+				getemail
+			</result>
+		</action>
+
+
+		<action name="dustToInbox" class="com.oa.action.EmailAction"
+			method="dustToInbox">
+			<result name="success" type="chain">
+				getemail
+			</result>
+		</action>
+
+		<action name="getSingleEmail" class="com.oa.action.EmailAction"
+			method="singleEmail">
+			<result name="send">/email/send_email.jsp</result>
+			<result name="view">/email/view_email.jsp</result>
 		</action>
 	</package>
 </struts>
