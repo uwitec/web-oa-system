@@ -13,7 +13,7 @@
 	<head>
 		<base href="<%=basePath%>">
 
-		<title>My JSP 'inbox.jsp' starting page</title>
+		<title>My JSP 'dust.jsp' starting page</title>
 
 		<meta http-equiv="pragma" content="no-cache">
 		<meta http-equiv="cache-control" content="no-cache">
@@ -23,7 +23,6 @@
 		<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
-
 		<style type="text/css">
 <!--
 body {
@@ -64,44 +63,9 @@ body {
 }
 -->
 </style>
-
-		<SCRIPT type="text/javascript">
-	function deleteEmail(emailid, userid){
-		if(confirm('确认删除?')){
-			window.location.href = "<%=path%>/email/deleteEmail?userEmail.type=2&userEmail.id.email.emailid="+emailid+ "&userEmail.id.user.userid=" + userid;
-		}
-	}
-	
-	function select(isread){
-		
-		if(isread != null && isread != ""){
-			var input = document.getElementById("isread");
-			if(input == undefined){
-				input = document.createElement("input");
-				input.name = "userEmail.isread";
-				input.type = "hidden";
-				input.id = "isread";
-				input.value = isread;
-				document.form.appendChild(input);
-			} else {
-				input.value = isread;
-			}
-			
-		} else {
-			var input = document.getElementById("isread");
-			if(input != undefined){
-				document.form.removeChild(input);
-			}
-		}
-		
-	
-	}
-	
-	
-</SCRIPT>
 	</head>
 
-	<body onload="select('<s:property value="userEmail.isread"/>');">
+	<body>
 		<table width="100%" border="0" align="center" cellpadding="0"
 			cellspacing="0">
 			<tr>
@@ -228,7 +192,7 @@ body {
 									<td height="20" bgcolor="#FFFFFF" class="STYLE19"
 										align="center">
 										<s:a
-											href="email/deleteToDust?userEmail.type=2&userEmail.id.email.emailid=%{#userEmail.id.email.emailid}&userEmail.id.user.userid=%{#session.user.userid}">移至垃圾箱</s:a>
+											href="email/dustToInbox?userEmail.type=4&userEmail.id.email.emailid=%{#userEmail.id.email.emailid}&userEmail.id.user.userid=%{#session.user.userid}">移至收件箱</s:a>
 										<s:a
 											href="javascript:deleteEmail('%{#userEmail.id.email.emailid}', '%{#session.user.userid}');">删除</s:a>
 									</td>
@@ -238,14 +202,6 @@ body {
 							</s:iterator>
 						</table>
 					</s:form>
-				</td>
-			</tr>
-			<tr>
-				<td height="20" bgcolor="#FFFFFF" class="STYLE19" align="center"
-					width="20%">
-					<a href="javascript:select(null);	document.form.submit();">全部</a>
-					<a href="javascript:select('false');document.form.submit();;">未读</a>
-					<a href="javascript:select('true');	document.form.submit();">已读</a>
 				</td>
 			</tr>
 		</table>
