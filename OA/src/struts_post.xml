@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+    "http://struts.apache.org/dtds/struts-2.1.7.dtd">
+<struts>
+<constant name="struts.i18n.encoding" value="GBK" />
+	<constant name="struts.devMode" value="true" />
+	<constant name="struts.configuration.xml.reload" value="true" />
+	<constant name="struts.ognl.allowStaticMethodAccess" value="true" />
+	<constant name="struts.multipart.saveDir" value="d:/tomcat" />
+	<constant name="struts.multipart.maxSize" value="15728640" />
+	<constant name="struts.custom.i18n.resources" value="error"></constant>
+
+	<package name="postPack" extends="struts-default" namespace="/tpost">
+		<action name="postAction" class="com.oa.action.PostAction">
+			<interceptor-ref name="fileUpload">
+				<param name="maximumSize">5242880</param>
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result name="success">/post/success.jsp</result>
+			<result name="input">/post/add_post.jsp</result>
+			<param name="savePath">/post</param>
+			<result name="postlist">/post/post.jsp</result>
+			<result name="updateSuccess" type="redirectAction">postAction!selectPost</result>
+			<result name="updatePost" >/post/post_edit.jsp</result>
+	
+			<result name="delete" type="redirectAction">postAction!selectPost</result>
+		</action>
+
+		<action name="postFileAction" class="com.oa.action.PostFileAction"></action>
+	</package>
+	
+</struts>
