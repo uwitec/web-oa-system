@@ -39,28 +39,35 @@ public class EmailAction extends BaseAction implements ModelDriven<UserInfo> {
 		return SUCCESS;
 	}
 
-	@Override
-	public String execute() throws Exception {
-		return super.execute();
-	}
-
 	public String getEmails() {
 		userInfo.setUser((TUser) request.getSession().getAttribute(LOGIN_USER));
 		List<TUserEmail> userEmails = emailService.getEmails(userEmail,
 				userInfo);
 		request.setAttribute(USER_EMAILS, userEmails);
 		request.setAttribute(USER_INFO, getUserInfo());
+
 		if (userEmail.getType() == EmailDao.TYPE_SEND) {// ·¢¼þÏä
 			return "outbox";
 		} else if (userEmail.getType() == EmailDao.TYPE_RECE) { // ÊÕ¼þÏä
 			return "inbox";
 		} else if (userEmail.getType() == EmailDao.TYPE_DUST) { // À¬»øÏä
 			return "dust";
-		} else if (userEmail.getType() == EmailDao.TYPE_DRAFT) { // ²Ý¸åÏä
+		} else { // ²Ý¸åÏä
 			return "draft";
 		}
+	}
 
-		return SUCCESS;
+	public String singleEmail() {
+		List<TData> departmentUsers = dataService.getDatasWithUsers(dataService
+				.getDatas(DataDao.TYPE_DEPARTMENT));
+		request.getSession().setAttribute("departmentUsers", departmentUsers);
+		TEmail email = emailService.getSingleEmail(userEmail);
+		request.setAttribute(EMAIL, email);
+		if (userEmail.getType() == EmailDao.TYPE_DRAFT) {// ²Ý¸åÏä ±à¼­½çÃæ
+			return "send";
+		} else {
+			return "view";
+		}
 	}
 
 	/**
@@ -74,12 +81,25 @@ public class EmailAction extends BaseAction implements ModelDriven<UserInfo> {
 		if (userEmail.getType() == EmailDao.TYPE_SEND) {
 			emailService.saveEmail(userEmail, upload, uploadFileName,
 					uploadContentType, getSavePath());
+		} else if (userEmail.getType() == EmailDao.TYPE_DRAFT) {
+			emailService.saveEmailToDraft(userEmail, upload, uploadFileName,
+					uploadContentType, getSavePath());
 		}
 		return SUCCESS;
 	}
 
 	public String deleteEmail() {
 		emailService.deleteEmail(userEmail);
+		return SUCCESS;
+	}
+
+	public String deleteToDust() {
+		emailService.deleteToDust(userEmail);
+		return SUCCESS;
+	}
+
+	public String dustToInbox() {
+		emailService.dustToInbox(userEmail);
 		return SUCCESS;
 	}
 
