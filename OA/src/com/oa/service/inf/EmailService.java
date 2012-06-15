@@ -8,6 +8,7 @@ import com.oa.dao.pojo.TEmail;
 import com.oa.dao.pojo.TUserEmail;
 
 public interface EmailService {
+	TEmail getSingleEmail(TUserEmail userEmail);
 
 	/**
 	 * ·¢ËÍÓÊ¼þ
@@ -24,7 +25,11 @@ public interface EmailService {
 			String savePath);
 
 	List<TUserEmail> getEmails(TUserEmail userEmail, UserInfo userInfo);
-	
-	
+
 	void deleteEmail(TUserEmail userEmail);
+
+	void deleteToDust(TUserEmail userEmail);
+
+	void dustToInbox(TUserEmail userEmail);
+
 }

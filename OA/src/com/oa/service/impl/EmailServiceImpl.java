@@ -114,4 +114,20 @@ public class EmailServiceImpl implements EmailService {
 		emailDao.deleteEmail(userEmail);
 	}
 
+	@Override
+	public void deleteToDust(TUserEmail userEmail) {
+		emailDao.deleteToDust(userEmail);
+	}
+
+	@Override
+	public void dustToInbox(TUserEmail userEmail) {
+		emailDao.dustToInbox(userEmail);
+	}
+
+	@Override
+	public TEmail getSingleEmail(TUserEmail userEmail) {
+		// TODO Auto-generated method stub
+		return emailDao.getSingleEmail(userEmail);
+	}
+
 }
