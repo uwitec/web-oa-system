@@ -35,7 +35,7 @@ public class EmailTest {
 		// deleteTOdUST();
 		// dustToiNBOX();
 
-		getsingle();
+		 getsingle();
 	}
 
 	private static void getsingle() {
@@ -46,15 +46,16 @@ public class EmailTest {
 		TUserEmail userEmail = new TUserEmail();
 		TUserEmailId id = new TUserEmailId();
 		TEmail email = new TEmail();
-		email.setEmailid(38);
+		email.setEmailid(46);
 		TUser user = new TUser();
-		user.setUserid("aaaa2");
+		user.setUserid("aaaa1");
 		id.setEmail(email);
 		id.setUser(user);
 		userEmail.setIsread(false);
 		userEmail.setType(2);
 
 		userEmail.setId(id);
+		
 		TEmail email2 = emailDao.getSingleEmail(userEmail);
 		System.out.println(email2.getStrContent());
 		for (TEmailFile ef : email2.getEmailFiles()) {
