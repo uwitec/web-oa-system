@@ -81,5 +81,20 @@
 				</param>
 			</result>
 		</action>
+
+		<action name="deleteEmailFile" class="com.oa.action.EmailAction"
+			method="deleteEmailFile">
+			<result name="success" type="json">
+				<param name="includeProperties">
+					userInfo\.message
+				</param>
+			</result>
+			<result name="false" type="json">
+				<param name="includeProperties">
+					userInfo\.message
+				</param>
+			</result>
+		</action>
+
 	</package>
 </struts>

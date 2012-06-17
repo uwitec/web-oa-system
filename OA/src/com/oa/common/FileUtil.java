@@ -45,6 +45,12 @@ public class FileUtil {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmssSSS");
 		String name = dateFormat.format(new Date());
 		return name + ext;
-
 	}
+
+	public static void deleteFile(String fileName) {
+		File file = new File(fileName);
+		if (file.exists())
+			file.delete();
+	}
+
 }

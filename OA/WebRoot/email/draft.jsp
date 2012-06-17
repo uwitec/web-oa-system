@@ -63,6 +63,13 @@ body {
 }
 -->
 </style>
+<SCRIPT type="text/javascript">
+function deleteEmail(emailid, userid){
+		if(confirm('È·ÈÏÉ¾³ý?')){
+			window.location.href = "<%=path%>/email/deleteEmail?userEmail.type=2&userEmail.id.email.emailid="+emailid+ "&userEmail.id.user.userid=" + userid;
+		}
+	}
+</SCRIPT>
 	</head>
 
 	<body>
@@ -177,7 +184,7 @@ body {
 									<td height="20" bgcolor="#FFFFFF" class="STYLE19"
 										align="center">
 										<s:a
-											href="email/getSingleEmail?userEmail.type=3&userEmail.id.email.emailid=%{#userEmail.id.email.emailid}&userEmail.id.user.userid=%{#session.user.userid}">±à¼­</s:a>
+											href="email/viewEmail?userEmail.id.email.emailid=%{#userEmail.id.email.emailid}&userEmail.type=3">±à¼­</s:a>
 										<s:a
 											href="javascript:deleteEmail('%{#userEmail.id.email.emailid}', '%{#session.user.userid}');">É¾³ý</s:a>
 									</td>

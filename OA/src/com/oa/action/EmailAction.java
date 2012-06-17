@@ -1,6 +1,8 @@
 package com.oa.action;
 
 import java.io.File;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import org.apache.struts2.ServletActionContext;
@@ -10,6 +12,7 @@ import com.oa.dao.inf.DataDao;
 import com.oa.dao.inf.EmailDao;
 import com.oa.dao.pojo.TData;
 import com.oa.dao.pojo.TEmail;
+import com.oa.dao.pojo.TEmailFile;
 import com.oa.dao.pojo.TUser;
 import com.oa.dao.pojo.TUserEmail;
 import com.oa.service.inf.DataService;
@@ -27,6 +30,11 @@ public class EmailAction extends BaseAction implements ModelDriven<UserInfo> {
 	private List<String> uploadContentType;
 
 	private String savePath;
+
+	private String fileName;
+	private String oldName;
+
+	private TEmailFile emailFile;
 
 	private List<TEmail> selectedEmails;
 
@@ -57,14 +65,16 @@ public class EmailAction extends BaseAction implements ModelDriven<UserInfo> {
 		}
 	}
 
-	public String singleEmail() {
+	public String viewEmail() {
 		List<TData> departmentUsers = dataService.getDatasWithUsers(dataService
 				.getDatas(DataDao.TYPE_DEPARTMENT));
 		request.getSession().setAttribute("departmentUsers", departmentUsers);
+		userEmail.getId().setUser(
+				(TUser) request.getSession().getAttribute(LOGIN_USER));
 		TEmail email = emailService.getSingleEmail(userEmail);
 		request.setAttribute(EMAIL, email);
 		if (userEmail.getType() == EmailDao.TYPE_DRAFT) {// ²Ý¸åÏä ±à¼­½çÃæ
-			return "send";
+			return "edit";
 		} else {
 			return "view";
 		}
@@ -85,6 +95,25 @@ public class EmailAction extends BaseAction implements ModelDriven<UserInfo> {
 			emailService.saveEmailToDraft(userEmail, upload, uploadFileName,
 					uploadContentType, getSavePath());
 		}
+		return SUCCESS;
+	}
+
+	public String downLoad() {
+		return "download";
+	}
+
+	public InputStream getInputStream() {
+		// ServletActionContext.getResponse().setHeader("Content-Disposition",
+		// "attachment; filename=" + oldName);
+		return ServletActionContext.getServletContext().getResourceAsStream(
+				"upload/email/" + fileName);
+
+	}
+
+	// ajaxÉ¾³ý²Ý¸å¸½¼þ
+	public String deleteEmailFile() {
+		emailService.deleteEmailFile(emailFile);
+		
 		return SUCCESS;
 	}
 
@@ -179,5 +208,34 @@ public class EmailAction extends BaseAction implements ModelDriven<UserInfo> {
 
 	public List<TEmail> getSelectedEmails() {
 		return selectedEmails;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setOldName(String oldName) {
+		try {
+			this.oldName = new String(oldName.getBytes("GBK"), "iso-8859-1");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public String getOldName() {
+		return oldName;
+	}
+
+	public void setEmailFile(TEmailFile emailFile) {
+		this.emailFile = emailFile;
+	}
+
+	public TEmailFile getEmailFile() {
+		return emailFile;
 	}
 }

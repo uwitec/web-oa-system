@@ -14,9 +14,14 @@
         <resourceEdge source="success" routing="0" target="self_update.jsp" />
       </result>
     </action>
-    <action name="updateuser" location="0,0" size="0,0">
+    <action name="selfupdate" location="0,0" size="0,0">
       <result name="success">
         <resourceEdge source="success" routing="0" target="self_updatea_succ.jsp" />
+      </result>
+    </action>
+    <action name="preupdateuser" location="0,0" size="0,0">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="update_user.jsp" />
       </result>
     </action>
     <action name="userlist" location="0,0" size="0,0">
@@ -58,5 +63,6 @@
   <webResource name="adduser.jsp" path="/back/adduser.jsp" location="0,0" size="0,0" />
   <webResource name="self_update.jsp" path="/back/self_update.jsp" location="0,0" size="0,0" />
   <webResource name="self_updatea_succ.jsp" path="/back/self_updatea_succ.jsp" location="0,0" size="0,0" />
+  <webResource name="update_user.jsp" path="/back/update_user.jsp" location="0,0" size="0,0" />
 </Struts2Diagram>
 

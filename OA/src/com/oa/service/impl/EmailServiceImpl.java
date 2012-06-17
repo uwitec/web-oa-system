@@ -16,7 +16,7 @@ import com.oa.dao.pojo.TUserEmail;
 import com.oa.dao.pojo.TUserEmailId;
 import com.oa.service.inf.EmailService;
 
-public class EmailServiceImpl implements EmailService {
+public  class EmailServiceImpl implements EmailService {
 	private EmailDao emailDao;
 
 	public void setEmailDao(EmailDao emailDao) {
@@ -128,6 +128,11 @@ public class EmailServiceImpl implements EmailService {
 	public TEmail getSingleEmail(TUserEmail userEmail) {
 		// TODO Auto-generated method stub
 		return emailDao.getSingleEmail(userEmail);
+	}
+
+	@Override
+	public void deleteEmailFile(TEmailFile emailFile) {
+		emailDao.deleteEmailFile(emailFile);
 	}
 
 }

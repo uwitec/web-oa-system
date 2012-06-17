@@ -111,7 +111,7 @@ body {
 				<td>
 					<s:form id="form" action="email/getemail" method="post">
 						<s:hidden name="userEmail.type" value="1"></s:hidden>
-						
+
 						<table width="100%" border="0" cellpadding="0" cellspacing="1"
 							bgcolor="#a8c7ce">
 							<tr>
@@ -188,7 +188,8 @@ body {
 									</td>
 									<td height="20" bgcolor="#FFFFFF" class="STYLE19"
 										align="center">
-										<a href="email/">查看</a>
+										<s:a
+											href="email/viewEmail?userEmail.id.email.emailid=%{#userEmail.id.email.emailid}&userEmail.type=1">查看</s:a>
 										<s:a
 											href="javascript:deleteEmail('%{#userEmail.id.email.emailid}', '%{#session.user.userid}');">删除</s:a>
 

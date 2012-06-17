@@ -5,10 +5,10 @@ import java.util.List;
 
 import com.oa.common.UserInfo;
 import com.oa.dao.pojo.TEmail;
+import com.oa.dao.pojo.TEmailFile;
 import com.oa.dao.pojo.TUserEmail;
 
 public interface EmailService {
-	TEmail getSingleEmail(TUserEmail userEmail);
 
 	/**
 	 * ·¢ËÍÓÊ¼þ
@@ -32,4 +32,7 @@ public interface EmailService {
 
 	void dustToInbox(TUserEmail userEmail);
 
+	TEmail getSingleEmail(TUserEmail userEmail);
+
+	void deleteEmailFile(TEmailFile emailFile);
 }

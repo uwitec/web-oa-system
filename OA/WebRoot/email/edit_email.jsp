@@ -23,6 +23,9 @@
 		<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
+		<SCRIPT type="text/javascript" src="js/oa/jquery-1.7.2.js">
+		</SCRIPT>
+
 		<script type="text/javascript">
 
 var i= <s:property value='#request.email.emailFiles.size()'/>;
@@ -54,6 +57,28 @@ function addMore() {
 	td.appendChild(button);
 	i++;
 }
+
+
+	function deleteFile(efid){
+		alert(efid);
+		var params = 'emailFile.efid=' + efid; 
+		$.ajax( {
+			url : 'deleteEmailFile',
+			type : 'post',
+			dataType : 'json',
+			data : params,
+			success : function(json){
+				var m = json.userInfo.message;
+				if(m == 'success'){
+					alert('删除成功');
+					i--;
+					document.getElementById("fj").removeChild(document.getElementById(efid))
+				}
+			};
+		});
+	}
+	
+
 
 </script>
 
@@ -241,14 +266,14 @@ function setDisplay(o) {
 				</tr>
 				<Tr>
 					<Td>
-						已有附件(点击删除)
+						附件
 					</Td>
-					<TD>
+					<TD id="fj">
 						<s:iterator value="#request.email.emailFiles" var="emailFile">
-							<s:a
-								href="email/download?fileName=%{#emailFile.newname}&oldName=%{#emailFile.oldname}">
-								<s:property value="#emailFile.oldname" />
-							</s:a>
+							<span id="<s:property value='%{#emailFile.efid}'/>"> <s:property
+									value="#emailFile.oldname" /> <input type="button" value="删除"
+									onclick="javascript:deleteFile(<s:property value='#emailFile.efid'/>)" />
+							</span>
 						</s:iterator>
 					</TD>
 				</Tr>
@@ -260,7 +285,7 @@ function setDisplay(o) {
 				<TR>
 					<TD colspan="1" width="80%">
 						<s:hidden value="1" name="userEmail.type" id="type"></s:hidden>
-						<input type="hidden" name="userEmail.id.email.content" value="">
+						<input type="hidden" name="userEmail.id.email.strContent" value="">
 						<FCK:editor id="userEmail.id.email.strContent" width="75%"
 							height="320"
 							fontNames="宋体;黑体;隶书;楷体_GB2312;Arial;Comic Sans MS;Courier 
