@@ -228,6 +228,8 @@ body {
 									<td height="20" bgcolor="#FFFFFF" class="STYLE19"
 										align="center">
 										<s:a
+											href="email/viewEmail?userEmail.id.email.emailid=%{#userEmail.id.email.emailid}&userEmail.type=2&userEmail.isread=%{#userEmail.isread}">²é¿´</s:a>
+										<s:a
 											href="email/deleteToDust?userEmail.type=2&userEmail.id.email.emailid=%{#userEmail.id.email.emailid}&userEmail.id.user.userid=%{#session.user.userid}">ÒÆÖÁÀ¬»øÏä</s:a>
 										<s:a
 											href="javascript:deleteEmail('%{#userEmail.id.email.emailid}', '%{#session.user.userid}');">É¾³ý</s:a>

@@ -24,7 +24,7 @@
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
 		<script type="text/javascript">
-var i = 1;
+var i = 0;
 function addMore() {
 	if (i >= 3) {
 		alert("超过三个附件");
@@ -215,7 +215,7 @@ function setDisplay(o) {
 	</head>
 
 	<body onload="javascript:init();">
-		<SPAN><s:fielderror></s:fielderror> </SPAN>
+		<SPAN><s:fielderror></s:fielderror> <s:actionerror /> </SPAN>
 		<form name="form" action='email/saveEmail' method="post"
 			enctype="multipart/form-data">
 			<table align="center" width="100%" height="80%" border="1">

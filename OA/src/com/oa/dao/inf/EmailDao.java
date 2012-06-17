@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.oa.common.UserInfo;
 import com.oa.dao.pojo.TEmail;
+import com.oa.dao.pojo.TEmailFile;
 import com.oa.dao.pojo.TUser;
 import com.oa.dao.pojo.TUserEmail;
 
@@ -43,4 +44,7 @@ public interface EmailDao {
 	 * сю╬ци╬ЁЩ
 	 * */
 	void deleteEmail(TUserEmail userEmail);
+	
+	
+	void deleteEmailFile(TEmailFile emailFile);
 }

@@ -23,6 +23,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import com.oa.common.UserInfo;
 import com.oa.dao.inf.EmailDao;
 import com.oa.dao.pojo.TEmail;
+import com.oa.dao.pojo.TEmailFile;
 import com.oa.dao.pojo.TUser;
 import com.oa.dao.pojo.TUserEmail;
 import com.sun.org.apache.xpath.internal.operations.Bool;
@@ -101,10 +102,9 @@ public class EmailDaoImpl extends HibernateDaoSupport implements EmailDao {
 									.getUserid());
 							query.setParameter("type", userEmail.getType());
 						}
-						
-						
+
 						List<TUserEmail> emails = query.list();
-						
+
 						userInfo.setTotalCount(emails.size());
 
 						query.setFirstResult((currPage - 1)
@@ -203,5 +203,10 @@ public class EmailDaoImpl extends HibernateDaoSupport implements EmailDao {
 			}
 		});
 
+	}
+
+	@Override
+	public void deleteEmailFile(TEmailFile emailFile) {
+		getHibernateTemplate().delete(emailFile);
 	}
 }

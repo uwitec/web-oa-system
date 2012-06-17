@@ -61,10 +61,17 @@
 			</result>
 		</action>
 
-		<action name="getSingleEmail" class="com.oa.action.EmailAction"
-			method="singleEmail">
-			<result name="send">/email/send_email.jsp</result>
+		<action name="viewEmail" class="com.oa.action.EmailAction"
+			method="viewEmail">
 			<result name="view">/email/view_email.jsp</result>
+			<result name="edit">/email/edit_email.jsp</result>
+		</action>
+
+		<action name="download" class="com.oa.action.EmailAction"
+			method="downLoad">
+			<result name="download" type="stream">
+				<param name="contentDisposition">attachment;filename="${oldName}"</param>
+			</result>
 		</action>
 	</package>
 </struts>

@@ -63,6 +63,15 @@ body {
 }
 -->
 </style>
+
+<SCRIPT type="text/javascript">
+function deleteEmail(emailid, userid){
+		if(confirm('х╥хои╬ЁЩ?')){
+			window.location.href = "<%=path%>/email/deleteEmail?userEmail.type=2&userEmail.id.email.emailid="+emailid+ "&userEmail.id.user.userid=" + userid;
+		}
+	}
+</SCRIPT>
+
 	</head>
 
 	<body>

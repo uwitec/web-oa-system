@@ -16,9 +16,35 @@
       <result name="outbox">
         <resourceEdge source="outbox" routing="0" target="outbox.jsp" />
       </result>
+      <result name="inbox">
+        <resourceEdge source="inbox" routing="0" target="inbox.jsp" />
+      </result>
+      <result name="dust">
+        <resourceEdge source="dust" routing="0" target="dust.jsp" />
+      </result>
+      <result name="draft">
+        <resourceEdge source="draft" routing="0" target="draft.jsp" />
+      </result>
     </action>
     <action name="deleteEmail" location="0,0" size="0,0">
       <result name="success" />
+    </action>
+    <action name="deleteToDust" location="0,0" size="0,0">
+      <result name="success" />
+    </action>
+    <action name="dustToInbox" location="0,0" size="0,0">
+      <result name="success" />
+    </action>
+    <action name="viewEmail" location="0,0" size="0,0">
+      <result name="send">
+        <resourceEdge source="send" routing="0" target="send_email.jsp" />
+      </result>
+      <result name="view">
+        <resourceEdge source="view" routing="0" target="view_email.jsp" />
+      </result>
+    </action>
+    <action name="download" location="0,0" size="0,0">
+      <result name="download" />
     </action>
   </package>
   <webResource name="index.jsp" path="/index.jsp" location="895,185" size="150,55" />
@@ -31,5 +57,9 @@
   <webResource name="adduser.jsp" path="/back/adduser.jsp" location="10,1445" size="150,55" />
   <webResource name="send_email.jsp" path="/email/send_email.jsp" location="0,0" size="0,0" />
   <webResource name="outbox.jsp" path="/email/outbox.jsp" location="0,0" size="0,0" />
+  <webResource name="inbox.jsp" path="/email/inbox.jsp" location="0,0" size="0,0" />
+  <webResource name="dust.jsp" path="/email/dust.jsp" location="0,0" size="0,0" />
+  <webResource name="draft.jsp" path="/email/draft.jsp" location="0,0" size="0,0" />
+  <webResource name="view_email.jsp" path="/email/view_email.jsp" location="0,0" size="0,0" />
 </Struts2Diagram>
 
