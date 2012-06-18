@@ -44,7 +44,7 @@ public class TPostFileDaoImp extends HibernateDaoSupport implements TPostFileDao
 	@Override
 	public List<TPostFile> selectTPostFiles(int postId) {
 		// TODO Auto-generated method stub
-		return null;
+		return null ;
 	}
 	//找出所有的公告
 	@Override

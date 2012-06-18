@@ -8,18 +8,20 @@
     <class name="com.oa.dao.pojo.TPostFile" table="T_POST_FILE" schema="OA">
         <id name="pfid" type="java.lang.Integer">
             <column name="PFID" precision="8" scale="0" />
-            <generator class="increment" />
+           			<generator class="sequence">
+				<param name="sequence">SEQ_T_POST_FILE</param>
+			</generator>
         </id>
         <many-to-one name="tPost" class="com.oa.dao.pojo.TPost" fetch="select">
             <column name="POSTID" precision="8" scale="0" />
         </many-to-one>
-        <property name="oldname" type="java.lang.String">
+        <property generated="never" lazy="false" name="oldname" type="java.lang.String">
             <column name="OLDNAME" length="100" />
         </property>
-        <property name="newname" type="java.lang.String">
+        <property  generated="never" lazy="false" name="newname" type="java.lang.String">
             <column name="NEWNAME" length="100" />
         </property>
-        <property name="del" type="java.lang.Boolean">
+        <property generated="never" lazy="false" name="del" type="java.lang.Boolean">
             <column name="DEL" precision="1" scale="0" />
         </property>
     </class>

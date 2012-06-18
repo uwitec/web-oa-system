@@ -2,12 +2,9 @@ package com.oa.action;
 
 import java.io.File;
 import java.io.PrintWriter;
-
 import javax.servlet.http.HttpServletResponse;
-
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.StrutsStatics;
-
 import com.oa.dao.impl.TPostFileDaoImp;
 import com.oa.dao.inf.TPostFileDao;
 import com.oa.dao.pojo.TPostFile;
