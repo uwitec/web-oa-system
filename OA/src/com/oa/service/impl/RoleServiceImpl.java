@@ -50,9 +50,7 @@ public class RoleServiceImpl implements RoleService {
 
 	@Override
 	public void findRoles(UserInfo userInfo) {
-		// return roleDao.getRoles(roleInfo.getRole().getRolename());
 		roleDao.findRoles(userInfo);
-		// return (List<TRole>) roleInfo.getRoleList();
 	}
 
 	@Override

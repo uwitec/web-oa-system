@@ -107,7 +107,6 @@ public class RoleDaoImpl extends HibernateDaoSupport implements RoleDao {
 								"select new TRole(role.id, role.rolename, role.roleinfo) from TRole role where 1 = 1");
 						StringBuffer countHql = new StringBuffer(
 								"select count(*) from TRole role where 1 = 1");
-
 						String rolename = userInfo.getRole().getRolename();
 						String roleinfo = userInfo.getRole().getRoleinfo();
 						int currPage = userInfo.getCurrPage();

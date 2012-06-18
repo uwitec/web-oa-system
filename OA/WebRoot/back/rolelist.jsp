@@ -173,9 +173,9 @@ departmentObj.add(optionObj);
 								<td height="20" bgcolor="#FFFFFF">
 									<div align="center" class="STYLE21">
 										<a
-											href="role/getrole?role.roleid=<s:property value="%{#role.roleid}"/>">查看</a>|
+											href="role/getrole?userInfo.role.roleid=<s:property value="%{#role.roleid}"/>">查看</a>|
 										<a
-											href="role/preupdaterole?role.roleid=<s:property value="#role.roleid"/>">修改</a>|
+											href="role/preupdaterole?userInfo.role.roleid=<s:property value="#role.roleid"/>">修改</a>|
 										<a
 											href="javascript:deleteRole('<s:property value='#role.roleid'/>')">删除</a>
 									</div>

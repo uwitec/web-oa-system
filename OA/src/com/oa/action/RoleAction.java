@@ -17,6 +17,14 @@ public class RoleAction extends BaseAction {
 	
 	private UserInfo userInfo = new UserInfo();
 
+	public UserInfo getUserInfo() {
+		return userInfo;
+	}
+
+	public void setUserInfo(UserInfo userInfo) {
+		this.userInfo = userInfo;
+	}
+
 	public DataService getDataService() {
 		return dataService;
 	}
@@ -59,13 +67,13 @@ public class RoleAction extends BaseAction {
 	}
 
 	public String preAddRole() {
-		List<TData> departmentList = dataService
-				.getDatas(DataDao.TYPE_DEPARTMENT);
-		List<TData> jobList = dataService.getDatas(DataDao.TYPE_JOB);
-		List<TData> provinceList = dataService.getDatas(DataDao.TYPE_PROVINCE);
-		request.getSession().setAttribute("departmentList", departmentList);
-		request.getSession().setAttribute("jobList", jobList);
-		request.getSession().setAttribute("provinceList", provinceList);
+//		List<TData> departmentList = dataService
+//				.getDatas(DataDao.TYPE_DEPARTMENT);
+//		List<TData> jobList = dataService.getDatas(DataDao.TYPE_JOB);
+//		List<TData> provinceList = dataService.getDatas(DataDao.TYPE_PROVINCE);
+//		request.getSession().setAttribute("departmentList", departmentList);
+//		request.getSession().setAttribute("jobList", jobList);
+//		request.getSession().setAttribute("provinceList", provinceList);
 		return SUCCESS;
 	}
 
