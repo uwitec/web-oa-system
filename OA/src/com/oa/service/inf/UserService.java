@@ -11,19 +11,15 @@ public interface UserService {
 
 	void findUsers(UserInfo userInfo);
 
-
 	TUser getUser(String userid);
 
 	void deleteUser(TUser user);
 	
-	
 	void addUser(TUser user);
-	
-	boolean isUserIdExists(String userid);
 	
 	void updateUser(TUser user);
 	
-	
 	void selfUpdate(TUser user);
-	
+
+	boolean isUserIdExists(String userid);
 }

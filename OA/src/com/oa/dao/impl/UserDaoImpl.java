@@ -135,7 +135,7 @@ public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
 				String hql = "select count(*) from TUser user where user.userid = :userid";
 				Query query = session.createQuery(hql);
 				query.setString("userid", userid);
-				return (Long) query.uniqueResult() == 0L ? false : true;
+				return (Long) query.uniqueResult() == 0 ? false : true;
 			}
 		});
 	}

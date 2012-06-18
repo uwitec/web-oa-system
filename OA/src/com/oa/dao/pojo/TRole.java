@@ -24,9 +24,17 @@ public class TRole implements java.io.Serializable {
 	public TRole() {
 	}
 
-	/** full constructor */
-	public TRole(String rolename, String roleinfo, Boolean del, Set users) {
+	public TRole(Integer roleid,String rolename, String roleinfo) {
+		this.roleid = roleid;
 		this.rolename = rolename;
+		this.roleinfo = roleinfo;
+	}
+
+	/** full constructor */
+	public TRole(Integer roleid, String rolename, String roleinfo, Boolean del,
+			Set users) {
+		this.rolename = rolename;
+		this.roleid = roleid;
 		this.roleinfo = roleinfo;
 		this.del = del;
 		this.users = users;
@@ -39,6 +47,7 @@ public class TRole implements java.io.Serializable {
 	}
 
 	public void setRoleid(Integer roleid) {
+		System.out.println("setset-------------------------------");
 		this.roleid = roleid;
 	}
 
@@ -81,6 +90,5 @@ public class TRole implements java.io.Serializable {
 	public Set<TMenu> getMenus() {
 		return menus;
 	}
-
 
 }

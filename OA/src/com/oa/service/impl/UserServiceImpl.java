@@ -31,9 +31,6 @@ public class UserServiceImpl implements UserService {
 		userDao.findUsers(userInfo);
 	}
 
-
-	
-
 	@Override
 	public TUser getUser(String userid) {
 		return userDao.getUser(userid);
@@ -50,11 +47,6 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean isUserIdExists(String userid) {
-		return userDao.isUserIdExists(userid);
-	}
-
-	@Override
 	public void updateUser(TUser user) {
 		userDao.updateUser(user);
 	}
@@ -62,6 +54,12 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void selfUpdate(TUser user) {
 		userDao.selfUpdate(user);
+	}
+
+	@Override
+	public boolean isUserIdExists(String userid) {
+		// TODO Auto-generated method stub
+		return userDao.isUserIdExists(userid);
 	}
 
 }
