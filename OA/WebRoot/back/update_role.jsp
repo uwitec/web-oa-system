@@ -110,6 +110,7 @@ body {
 					</div>
 				</td>
 			</tr>
+			<s:form action="selfupdate" namespace="/role" method="post">
 			<tr bgcolor="#FFFFFF">
 				<td height="20" bgcolor="#FFFFFF" class="STYLE6" width="45%"
 					align="right">
@@ -133,11 +134,12 @@ body {
 				<td height="20" class="STYLE6"></td>
 			</tr>
 			<tr>
-			<td></td>
+				<td></td>
 				<td height="20" bgcolor="d3eaef" class="STYLE6" align="left">
 					<s:submit value="Ìá½»" />
 				</td>
-			<tr />
+			</tr>
+			</s:form>
 		</table>
 
 
