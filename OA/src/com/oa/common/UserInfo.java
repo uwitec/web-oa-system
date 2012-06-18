@@ -3,6 +3,7 @@ package com.oa.common;
 import java.io.Serializable;
 import java.util.List;
 
+import com.oa.dao.pojo.TRole;
 import com.oa.dao.pojo.TUser;
 
 public class UserInfo implements Serializable {
@@ -15,12 +16,30 @@ public class UserInfo implements Serializable {
 	private String url;
 
 	private List<TUser> userList;
+	private List<TRole> roleList;
 	private String message;
 	private String vcode;
 	private String newPassword;
 	private String repeatPassword;
 
 	private TUser user = new TUser();
+	private TRole role = new TRole();
+
+	public List<TRole> getRoleList() {
+		return roleList;
+	}
+
+	public void setRoleList(List<TRole> roleList) {
+		this.roleList = roleList;
+	}
+
+	public TRole getRole() {
+		return role;
+	}
+
+	public void setRole(TRole role) {
+		this.role = role;
+	}
 
 	public int getCurrPage() {
 		return currPage;
@@ -105,4 +124,5 @@ public class UserInfo implements Serializable {
 	public String getUrl() {
 		return url;
 	}
+
 }

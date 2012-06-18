@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Struts2Diagram version="2.0">
+  <package name="rolePack" location="0,0" size="0,0">
+    <action name="preupdate" location="0,0" size="0,0">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="self_update.jsp" />
+      </result>
+    </action>
+    <action name="selfupdate" location="0,0" size="0,0">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="self_updatea_succ.jsp" />
+      </result>
+    </action>
+    <action name="preupdaterole" location="0,0" size="0,0">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="update_role.jsp" />
+      </result>
+    </action>
+    <action name="rolelist" location="0,0" size="0,0">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="rolelist.jsp" />
+      </result>
+    </action>
+    <action name="getrole" location="0,0" size="0,0">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="checkrole.jsp" />
+      </result>
+    </action>
+    <action name="delrole" location="0,0" size="0,0">
+      <result name="success" />
+    </action>
+    <action name="preadd" location="0,0" size="0,0">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="addrole.jsp" />
+      </result>
+    </action>
+    <action name="addrole" location="0,0" size="0,0">
+      <result name="success" />
+      <result name="input">
+        <resourceEdge source="input" routing="0" target="addrole.jsp" />
+      </result>
+    </action>
+    <action name="vcode" location="0,0" size="0,0" />
+  </package>
+  <package name="ajaxPack" location="1167,14" size="180,92">
+    <action name="checkrolename" location="0,0" size="0,0">
+      <result name="true" />
+      <result name="false" />
+    </action>
+  </package>
+  <webResource name="index.jsp" path="/index.jsp" location="900,185" size="150,55" />
+  <webResource name="login.jsp" path="/login.jsp" location="655,10" size="150,55" />
+  <webResource name="self_update.jsp" path="/back/self_update.jsp" location="911,360" size="150,55" />
+  <webResource name="self_updatea_succ.jsp" path="/back/self_updatea_succ.jsp" location="892,535" size="150,55" />
+  <webResource name="update_user.jsp" path="/back/update_user.jsp" location="908,710" size="150,55" />
+  <webResource name="userlist.jsp" path="/back/userlist.jsp" location="888,885" size="150,55" />
+  <webResource name="checkuser.jsp" path="/back/checkuser.jsp" location="880,1060" size="150,55" />
+  <webResource name="adduser.jsp" path="/back/adduser.jsp" location="10,1445" size="150,55" />
+  <webResource name="update_role.jsp" path="/back/update_role.jsp" location="0,0" size="0,0" />
+  <webResource name="rolelist.jsp" path="/back/rolelist.jsp" location="0,0" size="0,0" />
+  <webResource name="checkrole.jsp" path="/back/checkrole.jsp" location="0,0" size="0,0" />
+  <webResource name="addrole.jsp" path="/back/addrole.jsp" location="0,0" size="0,0" />
+</Struts2Diagram>
+
