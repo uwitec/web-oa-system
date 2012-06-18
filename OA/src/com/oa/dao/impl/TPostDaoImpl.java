@@ -1,5 +1,6 @@
 package com.oa.dao.impl;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Writer;
 import java.sql.Clob;
@@ -28,82 +29,129 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import com.oa.common.UserInfo;
 import com.oa.dao.inf.TPostDao;
 import com.oa.dao.pojo.TData;
+import com.oa.dao.pojo.TEmail;
 import com.oa.dao.pojo.TPost;
 import com.oa.dao.pojo.TUser;
+import com.oa.dao.pojo.TUserEmail;
+import com.oa.dao.pojo.TUserPost;
 import com.oa.util.HibernateSessionFactory;
 import com.oa.util.PostInfo;
 
 public class TPostDaoImpl extends HibernateDaoSupport implements TPostDao{
 
+ 
+//时间比较select * from t_post t where t.begindate>'8-5月-12' and t.enddate<'30-7月-2012'
+
+	//保存TPost对象
 	@Override
-	public int addPost(TPost tPost) {
-//	 getHibernateTemplate().save(tPost);
-		Session session=null; 
-		Transaction transaction=null;		
-		session= HibernateSessionFactory.getSession();
-		transaction = session.beginTransaction();
-		String hql = "insert into T_POST(TITLE,CONTENT,BEGINDATE,ENDDATE,STATUS," +
-				"HASFILE,ADDUSER,ADDTIME,UPDATEUSER,UPDATETIME) values('"
-				+ tPost.getTitle() + "',empty_clob(),sysdate,sysdate,0,0,'"
-				+ tPost.gettUserByAdduser()+ "',sysdate,null,sysdate)";
-//		String sqlSeq = "select  SEQ_T_POST.currval from dual";
-		Query query =session.createQuery(hql);
+	public Integer savePost(final TPost tPost) {
+		Integer postId = getHibernateTemplate().execute(
+				new HibernateCallback<Integer>() {
+
+					@Override
+					public Integer doInHibernate(Session session)
+							throws HibernateException, SQLException {
+						org.hibernate.Transaction ts = session
+								.beginTransaction();
+						
+						tPost.setContent(Hibernate.createClob(" "));
+						session.save(tPost);
+						session.flush();
+						session.refresh(tPost, LockMode.UPGRADE);
+						Clob clob = tPost.getContent();
+						Writer writer = clob.setCharacterStream(0);
+						try {
+							writer.write(tPost.getStrContent());
+							writer.flush();
+						} catch (IOException e) {
+							e.printStackTrace();
+						} finally {
+							try {
+								writer.close();
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
+						}
+						Integer postId = (Integer) session.save(tPost);
+						ts.commit();
+						return postId;
+					}
+				});
+		return postId;
+	}
+	@Override
+	public void deletePost(final TPost tpost) {
+//		 getHibernateTemplate().execute(new HibernateCallback<TPost>() {
+//			
+//			@Override
+//			public void doInHibernate(Session session)
+//					throws HibernateException, SQLException {
+//				session.delete(tpost);			 
+//			}
+//		});return true;
+		  getHibernateTemplate().delete(tpost);		
+	}
 	
-		try {
-//			String sqlClob = "select content from t_post where postid="
-//				+ tPost.getPostid() + " for update";
-//			query =session.createQuery(sqlClob);
-			session.refresh(tPost, LockMode.UPGRADE);
+	
+	@Override
+	public int upadtePost(final TPost tPost) {
+		Integer postId = getHibernateTemplate().execute(
+				new HibernateCallback<Integer>() {
+
+					@Override
+					public Integer doInHibernate(Session session)
+							throws HibernateException, SQLException {
+						org.hibernate.Transaction ts = session
+								.beginTransaction();
+						String hql = "update TPost set t.title ='"
+							+ tPost.getTitle()
+							+ "',POSTCONTENT=empty_clob() where t.postid="
+							+ tPost.getPostid();
+						Query query = session.createQuery(hql);
+						query.setParameter("title", tPost.getTitle());
+						query.setParameter("postid", tPost.getPostid());
+						
+						//tPost.setContent(Hibernate.createClob(" "));
+						session.save(tPost);
+						session.flush();// insert postFIle 级联
+						session.refresh(tPost, LockMode.UPGRADE);
+						Clob clob = tPost.getContent();
+						Writer writer = clob.setCharacterStream(0);
+						try {
+							writer.write(tPost.getStrContent());
+							writer.flush();
+						} catch (IOException e) {
+							e.printStackTrace();
+						} finally {
+							try {
+								writer.close();
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
+						}
+						Integer postId = (Integer) session.save(tPost);
+						ts.commit();
+						return postId;
+					}
+				});
+		return postId;
+	}
+	//通过Id获得公告
+	public TPost selectSinglePost(final int postid) {
+		return getHibernateTemplate().execute(new HibernateCallback<TPost>() {
 			
-			Clob clob = tPost.getContent();
-			Writer writer = clob.setCharacterStream(0);
-			writer.write("---clob--");
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	  return tPost.getPostid();
+			@Override
+			public TPost doInHibernate(Session session)
+					throws HibernateException, SQLException {
+				TPost tPost = (TPost) session.load(TPost.class, postid);
+				Clob content = tPost.getContent();
+				tPost.setStrContent(content.getSubString(1L, (int) content
+						.length()));				
+				return tPost;
+			}
+		});
 	}
-
-	@Override
-	public boolean deletePost(int postId) {
-		 getHibernateTemplate().delete(postId);
-		return true;
-	}
-
-	@Override
-	public List<TPost> selectPosts(String title) {
-		Session session=null; 
-		session=HibernateSessionFactory.getSession();
-		List<TPost> tposts = new ArrayList<TPost>();
-		String hql= "from t_post where  TITLE like '%" + title
-				+ "%'";
-		Query query =session.createQuery(hql);
-	 
-		tposts=query.list();
-		
-		for (TPost tPost : tposts) {
-			String  out= "tPost.getContent():"+tPost.getContent()+
-			"tPost.getTitle():"+tPost.getTitle()+
-			"tPost.gettUserByAdduser():"+tPost.gettUserByAdduser()+
-			"tPost.getAddtime():"+tPost.getAddtime();
-		}
-	return tposts;
-		
-	}
-
-	@Override
-	public TPost selectSinglePost(int postId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int upadtePost(TPost tPost) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
+	
 	@Override
 	public List<TPost> findAll(final PostInfo postInfo) {
 		List<TPost> tpostList = getHibernateTemplate().executeFind(
@@ -113,12 +161,12 @@ public class TPostDaoImpl extends HibernateDaoSupport implements TPostDao{
 							throws HibernateException, SQLException {
 
 						StringBuffer hql = new StringBuffer(
-								"select new TUser(user.userid, user.realname, user.department, user.job, user.addtime) from TUser user where 1 = 1");
+								"select new TPost(tpost.postid, tpost.title, tpost.content,tpost.begindate,tpost.enddate,tpost.status,tpost.adduser, tpost.addtime) from TPost tpost where 1 = 1");
 						StringBuffer countHql = new StringBuffer(
-								"select count(*) from TUser user where 1 = 1");
+								"select count(*) from TPost tpost where 1 = 1");
 
 						String title = postInfo.getTpost().getTitle();
-						Boolean status = postInfo.getTpost().getStatus();
+						Integer status = postInfo.getTpost().getStatus();
 						TUser addUser= postInfo.getTpost().gettUserByAdduser();
 						int currPage = postInfo.getCurrPage();
 						currPage = currPage == 0 ? 1 : currPage;
@@ -145,5 +193,114 @@ public class TPostDaoImpl extends HibernateDaoSupport implements TPostDao{
 		postInfo.setTpostList(tpostList);
 		return tpostList;
 	}
+	//级联表列出用户所有公告
+	@Override
+	public List<TUserPost> selectPosts(final TUserPost tUserPost, final UserInfo userInfo) {
+		return getHibernateTemplate().executeFind(
+				new HibernateCallback<List<TPost>>() {
+					@Override
+					public List<TPost> doInHibernate(Session session)
+							throws HibernateException, SQLException {
+						Query query = null;
+						String hql = "from TUserPost t where t.id.user.userid = :userid";
+						int currPage = userInfo.getCurrPage();
+						currPage = currPage == 0 ? 1 : currPage;
+
+					 
+						
+
+																	
+						List<TUserPost>  tposts = query.list();
+						for (TUserPost t : tposts) {
+							System.out.println(t.getId().gettPost().getTitle());
+						}
+						userInfo.setTotalCount(tposts.size());
+						query.setFirstResult((currPage - 1)
+								* UserInfo.PAGE_SIZE);
+						query.setMaxResults(currPage * UserInfo.PAGE_SIZE);
+
+						return query.list();
+					}
+				});
+	}
+	@Override
+	public List<TPost> selectPosts(final TPost tPost, final UserInfo userInfo) {
+		return getHibernateTemplate().executeFind(
+				new HibernateCallback<List<TPost>>() {
+					@Override
+					public List<TPost> doInHibernate(Session session)
+							throws HibernateException, SQLException {
+						Query query = null;
+						String hql = "from TUserPost t where t.id.user.userid = :userid";
+						int currPage = userInfo.getCurrPage();
+						currPage = currPage == 0 ? 1 : currPage;
+														
+						List<TUserPost>  tposts = query.list();
+						for (TUserPost t : tposts) {
+							System.out.println(t.getId().gettPost().getTitle());
+						}
+						userInfo.setTotalCount(tposts.size());
+						query.setFirstResult((currPage - 1)
+								* UserInfo.PAGE_SIZE);
+						query.setMaxResults(currPage * UserInfo.PAGE_SIZE);
+
+						return query.list();
+					}
+				});
+	}
+	
+	
+	
+	//通过级联删除
+	@Override
+	public void deletePost(final TUserPost tpost) {
+		getHibernateTemplate().execute(new HibernateCallback<Integer>() {
+
+			@Override
+			public Integer doInHibernate(Session session)
+					throws HibernateException, SQLException {
+				String hql = "delete from TUserPost t where t.id.user.userid = :userid and t.id.post.postid = :postid";
+				Query query = session.createQuery(hql);
+				
+				query.setParameter("userid",  tpost.getId().gettUser().getUserid());
+				query.setParameter("postid", tpost.getId().gettPost().getPostid());
+
+				return query.executeUpdate();
+			}
+		});
+		
+	}
+
+
+
+
+	
+	//级联表的记录增加
+	@Override
+	public void saveUserPost(TUserPost tUserPost) {
+		getHibernateTemplate().save(tUserPost);
+		
+	}
+	//通过级选择
+	@Override
+	public TPost selectSinglePost(final TUserPost tUserPost) {
+		return getHibernateTemplate().execute(new HibernateCallback<TPost>() {
+			
+			@Override
+			public TPost doInHibernate(Session session)
+					throws HibernateException, SQLException {
+				TPost tPost = (TPost) session.load(TPost.class, tUserPost
+						.getId().gettPost().getPostid());
+				Clob content = tPost.getContent();
+				tPost.setStrContent(content.getSubString(1L, (int) content
+						.length()));
+ 
+				return tPost;
+			}
+		});
+	}
+	
+
+	
 
 }

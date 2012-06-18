@@ -18,13 +18,14 @@ public class TPost implements java.io.Serializable {
 	private TUser tUserByAdduser;
 	private String title;
 	private Clob content;
+	private String strContent;
 	private Date begindate;
 	private Date enddate;
-	private Boolean status;
+	private Integer status;
 	private Boolean hasfile;
 	private Date addtime;
 	private Date updatetime;
-	private Set tUserPosts = new HashSet(0);
+	private Set<TUserPost> tUserPosts = new HashSet<TUserPost> (0);
 	private Set<TPostFile> tPostFiles = new HashSet<TPostFile>(0);
 
 	// Constructors
@@ -35,7 +36,7 @@ public class TPost implements java.io.Serializable {
 
 	/** full constructor */
 	public TPost(TUser TUserByUpdateuser, TUser TUserByAdduser, String title,
-			Clob content, Date begindate, Date enddate, Boolean status,
+			Clob content, Date begindate, Date enddate, Integer status,
 			Boolean hasfile, Date addtime, Date updatetime, Set tUserPosts,
 			Set TPostFiles) {
 		this.tUserByUpdateuser = tUserByUpdateuser;
@@ -56,6 +57,14 @@ public class TPost implements java.io.Serializable {
 
 	public Integer getPostid() {
 		return this.postid;
+	}
+
+	public String getStrContent() {
+		return strContent;
+	}
+
+	public void setStrContent(String strContent) {
+		this.strContent = strContent;
 	}
 
 	public void setPostid(Integer postid) {
@@ -98,11 +107,13 @@ public class TPost implements java.io.Serializable {
 		this.enddate = enddate;
 	}
 
-	public Boolean getStatus() {
-		return this.status;
+
+
+	public Integer getStatus() {
+		return status;
 	}
 
-	public void setStatus(Boolean status) {
+	public void setStatus(Integer status) {
 		this.status = status;
 	}
 
@@ -146,11 +157,13 @@ public class TPost implements java.io.Serializable {
 		this.tUserByAdduser = tUserByAdduser;
 	}
 
-	public Set gettUserPosts() {
+
+
+	public Set<TUserPost> gettUserPosts() {
 		return tUserPosts;
 	}
 
-	public void settUserPosts(Set tUserPosts) {
+	public void settUserPosts(Set<TUserPost> tUserPosts) {
 		this.tUserPosts = tUserPosts;
 	}
 
