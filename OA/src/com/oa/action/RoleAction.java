@@ -14,6 +14,8 @@ import com.oa.service.inf.RoleService;
 public class RoleAction extends BaseAction {
 	private RoleService roleService;
 	private DataService dataService;
+	
+	private UserInfo userInfo = new UserInfo();
 
 	public DataService getDataService() {
 		return dataService;
