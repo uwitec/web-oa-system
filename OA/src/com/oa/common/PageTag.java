@@ -29,22 +29,6 @@ public class PageTag extends SimpleTagSupport {
 
 	private String getHtml() {
 		StringBuffer html = new StringBuffer();
-		// html.append("<tr>");
-		// html
-		// .append("<td height='30'><table width='100%' border='0' cellspacing='0' cellpadding='0'>");
-		// html.append("<tr>");
-		// html.append("<td width='33%'>");
-		// html.append("<div align='right'>");
-		// html.append("<span class='STYLE22'>&nbsp;&nbsp;&nbsp;&nbsp;共有<strong>"
-		// + userInfo.getTotalCount() + "</strong> 条记录，当前第<strong>"
-		// + userInfo.getCurrPage() + "</strong> 页，共 <strong>"
-		// + userInfo.getTotalPage() + "</strong> 页</span>");
-		// html.append("</div>");
-		// html.append("</td>");
-		// html.append("</tr>");
-		// html.append("</table>");
-		// html.append("</td>");
-		// html.append("</tr>");
 		html
 				.append("<table width='100%'><tr><td width='40%'><div align='left'><span class='STYLE22'>&nbsp;&nbsp;&nbsp;&nbsp;共有 <strong>"
 						+ totalCount

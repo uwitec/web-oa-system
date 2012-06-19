@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+    "http://struts.apache.org/dtds/struts-2.1.7.dtd">
+
+<struts>
+	<constant name="struts.i18n.encoding" value="GBK" />
+	<constant name="struts.devMode" value="true" />
+
+	<!-- 定义自己的包继承自己的包,注意extends的值 -->
+	<package name="questionnaire" extends="struts-default"
+		namespace="/questionnaire">
+		<!-- 查询所有问卷 -->
+		<action name="selectAllQuestionnaire" class="com.oa.action.QuestionnaireAction">
+			<result name="selectAllQuestionnaire">/questionnaire/questionnaires.jsp
+			</result>
+
+			<!-- 查看问卷 -->
+			<result name="selectNaireQuestion">/questionnaire/lookquestionnaire.jsp</result>
+		</action>
+		<!-- 编辑问卷 -->
+		<action name="editQuestionnaire" class="com.oa.action.QuestionnaireAction">
+			<!-- 删除问卷 -->
+			<result name="delQuestionnaire" type="redirectAction">selectAllQuestionnaire!selectAllQuestionnaire
+			</result>
+			<!-- 删除问卷题目 -->
+			<result name="delQuestion" type="redirectAction">
+				<param name="actionName">selectQuestionnaire!selectNaireQuestion</param>
+				<param name="questionnaireid">${questionnaireid}</param>
+
+			</result>
+			<!-- 修改问卷 -->
+			<result name="updateQuestionnaire" type="redirectAction">selectAllQuestionnaire!selectAllQuestionnaire
+			</result>
+			<result name="updateNaireQuestion" type="redirectAction">
+				<param name="actionName">selectQuestionnaire!selectNaireQuestion</param>
+				<param name="questionnaireid">${questionnaireid}</param>
+			</result>
+
+		</action>
+		<action name="addQuestionnaire" class="com.oa.action.QuestionnaireAction">
+			<!-- 添加问卷 -->
+			<result name="addQuestionnaire" type="redirectAction">
+
+				<param name="actionName">selectAllQuestionnaire!selectAllQuestionnaire</param>
+
+			</result>
+			<result name="input">/questionnaire/addquestionnaire.jsp</result>
+		</action>
+		<!-- 修改问卷的页面 -->
+		<action name="selectQuestionnaire" class="com.oa.action.QuestionnaireAction">
+			<result name="selectQuestionnaire">/questionnaire/updatequestionnaire.jsp
+			</result>
+			<result name="selectNaireQuestion">/questionnaire/update_naire_question.jsp</result>
+		</action>
+		<action name="selectQuestions" class="com.oa.action.QuestionAction">
+			<result name="editQuestionnaireQueations">/questionnaire/Questionnaire_questions.jsp
+			</result>
+			<result name="addQuestionnaireQueations">/questionnaire/addquestionnaire.jsp
+			</result>
+		</action>
+		<!--
+			<action name="addQuestion"
+			class="questionnaire.action.QuestionAction"> <result
+			name="addQuestion"
+			type="redirectAction">selectQuestions!editQuestionnaireQueations
+			</result> </action>
+		-->
+	</package>
+	<package name="question" extends="struts-default" namespace="/question">
+		<action name="selectQuestions" class="com.oa.action.QuestionAction">
+			<result name="selectQuestions">/questionnaire/questions.jsp</result>
+			<result name="editQuestionnaireQueations">/questionnaire/Questionnaire_questions.jsp
+			</result>
+		</action>
+		<action name="editQuestions" class="com.oa.action.QuestionAction">
+			<result name="delQuestion" type="redirectAction">
+				<param name="namespace">/question</param>
+				<param name="actionName">selectQuestions!selectQuestions</param>
+
+			</result>
+			<result name="addQuestion" type="redirectAction">
+				<param name="namespace">/question</param>
+				<param name="actionName">selectQuestions!selectQuestions</param>
+
+			</result>
+			<result name="addNaireQuestion" type="redirectAction">
+				<param name="namespace">/question</param>
+				<param name="actionName">selectQuestions!editQuestionnaireQueations</param>
+				<param name="questionnaireid">${questionnaireid}</param>
+
+			</result>
+			<result name="selectQuestion">/questionnaire/lookquestion.jsp</result>
+			<result name="input">/questionnaire/addquestion.jsp</result>
+		</action>
+
+	</package>
+	<package name="userquestionnaire" extends="struts-default"
+		namespace="/userquestionnaire">
+
+		<action name="answer" class="com.oa.action.UserQuestionnaireAction">
+			<result name="addUserAnswer" type="redirectAction">selectUserQuestions!userQuestionnaire
+			</result>
+		</action>
+		<action name="selectUserQuestions" class="com.oa.action.UserQuestionnaireAction">
+			<!-- 查询用户所有问卷 -->
+			<result name="userQuestionnaire">/questionnaire/userquestionnaires.jsp
+			</result>
+			<!-- 用户查看自己已回答的问卷 -->
+			<result name="selectUserQuestionnaire">/questionnaire/answerquestionnaire.jsp</result>
+		</action>
+		<action name="answerQuestion" class="com.oa.action.QuestionnaireAction">
+			<!-- 问答问卷 -->
+			<result name="selectNaireQuestion">/questionnaire/userAnswerquestionnaire.jsp</result>
+			
+		</action>
+		<action name="sumquestionnaire" class="com.oa.action.UserQuestionnaireAction" >
+		<result name="sumQuestionnaire">/questionnaire/sumquestionnaire.jsp</result>
+		</action>
+	</package>
+
+
+</struts>

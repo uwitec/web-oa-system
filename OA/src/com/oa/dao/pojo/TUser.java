@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+
 /**
  * TUser entity. @author MyEclipse Persistence Tools
  */
@@ -28,7 +29,9 @@ public class TUser implements java.io.Serializable {
 	private String address;
 	private Boolean del;
 
-	private Set<TRole> roles = new HashSet<TRole>(0);
+	private Set<TRole> roles = new HashSet<TRole>();
+	private Set<OaQuestionnaire> questionnaires = new HashSet<OaQuestionnaire>();
+	private Set<OaQuestionnaire> fkquestionnaire = new HashSet<OaQuestionnaire>();
 	private TTips tips;
 
 	// Constructors
@@ -190,6 +193,22 @@ public class TUser implements java.io.Serializable {
 
 	public TData getCity() {
 		return city;
+	}
+
+	public Set<OaQuestionnaire> getQuestionnaires() {
+		return questionnaires;
+	}
+
+	public void setQuestionnaires(Set<OaQuestionnaire> questionnaires) {
+		this.questionnaires = questionnaires;
+	}
+
+	public Set<OaQuestionnaire> getFkquestionnaire() {
+		return fkquestionnaire;
+	}
+
+	public void setFkquestionnaire(Set<OaQuestionnaire> fkquestionnaire) {
+		this.fkquestionnaire = fkquestionnaire;
 	}
 
 }

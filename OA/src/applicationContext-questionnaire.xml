@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+
+	<import resource="applicationContext.xml"/>
+
+	<bean id="transactionManagerId"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="basixProxyId"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean"
+		abstract="true">
+		<property name="transactionManager" ref="transactionManagerId"></property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
+	<bean id="questionnarieDao" class="com.oa.dao.impl.OaQuestionnaireDaoImple">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="questionnarieId" parent="basixProxyId">
+		<property name="target" ref="questionnarieDao"></property>
+	</bean>
+
+	<bean id="questionDao" class="com.oa.dao.impl.OaQuestionDaoImple">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="questionDaoId" parent="basixProxyId">
+		<property name="target" ref="questionDao"></property>
+	</bean>
+
+
+
+	<bean id="userAnswerid" class="com.oa.dao.impl.OaUserAnswerDaoImple">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="userAnswerDaoId" parent="basixProxyId">
+		<property name="target" ref="userAnswerid"></property>
+	</bean>
+
+</beans>
