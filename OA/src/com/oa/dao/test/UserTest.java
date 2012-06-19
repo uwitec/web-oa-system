@@ -90,17 +90,7 @@ public class UserTest {
 		UserDao userDao = (UserDao) context.getBean("userDao");
 		TUser user = new TUser("admin", "888888");
 		user = userDao.login(user);
-		Set<TRole> roles = user.getRoles();
-		for (TRole tRole : roles) {
-			System.out.println("角色  " + tRole.getRolename());
-			Set<TMenu> pMenus = tRole.getMenus();
-			for (TMenu pMenu : pMenus) {
-				System.out.println("--大菜单  " + pMenu.getMenuname());
-				for (TMenu sonMenu : pMenu.getSonMenus()) {
-					System.out.println("-----小菜单  " + sonMenu.getMenuname());
-				}
-			}
-		}
+		System.out.println("sdfsdf");
 	}
 
 	private static void getUser() {
