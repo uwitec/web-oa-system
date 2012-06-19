@@ -115,7 +115,7 @@ public class UserAction extends BaseAction implements ModelDriven<UserInfo> {
 		List<TData> jobList = dataService.getDatas(DataDao.TYPE_JOB);
 		request.getSession().setAttribute("departmentList", departmentList);
 		request.getSession().setAttribute("jobList", jobList);
-		List<TRole> roleList = roleService.getRoles(null);
+		List<TRole> roleList = roleService.getRoles(userInfo);
 		request.getSession().setAttribute("roleList", roleList);
 		TUser user = userService.getUser(userInfo.getUser().getUserid());
 		request.setAttribute(SINGLE_USER, user);
