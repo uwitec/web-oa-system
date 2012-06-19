@@ -72,7 +72,7 @@ body {
 		<SCRIPT type="text/javascript">
 	function deleteRole(rolename){
 		if(confirm('х╥хои╬ЁЩ?')){
-			window.location.href = "<%=path%>/role/delrole?userInfo.role.username=" + rolename;
+			window.location.href = "<%=path%>/role/delrole?userInfo.role.roleid=" + roleid;
 		}
 	}
 	
