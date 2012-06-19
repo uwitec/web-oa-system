@@ -41,8 +41,19 @@ public class RoleDaoImpl extends HibernateDaoSupport implements RoleDao {
 	}
 	
 	@Override
-	public void updateRole(TRole role) {
-		getHibernateTemplate().update(role);
+	public void updateRole(final TRole role) {
+		getHibernateTemplate().execute(new HibernateCallback<Integer>() {
+
+			@Override
+			public Integer doInHibernate(Session session)
+					throws HibernateException, SQLException {
+				// TODO Auto-generated method stub
+				String hql = "update TRole role set role.rolename = :rolename,role.roleinfo = :roleinfo where role.roleid = :roleid";
+				Query query =session.createQuery(hql);
+				query.setProperties(role);
+				return query.executeUpdate();
+			}
+		});
 	}
 
 	@Override
