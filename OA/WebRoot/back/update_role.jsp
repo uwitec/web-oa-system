@@ -151,7 +151,7 @@ $(document).ready(function() {
 				</td>
 				<td height="20" class="STYLE6">
 					&nbsp;
-					<s:textfield value="%{#request.singlerole.rolename}" name="rolename" required="true" id="rolename"/>
+					<s:textfield value="%{#request.singlerole.rolename}" name="rolename" required="true" id="rolename" name="userInfo.role.rolename"/>
 				</td>
 				<td height="20" class="STYLE6"></td>
 			</tr>
@@ -161,7 +161,7 @@ $(document).ready(function() {
 				</td>
 				<td height="20" class="STYLE6">
 					&nbsp;
-					<s:textfield value="%{#request.singlerole.roleinfo}" required="true" id="roleinfo"/>
+					<s:textfield value="%{#request.singlerole.roleinfo}" required="true" id="roleinfo" name="userInfo.role.roleinfo"/>
 				</td>
 				<td height="20" class="STYLE6"></td>
 			</tr>
