@@ -69,11 +69,37 @@ function check(){
 		if(obj[i].type=='radio'){
 			if(obj[i].name!=obj[i-1].name){
 				var name = obj[i-1].name;
+				var bool = false;
 				var rad = document.getElementsByName(name);
-				
+				for(var j=0;j<rad.length;j++){
+					if(rad[j].checked==true){
+						bool = true;
+					}
+				}
+				if(bool==false){
+					return false;
+				}
 				
 			}
 		}
+		if(obj[i].type=='checkbox'){
+			if(obj[i].name!=obj[i-1].name){
+				var name = obj[i-1].name;
+				var bool = false;
+				var rad = document.getElementsByName(name);
+				for(var j=0;j<rad.length;j++){
+					if(rad[j].checked==true){
+						bool = true;
+					}
+				}
+				if(bool==false){
+					return false;
+				}
+				
+			}
+		}
+		
+		
 	}
 	
 	

@@ -13,16 +13,16 @@
 				<param name="sequence">SEQ_OA_USER_ANSERS</param>
 			</generator>
 		</id>
-		 <many-to-one name="oaQuestion" class="questionnaire.pojo.OaQuestion" fetch="select">
+		 <many-to-one name="oaQuestion" class="com.oa.dao.pojo.OaQuestion" fetch="select">
             <column name="QUESTION_ID" precision="8" scale="0" />
         </many-to-one>
-        <many-to-one name="user" class="questionnaire.pojo.TUser" fetch="select">
+        <many-to-one name="user" class="com.oa.dao.pojo.TUser" fetch="select">
             <column name="USER_ID" precision="8" scale="0" />
         </many-to-one>
-        <many-to-one name="oaQuestionnaire" class="questionnaire.pojo.OaQuestionnaire" fetch="select">
+        <many-to-one name="oaQuestionnaire" class="com.oa.dao.pojo.OaQuestionnaire" fetch="select">
             <column name="NAIRE_ID" precision="8" scale="0" />
         </many-to-one>
-        <many-to-one name="oaOptions" class="questionnaire.pojo.OaOptions" fetch="select">
+        <many-to-one name="oaOptions" class="com.oa.dao.pojo.OaOptions" fetch="select">
             <column name="ANSWER_ID" precision="8" scale="0" />
         </many-to-one>
         <property name="questionanswer" type="java.lang.String">
