@@ -68,7 +68,7 @@
 			<key>
 				<column name="CREATEUSERID" precision="8" scale="0" />
 			</key>
-			<one-to-many class="questionnaire.pojo.OaQuestionnaire" />
+			<one-to-many class="com.oa.dao.pojo.OaQuestionnaire" />
 		</set>
 
 		<set name="questionnaires" inverse="false" table="cen_naire_user"
@@ -76,7 +76,7 @@
 			<key>
 				<column name="CEN_NAIRE_ID" precision="8" scale="0" />
 			</key>
-			<many-to-many class="questionnaire.pojo.TUser" column="CEN_USER_ID"></many-to-many>
+			<many-to-many class="com.oa.dao.pojo.TUser" column="CEN_USER_ID"></many-to-many>
 		</set>
 		<one-to-one name="tips" class="com.oa.dao.pojo.TTips"
 			constrained="false" cascade="all"></one-to-one>

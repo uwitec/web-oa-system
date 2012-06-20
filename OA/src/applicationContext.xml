@@ -10,7 +10,7 @@
 		<property name="url" value="jdbc:oracle:thin:@localhost:1521:ORCL">
 		</property>
 		<property name="username" value="OA"></property>
-		<property name="password" value="oa"></property>
+		<property name="password" value="123456"></property>
 	</bean>
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
@@ -43,6 +43,13 @@
 				<value>com/oa/dao/pojo/TEmail.hbm.xml</value>
 				<value>com/oa/dao/pojo/TEmailFile.hbm.xml</value>
 				<value>com/oa/dao/pojo/TUserEmail.hbm.xml</value>
+				<value>com/oa/dao/pojo/CenNaireQuestion.hbm.xml</value>
+				<value>com/oa/dao/pojo/CenNaireUser.hbm.xml</value>
+				<value>com/oa/dao/pojo/OaOptions.hbm.xml</value>
+				<value>com/oa/dao/pojo/OaQuestion.hbm.xml</value>
+				<value>com/oa/dao/pojo/OaQuestionnaire.hbm.xml</value>
+				<value>com/oa/dao/pojo/OaUserAnswers.hbm.xml</value>
+				
 				
 				
 			</list>
