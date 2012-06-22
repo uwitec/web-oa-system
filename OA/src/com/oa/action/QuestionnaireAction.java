@@ -121,7 +121,7 @@ public class QuestionnaireAction extends BaseAction {
 		Date startdate = questionnaire.getStartdate();
 		Date stopdate = questionnaire.getStopdate();
 
-		if (startdate.before(new Date()) && !startdate.equals(stopdate)) {
+		if (startdate.before(new Date()) && !startdate.equals(new Date())) {
 			this.addFieldError("sdates", "开始日期不能在今天之前");
 			return;
 		}

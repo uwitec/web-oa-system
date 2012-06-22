@@ -279,5 +279,49 @@ public class OaQuestionDaoImple extends HibernateDaoSupport implements
 				optionid);
 		return options;
 	}
+//用户回答问卷
+	@Override
+	public List<Object[]> answerQuestionnaire(final int qid) {
+		// TODO Auto-generated method stub
+		List<Object[]> lists = getHibernateTemplate().executeFind(
+				new HibernateCallback<List<Object[]>>() {
+
+					@Override
+					public List<Object[]> doInHibernate(Session session)
+							throws HibernateException, SQLException {
+						// TODO Auto-generated method stub
+						String hql = "select cen.id.oaQuestion from CenNaireQuestion cen where cen.id.oaQuestionnaire.qid="
+								+ qid +" order by cen.id.oaQuestion.questionType ASC,cen.id.oaQuestion.questionId DESC ";
+						
+						
+						Query query = session.createQuery(hql);
+						
+						
+						List<OaQuestion> questions = query.list();
+						
+						List<Object[]> list = new ArrayList<Object[]>();
+						
+						for (OaQuestion question : questions) {
+							Object[] obs = new Object[2];
+							String hqloption = "from OaOptions ops where ops.oaQuestion.questionId = "
+									+ question.getQuestionId();
+							List<OaOptions> options = session.createQuery(
+									hqloption).list();
+							Map<Integer, String> map = new HashMap<Integer, String>();
+							for (OaOptions op : options) {
+								map.put(op.getOptionId(), op.getPotionName());
+							}
+							obs[0] = question;
+							obs[1] = map;
+							list.add(obs);
+
+						}
+
+						return list;
+					}
+				});
+
+		return lists;
+	}
 
 }

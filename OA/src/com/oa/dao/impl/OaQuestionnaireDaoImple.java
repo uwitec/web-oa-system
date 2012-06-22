@@ -220,23 +220,7 @@ public class OaQuestionnaireDaoImple extends HibernateDaoSupport implements
 		return false;
 	}
 
-	@Override
-	public TUser getUser(String id) {
-		// TODO Auto-generated method stub
-		
-		TUser user = getHibernateTemplate().get(TUser.class, id);
-		
-		return user;
-	}
 
-	@Override
-	public int countQuestionnaire() {
-		// TODO Auto-generated method stub
-		String hql = "select count(*) from OaQuestionnaire";
-		List<Integer> count = getHibernateTemplate().find(hql);
-
-		return count.get(0);
-	}
 
 	@Override
 	public List<Integer> countQuestionTyoe(int naireid, String questiontype) {
@@ -257,7 +241,7 @@ public class OaQuestionnaireDaoImple extends HibernateDaoSupport implements
 				.getBean("questionnarieId");
 		OaQuestionDaoInf daoInf = (OaQuestionDaoInf) applicationContext
 				.getBean("questionDaoId");
-		daoImple.getUser("1");
+//		daoImple.getUser("1");
 		// OaQuestionnaire questionnaire = new OaQuestionnaire("sdf", new
 		// Date(),
 		// new Date(), "1", "1");

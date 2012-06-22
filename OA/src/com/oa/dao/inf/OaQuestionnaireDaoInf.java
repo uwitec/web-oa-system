@@ -29,9 +29,7 @@ public interface OaQuestionnaireDaoInf {
 	
 	public boolean publishQuestionnaire(int questionnaireId, List<TUser> users);
 	
-	public TUser getUser(String id);
-	
-	public int countQuestionnaire();
+
 	public List<Integer> countQuestionTyoe(int naireid,String questiontype);
 
 }
