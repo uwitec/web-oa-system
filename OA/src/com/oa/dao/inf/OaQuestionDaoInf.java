@@ -25,4 +25,5 @@ public interface OaQuestionDaoInf {
 	public List<Object[]> selectQuestionnaireOptions(final int qid,
 			UserInfo userInfo) ;
 	public OaOptions selectOption(int optionid);
+	public List<Object[]> answerQuestionnaire(final int qid);
 }
