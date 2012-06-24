@@ -20,24 +20,8 @@
 			</props>
 		</property>
 	</bean>
-	<bean id="questionnarieDao" class="com.oa.dao.impl.OaQuestionnaireDaoImple">
-		<property name="sessionFactory" ref="sessionFactory"></property>
-	</bean>
-	<bean id="questionnarieId" parent="basixProxyId">
-		<property name="target" ref="questionnarieDao"></property>
-	</bean>
-
-	<bean id="questionDao" class="com.oa.dao.impl.OaQuestionDaoImple">
-		<property name="sessionFactory" ref="sessionFactory"></property>
-	</bean>
-	<bean id="questionDaoId" parent="basixProxyId">
-		<property name="target" ref="questionDao"></property>
-	</bean>
-	<bean id="userAnswerid" class="com.oa.dao.impl.OaUserAnswerDaoImple">
-		<property name="sessionFactory" ref="sessionFactory"></property>
-	</bean>
-	<bean id="userAnswerDaoId" parent="basixProxyId">
-		<property name="target" ref="userAnswerid"></property>
+	<bean>
+	
 	</bean>
 
 </beans>

@@ -1,5 +1,7 @@
 package com.oa.action;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -20,25 +22,22 @@ public class QuestionnaireAction extends BaseAction {
 	private OaQuestionnaireDaoInf questionnarieId;
 	private OaQuestionDaoInf questionDaoId;
 	private List<OaQuestionnaire> questionnaires;
-	private int pageNo;// 开始业
-	private int pageSize;// 页面的大小
 	private int questionnaireid;
 	private int quesid;
 	private List<Object[]> questionlist;
 	private String qname;
 	private List<OaQuestion> questionsSet;
 	private List<Integer> questionid;
+	private List<Integer> userids;
 	private UserInfo userInfo = new UserInfo();
 	// 查询所有问卷
 	public String selectAllQuestionnaire() throws Exception {
 		request.setAttribute("userInfo", userInfo);
 		if (qname == null) {
-			questionnaires = questionnarieId.selectTitleQuestionnaires(null, userInfo.getCurrPage(),
-					userInfo.PAGE_SIZE);
+			questionnaires = questionnarieId.selectTitleQuestionnaires(null, userInfo);
 		} else {
 			qname = qname.trim();
-			questionnaires = questionnarieId.selectTitleQuestionnaires(qname,
-					userInfo.getCurrPage(),userInfo.PAGE_SIZE);
+			questionnaires = questionnarieId.selectTitleQuestionnaires(qname,userInfo);
 		}
 
 		return "selectAllQuestionnaire";
@@ -113,6 +112,34 @@ public class QuestionnaireAction extends BaseAction {
 
 		return ERROR;
 	}
+	
+	public void validateUpdateQuestionnaire() {
+		// TODO Auto-generated method stub
+		if(questionnaire!=null){
+			Date startdate = questionnaire.getStartdate();
+			Date stopdate = questionnaire.getStopdate();
+			Date date = new Date();
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			Date dates = null;
+			try {
+				dates = dateFormat.parse(dateFormat.format(date));
+				System.out.println(dates);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			if (startdate.before(dates) && !startdate.equals(dates)) {
+				this.addFieldError("sdates", "开始日期不能在今天之前");
+				return;
+			}
+			if (startdate.after(stopdate)) {
+				this.addFieldError("sdates", "结束日期不能在开始日期之后");
+				return;
+			}
+		}
+		
+
+	}
 
 	// 增加问卷的检测
 
@@ -120,8 +147,17 @@ public class QuestionnaireAction extends BaseAction {
 		// TODO Auto-generated method stub
 		Date startdate = questionnaire.getStartdate();
 		Date stopdate = questionnaire.getStopdate();
-
-		if (startdate.before(new Date()) && !startdate.equals(new Date())) {
+		Date date = new Date();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date dates = null;
+		try {
+			dates = dateFormat.parse(dateFormat.format(date));
+			System.out.println(dates);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if (startdate.before(dates) && !startdate.equals(dates)) {
 			this.addFieldError("sdates", "开始日期不能在今天之前");
 			return;
 		}
@@ -131,6 +167,7 @@ public class QuestionnaireAction extends BaseAction {
 		}
 
 	}
+
 
 	// 添加问卷
 	public String addQuestionnaire() throws Exception {
@@ -156,6 +193,23 @@ public class QuestionnaireAction extends BaseAction {
 		return qname;
 	}
 
+	//发布问卷
+	public String publishQuestionnaire(){
+		questionnaire = questionnarieId.selectQuestionnaire(questionnaireid);
+		
+		
+		
+		return "publishQuestionnaire";
+	}
+	//问答问卷
+	public String answerQuestionnaire(){
+		questionlist = questionDaoId.answerQuestionnaire(questionnaireid);
+		
+		return "answerQuestionnaire";
+	}
+	
+	
+	
 	public void setQname(String qname) {
 		this.qname = qname;
 	}
@@ -236,21 +290,7 @@ public class QuestionnaireAction extends BaseAction {
 		this.questionnaires = questionnaires;
 	}
 
-	public int getPageNo() {
-		return pageNo;
-	}
-
-	public void setPageNo(int pageNo) {
-		this.pageNo = pageNo;
-	}
-
-	public int getPageSize() {
-		return pageSize;
-	}
-
-	public void setPageSize(int pageSize) {
-		this.pageSize = pageSize;
-	}
+	
 
 	public int getQuestionnaireid() {
 		return questionnaireid;

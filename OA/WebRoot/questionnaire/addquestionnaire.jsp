@@ -153,9 +153,7 @@ function checkdate(){
 										</td>
 										<td>
 											<div align="right">
-												<span class="STYLE1">&nbsp;&nbsp;<a
-													href="<%=path%>/questionnaire/addquestion.jsp"> 添加问卷
-														&nbsp;</a> &nbsp;&nbsp;</span>
+												<span class="STYLE1">&nbsp;&nbsp; &nbsp;&nbsp;</span>
 											</div>
 										</td>
 									</tr>
@@ -190,9 +188,7 @@ function checkdate(){
 									问卷创建人
 								</td>
 								<td>
-									<input type="text"
-										value="<s:property value="#attr.username" />"
-										disabled="disabled">
+									<s:property value="#session.user.userid"/>
 
 								</td>
 							</tr>

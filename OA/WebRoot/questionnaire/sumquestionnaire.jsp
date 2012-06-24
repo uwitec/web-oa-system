@@ -151,7 +151,7 @@ body {
 					</table>
 				</td>
 			</tr>
-
+<oa:pageTag />
 			<tr>
 				<td>
 					<span class="STYLE10"><s:property

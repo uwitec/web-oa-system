@@ -17,6 +17,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
+import com.oa.common.UserInfo;
 import com.oa.dao.inf.OaQuestionDaoInf;
 import com.oa.dao.inf.OaQuestionnaireDaoInf;
 import com.oa.dao.pojo.OaQuestion;
@@ -107,10 +108,8 @@ public class OaQuestionnaireDaoImple extends HibernateDaoSupport implements
 	// 查询所有的问卷
 	@Override
 	public List<OaQuestionnaire> selectTitleQuestionnaires(
-			final String questionnaireTitle, final int pageNo,
-			final int pageSize) {
+			final String questionnaireTitle, final UserInfo userInfo) {
 		// TODO Auto-generated method stub
-
 		List<OaQuestionnaire> questionnaires = getHibernateTemplate()
 				.executeFind(new HibernateCallback() {
 
@@ -119,14 +118,27 @@ public class OaQuestionnaireDaoImple extends HibernateDaoSupport implements
 							throws HibernateException, SQLException {
 						// TODO Auto-generated method stub
 						String hql = " from OaQuestionnaire where 1 = 1";
+						String hqlcount = "select count(*) from OaQuestionnaire where 1 = 1";
+						
 						if (questionnaireTitle != null
 								&& questionnaireTitle.length() > 0) {
 							hql = hql + " and qname like '%"
 									+ questionnaireTitle + "%'";
+							hqlcount = hqlcount + " and qname like '%"
+							+ questionnaireTitle + "%'";
 						}
 						hql = hql + " order by createtime DESC";
+						Query querycount = session.createQuery(hqlcount);
+						userInfo.setTotalCount(((Long) querycount
+								.uniqueResult()).intValue());
+						
+						
+						
 						Query query = session.createQuery(hql);
-						query.setFirstResult(pageNo);
+						int currPage = userInfo.getCurrPage();
+						int pageSize = userInfo.PAGE_SIZE;
+						currPage = currPage == 0 ? 1 : currPage;
+						query.setFirstResult((currPage - 1) * pageSize);
 						query.setMaxResults(pageSize);
 						List<OaQuestionnaire> list = query.list();
 
@@ -163,7 +175,7 @@ public class OaQuestionnaireDaoImple extends HibernateDaoSupport implements
 	// 查询用户所有的问卷
 	@Override
 	public List<Object[]> selectIdQuestionnaires(final String userid,
-			final int pageNo, final int pageSize) {
+			final UserInfo userInfo) {
 		// TODO Auto-generated method stub
 		List<Object[]> questionnaires = null;
 		
@@ -177,8 +189,18 @@ public class OaQuestionnaireDaoImple extends HibernateDaoSupport implements
 							String hql = "select naire,cen  from CenNaireUser cen,OaQuestionnaire naire where cen.id.oaQuestionnaire.qid = naire.qid and cen.id.user.userid = "
 									+ userid
 									+ " order by cen.naireAnswer ASC";
+							String hqlcount = "select count(*)  from CenNaireUser cen where  cen.id.user.userid = "
+								+ userid;
+							
+							Query queryCount = session.createQuery(hqlcount);
+							userInfo.setTotalCount(((Long) queryCount
+									.uniqueResult()).intValue());
+							
 							Query query = session.createQuery(hql);
-							query.setFirstResult(pageNo);
+							int currPage = userInfo.getCurrPage();
+							int pageSize = userInfo.PAGE_SIZE;
+							currPage = currPage == 0 ? 1 : currPage;
+							query.setFirstResult((currPage - 1) * pageSize);
 							query.setMaxResults(pageSize);
 							List<Object[]> questionnaires = query.list();
 							
@@ -217,7 +239,7 @@ public class OaQuestionnaireDaoImple extends HibernateDaoSupport implements
 			}
 		});
 
-		return false;
+		return true;
 	}
 
 

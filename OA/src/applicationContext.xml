@@ -10,7 +10,7 @@
 		<property name="url" value="jdbc:oracle:thin:@localhost:1521:ORCL">
 		</property>
 		<property name="username" value="OA"></property>
-		<property name="password" value="123456"></property>
+		<property name="password" value="oa"></property>
 	</bean>
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
