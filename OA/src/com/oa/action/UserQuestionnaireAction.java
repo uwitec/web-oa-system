@@ -10,6 +10,7 @@ import org.apache.struts2.interceptor.ServletRequestAware;
 
 
 
+import com.oa.common.UserInfo;
 import com.oa.dao.inf.OaQuestionDaoInf;
 import com.oa.dao.inf.OaQuestionnaireDaoInf;
 import com.oa.dao.inf.OaUserAnswersDaoInf;
@@ -34,7 +35,7 @@ public class UserQuestionnaireAction extends BaseAction implements
 	private List<Object[]> questionnaires;
 	private long sumcount;
 	private OaQuestionnaire questionnaire;
-
+	private UserInfo userInfo = new UserInfo();
 	// 用户答卷
 	public String addUserAnswer() throws Exception {
 		// TODO Auto-generated method stub
@@ -46,9 +47,9 @@ public class UserQuestionnaireAction extends BaseAction implements
 				questionnaireid, "2");
 		List<Integer> questid3 = questionnarieId.countQuestionTyoe(
 				questionnaireid, "3");
-		TUser user = (TUser) ActionContext.getContext().getSession().get(LOGIN_USER);
-//		String username = (String) ActionContext.getContext().getSession().get("username");
-//		TUser user = questionnarieId.getUser("1");
+		Map session = ActionContext.getContext().getSession();
+		TUser user = (TUser) session.get(LOGIN_USER);
+		String userid = user.getUserid();
 		OaQuestionnaire questionnaire = questionnarieId
 		.selectQuestionnaire(questionnaireid);
 		while (all.hasMoreElements()) {
@@ -58,6 +59,7 @@ public class UserQuestionnaireAction extends BaseAction implements
 			if (name.equals("questionnaireid")) {
 				continue;
 			}
+			
 			Integer questionid = Integer.parseInt(name);
 			userAnswers = new OaUserAnswers();
 			if (questid1.contains(questionid)) {
@@ -72,7 +74,7 @@ public class UserQuestionnaireAction extends BaseAction implements
 				userAnswers.setOaOptions(options);
 				userAnswers.setOaQuestion(question);
 				userAnswers.setOaQuestionnaire(questionnaire);
-//				userAnswers.setUserId(userId);
+				userAnswers.setUser(user);
 				userAnswerDaoId.addUserAnswer(userAnswers);
 			} else if (questid2.contains(questionid)) {
 				String[] answer = request.getParameterValues(name);
@@ -85,7 +87,7 @@ public class UserQuestionnaireAction extends BaseAction implements
 					userAnswers.setOaOptions(options);
 					userAnswers.setOaQuestion(question);
 					userAnswers.setOaQuestionnaire(questionnaire);
-//					userAnswers.setUser(user);
+					userAnswers.setUser(user);
 					userAnswerDaoId.addUserAnswer(userAnswers);
 				}
 
@@ -96,22 +98,23 @@ public class UserQuestionnaireAction extends BaseAction implements
 				
 				userAnswers.setOaQuestion(question);
 				userAnswers.setOaQuestionnaire(questionnaire);
-//				userAnswers.setUser(user);
+				userAnswers.setUser(user);
 				String answer = request.getParameter(name);
 				userAnswers.setQuestionanswer(answer);
 				userAnswerDaoId.addUserAnswer(userAnswers);
 			}
 
 		}
-//		userAnswerDaoId.userAnswerQuestionnaire(questionnaire, user);
+
 		return "addUserAnswer";
 	}
 
 	// 用户可以问答的所有的问卷
 	public String userQuestionnaire() {
 		Map session = ActionContext.getContext().getSession();
-		String username = (String) session.get("username");
-		questionnaires = questionnarieId.selectIdQuestionnaires("0", 0, 40);
+		TUser user = (TUser) session.get(LOGIN_USER);
+		String userid = user.getUserid();
+		questionnaires = questionnarieId.selectIdQuestionnaires(userid,userInfo );
 		questionnaire = questionnarieId.selectQuestionnaire(questionnaireid);
 		return "userQuestionnaire";
 	}
@@ -125,10 +128,11 @@ public class UserQuestionnaireAction extends BaseAction implements
 		return "sumQuestionnaire";
 	}
 	public String selectUserQuestionnaire() {
-		String username = (String) ActionContext.getContext().getSession().get(
-				"username");
+		Map session = ActionContext.getContext().getSession();
+		TUser user = (TUser) session.get(LOGIN_USER);
+		String userid = user.getUserid();
 		
-		questionnaires = userAnswerDaoId.selectUserQuestionnaire("0",
+		questionnaires = userAnswerDaoId.selectUserQuestionnaire(userid,
 				questionnaireid);
 
 		return "selectUserQuestionnaire";
@@ -210,6 +214,14 @@ public class UserQuestionnaireAction extends BaseAction implements
 
 	public void setQuestionnaire(OaQuestionnaire questionnaire) {
 		this.questionnaire = questionnaire;
+	}
+
+	public UserInfo getUserInfo() {
+		return userInfo;
+	}
+
+	public void setUserInfo(UserInfo userInfo) {
+		this.userInfo = userInfo;
 	}
 
 }

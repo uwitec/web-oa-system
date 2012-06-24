@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="GBK"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
+
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
@@ -185,8 +186,9 @@ body {
 						<span class="STYLE10"><INPUT type="submit" value="Ìá½»" /></span>
 					</td>
 				</tr>
+				
 			</table>
 		</s:form>
-		<s:debug></s:debug>
+		
 	</body>
 </html>

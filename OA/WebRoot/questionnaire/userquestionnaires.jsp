@@ -84,17 +84,14 @@ body {
 														</div>
 													</td>
 													<td width="94%" valign="bottom">
-														<span class="STYLE1"> 问卷管理</span>
+														<span class="STYLE1"> </span>
 													</td>
 												</tr>
 											</table>
 										</td>
 										<td>
 											<div align="right">
-												<span class="STYLE1">&nbsp;&nbsp; <a
-													href="<%=path%>/questionnaire/selectQuestions!addQuestionnaireQueations"">
-														<img src="questionnaire/images/add.gif" width="10"
-															height="10" />添加问卷 &nbsp;</a> &nbsp;&nbsp;</span>
+												<span class="STYLE1">&nbsp;&nbsp; &nbsp;&nbsp;</span>
 											</div>
 										</td>
 									</tr>
@@ -105,47 +102,27 @@ body {
 				</td>
 			</tr>
 			<tr>
-				<td align="center">
-					<form action="questionnaire/selectAllQuestionnaire!selectAllQuestionnaire"
-						method="post" name="form">
-						标题：
-						<s:textfield name="qname" size="30" theme="simple"></s:textfield>
-						<input type="submit" value="查询" />
-					</form>
-				</td>
-			</tr>
-			<tr>
 				<td>
 					<table width="100%" border="0" cellpadding="0" cellspacing="1"
 						bgcolor="#a8c7ce">
 						<tr>
 
-							<td width="25%" height="20" bgcolor="d3eaef" class="STYLE6">
+							<td width="60%" height="20" bgcolor="d3eaef" class="STYLE6">
 								<div align="center">
 									<span class="STYLE10">问卷标题</span>
 								</div>
 							</td>
-							<td width="10%" height="20" bgcolor="d3eaef" class="STYLE6">
-								<div align="center">
-									<span class="STYLE10">问卷作者</span>
-								</div>
-							</td>
-							<td width="15%" height="20" bgcolor="d3eaef" class="STYLE6">
-								<div align="center">
-									<span class="STYLE10">问卷创作时间</span>
-								</div>
-							</td>
-							<td width="25%" height="20" bgcolor="d3eaef" class="STYLE6">
+							<td width="20%" height="20" bgcolor="d3eaef" class="STYLE6">
 								<div align="center">
 									<span class="STYLE10">问卷有效日期</span>
 								</div>
 							</td>
-							<td width="5%" height="20" bgcolor="d3eaef" class="STYLE6">
+							<td width="10%" height="20" bgcolor="d3eaef" class="STYLE6">
 								<div align="center">
-									<span class="STYLE10">问卷发布</span>
+									<span class="STYLE10">问答情况</span>
 								</div>
 							</td>
-							<td width="20%" height="20" bgcolor="d3eaef" class="STYLE6">
+							<td width="10%" height="20" bgcolor="d3eaef" class="STYLE6">
 								<div align="center">
 									<span class="STYLE10">基本操作</span>
 								</div>
@@ -159,59 +136,36 @@ body {
 
 									<td height="20" bgcolor="#FFFFFF" class="STYLE19">
 										<div align="center">
-											<s:property value="#questionnaire.qname" />
+											<s:property value="#questionnaire[0].qname" />
 										</div>
 									</td>
-									<td height="20" bgcolor="#FFFFFF" class="STYLE19">
-										<div align="center">
-											<s:property value="#questionnaire.user.userid" />
-										</div>
-									</td>
-									<td height="20" bgcolor="#FFFFFF" class="STYLE19">
-										<div align="center">
-											<s:date name="#questionnaire.createtime"
-												format="yyyy-MM-dd HH:mm:ss" />
 
-										</div>
-									</td>
 									<td height="20" bgcolor="#FFFFFF" class="STYLE19">
 										<div align="center">
-											<s:date name="#questionnaire.startdate" format="yyyy-MM-dd" />
+											<s:date name="#questionnaire[0].startdate"
+												format="yyyy-MM-dd" />
 											到
-											<s:date name="#questionnaire.stopdate" format="yyyy-MM-dd" />
+											<s:date name="#questionnaire[0].stopdate" format="yyyy-MM-dd" />
 											之间
-
-										</div>
-									</td>
-									<td height="20" bgcolor="#FFFFFF" class="STYLE19">
-										<div align="center">
-											<s:if test="#questionnaire.publish==1">
-											已发布
-											</s:if>
-											<s:elseif test="#questionnaire.publish==0">
-												<a href="">发布</a>
-											</s:elseif>
-
 										</div>
 									</td>
 									<td height="20" bgcolor="#FFFFFF">
 										<div align="center">
-											<span class="STYLE21"> <s:if
-													test="#questionnaire.publish==0">
+											<span class="STYLE21"><s:if
+													test="#questionnaire[1].naireAnswer==1">已作答</s:if> <s:elseif
+													test="#questionnaire[1].naireAnswer==0">未作答</s:elseif> </span>
+										</div>
+									</td>
+									<td height="20" bgcolor="#FFFFFF">
+										<div align="center">
+											<span class="STYLE21"><s:if
+													test="#questionnaire[1].naireAnswer==1">
 													<a
-														href="<%=path%>/questionnaire/editQuestionnaire!delQuestionnaire?questionnaireid=<s:property value="#questionnaire.qid" />"
-														onclick="return confirm('是否删除该问卷？')">删除 </a>
+														href="<%=path%>/userquestionnaire/selectUserQuestions!selectUserQuestionnaire?questionnaireid=<s:property value="#questionnaire[0].qid" /> " target="_blank">查看</a>
+												</s:if> <s:elseif test="#questionnaire[1].naireAnswer==0">
 													<a
-														href="<%=path%>/questionnaire/selectQuestionnaire!selectQuestionnaire?questionnaireid=<s:property value="#questionnaire.qid" />">修改问卷</a>
-													<a
-														href="<%=path%>/questionnaire/selectQuestionnaire!selectNaireQuestion?questionnaireid=<s:property value="#questionnaire.qid" />"
-														target="_blank">修改问卷题库</a>
-												</s:if> 
-												<s:elseif test="#questionnaire.publish==1">
-													<a href="<%=path%>/userquestionnaire/sumquestionnaire!sumquestionnaire?questionnaireid=<s:property value="#questionnaire.qid" />">问卷总结</a>
-												</s:elseif> |<a
-												href="<%=path%>/questionnaire/selectAllQuestionnaire!selectNaireQuestion?questionnaireid=<s:property value="#questionnaire.qid" />"
-												target="_blank">预览</a> </span>
+														href="<%=path%>/userquestionnaire/answerQuestionnaire!answerQuestionnaire?questionnaireid=<s:property value="#questionnaire[0].qid" /> ">问答</a>
+												</s:elseif> </span>
 										</div>
 									</td>
 								</tr>

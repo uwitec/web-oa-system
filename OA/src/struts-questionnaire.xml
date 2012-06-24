@@ -32,6 +32,7 @@
 			<!-- 修改问卷 -->
 			<result name="updateQuestionnaire" type="redirectAction">selectAllQuestionnaire!selectAllQuestionnaire
 			</result>
+			<result name="input">/questionnaire/updatequestionnaire.jsp</result>
 			<result name="updateNaireQuestion" type="redirectAction">
 				<param name="actionName">selectQuestionnaire!selectNaireQuestion</param>
 				<param name="questionnaireid">${questionnaireid}</param>
@@ -109,13 +110,14 @@
 			<!-- 用户查看自己已回答的问卷 -->
 			<result name="selectUserQuestionnaire">/questionnaire/answerquestionnaire.jsp</result>
 		</action>
-		<action name="answerQuestion" class="com.oa.action.QuestionnaireAction">
+		<action name="answerQuestionnaire" class="com.oa.action.QuestionnaireAction">
 			<!-- 问答问卷 -->
-			<result name="selectNaireQuestion">/questionnaire/userAnswerquestionnaire.jsp</result>
-			
+			<result name="answerQuestionnaire">/questionnaire/userAnswerquestionnaire.jsp
+			</result>
+
 		</action>
-		<action name="sumquestionnaire" class="com.oa.action.UserQuestionnaireAction" >
-		<result name="sumQuestionnaire">/questionnaire/sumquestionnaire.jsp</result>
+		<action name="sumquestionnaire" class="com.oa.action.UserQuestionnaireAction">
+			<result name="sumQuestionnaire">/questionnaire/sumquestionnaire.jsp</result>
 		</action>
 	</package>
 

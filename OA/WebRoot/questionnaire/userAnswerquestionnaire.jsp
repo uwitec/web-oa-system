@@ -198,7 +198,6 @@ function check(){
 				</td>
 			</tr>
 			<oa:pageTag />
-			<s:submit value="Ìá½»"></s:submit>
 			</table>
 		</s:form>
 		<s:debug></s:debug>

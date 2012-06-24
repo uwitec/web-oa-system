@@ -75,7 +75,48 @@ body {
           check[i].checked=bool;
        }
    }
-}	
+}
+function checkqname(){
+	var qname = document.getElementsByName("questionnaire.qname")[0].value;
+	
+	if(qname==null || qname.length<6){
+		sqname.innerHTML = "*问卷名不能为空，问卷名最少6个字符*";
+		return false;
+	}
+	sqname.innerHTML = "";
+	return true;
+	
+}
+function checkexplain(){
+	var explain = document.getElementsByName("questionnaire.explain")[0].value;
+	if(explain==null || explain.length<=0){
+		sexplain.innerHTML = "*问卷说明不能为空*";
+		return false;
+	}
+	sexplain.innerHTML = "";
+	return true;
+	
+}
+function checkdate(){
+	var startdate = dojo.widget.byId("start").getValue();
+	var stopdate = dojo.widget.byId("stop").getValue();
+	
+	if(stopdate.length==0 || stopdate.length == 0){
+	sdate.innerHTML = "日期不能为空";
+	return false;
+	}
+	sdate.innerHTML = "";
+	return true;
+}
+
+ function checkall(){
+ 	var sqname = checkqname();
+ 	var explain = checkexplain();
+ 	var checkda = checkdate();
+ 	
+ 	return sqname&&explain&&checkda;
+ 	
+ }  	
 	</SCRIPT>
 	</head>
 	<sx:head />
@@ -116,10 +157,10 @@ body {
 				</td>
 			</tr>
 			<s:form action="questionnaire/editQuestionnaire!updateQuestionnaire"
-				method="post" theme="simple">
+				method="post" theme="simple" onsubmit="return checkall()">
 				<tr>
 					<td align="center">
-						创建问卷<s:hidden name="questionnaire.qid"></s:hidden>
+						修改问卷<s:hidden name="questionnaire.qid"></s:hidden>
 					</td>
 				</tr>
 				<tr>
@@ -130,7 +171,8 @@ body {
 									问卷名称
 								</td>
 								<td>
-									<s:textfield name="questionnaire.qname" size="50"></s:textfield>
+									<s:textfield name="questionnaire.qname" size="50" onblur="checkqname()"></s:textfield>
+									<span id="sqname"></span>
 								</td>
 							</tr>
 							<tr>
@@ -138,9 +180,8 @@ body {
 									问卷创建人
 								</td>
 								<td>
-									<input type="text"
-										value="<s:property value="#attr.username" />"
-										disabled="disabled">
+									<s:property value="questionnaire.user.userid"/>
+									
 
 								</td>
 							</tr>
@@ -149,7 +190,9 @@ body {
 									问卷创建时间
 								</td>
 								<td>
-									<s:textfield name="questionnaire.createtime"></s:textfield>
+									<s:textfield name="questionnaire.createtime" readonly="true">
+									<s:param name="value"><s:date name="questionnaire.createtime" format="yyyy-MM-dd"/> </s:param>
+									</s:textfield>
 								</td>
 							</tr>
 							<tr>
@@ -157,9 +200,14 @@ body {
 									问卷有效时间
 								</td>
 								<td>
-									<sx:datetimepicker name="questionnaire.startdate"></sx:datetimepicker>
+									
+									<sx:datetimepicker name="questionnaire.startdate" id="start"
+										displayFormat="yyyy-MM-dd"></sx:datetimepicker>
 									到
-									<sx:datetimepicker name="questionnaire.stopdate"></sx:datetimepicker>
+									<sx:datetimepicker name="questionnaire.stopdate" id="stop"
+										displayFormat="yyyy-MM-dd"></sx:datetimepicker>
+									<span id="sdate"></span>
+									<s:fielderror fieldName="sdates"></s:fielderror>
 								</td>
 							</tr>
 							<tr>
@@ -167,7 +215,8 @@ body {
 									问卷说明
 								</td>
 								<td>
-									<s:textarea cols="50" rows="5" name="questionnaire.explain"></s:textarea>
+									<s:textarea cols="50" rows="5" name="questionnaire.explain" onblur="checkexplain()"></s:textarea>
+									<span id="sexplain"></span>
 								</td>
 							</tr>
 						</table>
