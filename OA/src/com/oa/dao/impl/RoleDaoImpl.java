@@ -120,7 +120,6 @@ public class RoleDaoImpl extends HibernateDaoSupport implements RoleDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<TRole> findRoles(final UserInfo userInfo) {
-		System.out.println(userInfo);
 		List<TRole> roleList = getHibernateTemplate().executeFind(
 				new HibernateCallback<List<TRole>>() {
 					@Override

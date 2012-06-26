@@ -111,8 +111,17 @@ public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
 	}
 
 	@Override
-	public void deleteUser(TUser user) {
-		getHibernateTemplate().delete(user);
+	public void deleteUser(final TUser user) {
+		getHibernateTemplate().execute(new HibernateCallback<Boolean>() {
+
+			@Override
+			public Boolean doInHibernate(Session session)
+					throws HibernateException, SQLException {
+				TUser user2 = (TUser) session.get(TUser.class, user.getUserid());
+				session.delete(user2);
+				return null;
+			}
+		});
 	}
 
 	@Override
@@ -153,12 +162,13 @@ public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
 			@Override
 			public Boolean doInHibernate(Session session)
 					throws HibernateException, SQLException {
-				TUser user2 = (TUser) session.get(TUser.class, user.getUserid());
+				TUser user2 = (TUser) session
+						.get(TUser.class, user.getUserid());
 				user2.setDepartment(user.getDepartment());
 				user2.setJob(user.getJob());
 				user2.setRoles(user.getRoles());
 				session.save(user2);
-				
+
 				return null;
 			}
 		});

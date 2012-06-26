@@ -47,7 +47,6 @@ public class TRole implements java.io.Serializable {
 	}
 
 	public void setRoleid(Integer roleid) {
-		System.out.println("setset-------------------------------");
 		this.roleid = roleid;
 	}
 
