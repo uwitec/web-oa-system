@@ -23,6 +23,7 @@ public class TData implements java.io.Serializable {
 
 	/** default constructor */
 	public TData() {
+		dataid = 0;
 	}
 
 	/** full constructor */

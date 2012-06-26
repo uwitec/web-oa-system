@@ -7,10 +7,10 @@
 <hibernate-mapping>
     <class name="com.oa.dao.pojo.TUserRole" table="T_USER_ROLE" schema="OA">
         <composite-id name="id" class="com.oa.dao.pojo.TUserRoleId">
-            <key-many-to-one name="TUser" class="com.oa.dao.pojo.TUser">
+            <key-many-to-one name="user" class="com.oa.dao.pojo.TUser">
                 <column name="USERID" length="16" />
             </key-many-to-one>
-            <key-many-to-one name="TRole" class="com.oa.dao.pojo.TRole">
+            <key-many-to-one name="role" class="com.oa.dao.pojo.TRole">
                 <column name="ROLEID" precision="8" scale="0" />
             </key-many-to-one>
         </composite-id>

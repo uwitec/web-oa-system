@@ -71,6 +71,12 @@ body {
 
 		<SCRIPT type="text/javascript">
 	function deleteUser(userid){
+		if(userid == '<s:property value='#session.user.userid'/>'){
+			alert('不能删除自己');
+			return;
+		}
+		
+		
 		if(confirm('确认删除?')){
 			window.location.href = "<%=path%>/user/deluser?userInfo.user.userid=" + userid;
 		}
@@ -132,8 +138,7 @@ body {
 							<s:textfield label="真实姓名" name="userInfo.user.realname"></s:textfield>
 							所属部门:
 							<s:select list="#request.departmentList" listKey="dataid"
-								listValue="dataname" label="所属部门"
-								name="userInfo.user.department.dataid" id="department">
+								listValue="dataname" label="所属部门" id="department" name="userInfo.user.department.dataid">
 							</s:select>
 							&nbsp; &nbsp; &nbsp;
 							<s:submit value="查询" />

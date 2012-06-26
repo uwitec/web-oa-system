@@ -1,7 +1,9 @@
 package com.oa.converter;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -37,7 +39,12 @@ public class RoleTypeConverter extends StrutsTypeConverter {
 
 	@Override
 	public String convertToString(Map context, Object toClass) {
-		return "";
+		Set<TRole> roles = (Set<TRole>) toClass;
+		StringBuffer sb = new StringBuffer();
+		for (TRole role : roles) {
+			sb.append(role.getRoleid());
+		}
+		return sb.toString();
 	}
 
 }

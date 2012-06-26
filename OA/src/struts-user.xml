@@ -27,7 +27,7 @@
 		</action>
 		<action name="selfupdate" class="com.oa.action.UserAction"
 			method="selfUpdate">
-			<result name="success">/back/self_updatea_succ.jsp</result>
+			<result name="success">/back/updatea_succ.jsp</result>
 		</action>
 
 
@@ -50,6 +50,9 @@
 		</action>
 		<action name="preadd" class="com.oa.action.UserAction" method="preAddUser">
 			<result name="success">/back/adduser.jsp</result>
+		</action>
+		<action name="updateuser" class="com.oa.action.UserAction" method="updateUser">
+			<result name="success">/back/updatea_succ.jsp</result>
 		</action>
 		<action name="adduser" class="com.oa.action.UserAction" method="addUser">
 			<result name="success" type="redirectAction">
