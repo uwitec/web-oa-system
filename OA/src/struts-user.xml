@@ -60,8 +60,7 @@
 			</result>
 		</action>
 
-
-		<action name="vcode" class="com.oa.action.ValidationCodeAction"></action>
+	<action name="vcode" class="com.oa.action.ValidationCodeAction"></action>
 	</package>
 
 
