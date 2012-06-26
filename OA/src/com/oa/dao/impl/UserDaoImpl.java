@@ -27,6 +27,8 @@ import com.oa.dao.pojo.TData;
 import com.oa.dao.pojo.TRole;
 import com.oa.dao.pojo.TTips;
 import com.oa.dao.pojo.TUser;
+import com.oa.dao.pojo.TUserRole;
+import com.oa.dao.pojo.TUserRoleId;
 import com.sun.xml.internal.messaging.saaj.packaging.mime.util.QEncoderStream;
 
 public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
@@ -145,8 +147,21 @@ public class UserDaoImpl extends HibernateDaoSupport implements UserDao {
 	}
 
 	@Override
-	public void updateUser(TUser user) {
-		getHibernateTemplate().update(user);
+	public void updateUser(final TUser user) {
+		getHibernateTemplate().execute(new HibernateCallback<Boolean>() {
+
+			@Override
+			public Boolean doInHibernate(Session session)
+					throws HibernateException, SQLException {
+				TUser user2 = (TUser) session.get(TUser.class, user.getUserid());
+				user2.setDepartment(user.getDepartment());
+				user2.setJob(user.getJob());
+				user2.setRoles(user.getRoles());
+				session.save(user2);
+				
+				return null;
+			}
+		});
 	}
 
 	@Override

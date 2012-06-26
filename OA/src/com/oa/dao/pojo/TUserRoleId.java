@@ -8,8 +8,8 @@ public class TUserRoleId implements java.io.Serializable {
 
 	// Fields
 
-	private TUser TUser;
-	private TRole TRole;
+	private TUser user;
+	private TRole role;
 
 	// Constructors
 
@@ -18,28 +18,13 @@ public class TUserRoleId implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public TUserRoleId(TUser TUser, TRole TRole) {
-		this.TUser = TUser;
-		this.TRole = TRole;
+	public TUserRoleId(TUser user, TRole role) {
+		this.setUser(user);
+		this.setRole(role);
 	}
 
 	// Property accessors
 
-	public TUser getTUser() {
-		return this.TUser;
-	}
-
-	public void setTUser(TUser TUser) {
-		this.TUser = TUser;
-	}
-
-	public TRole getTRole() {
-		return this.TRole;
-	}
-
-	public void setTRole(TRole TRole) {
-		this.TRole = TRole;
-	}
 
 	public boolean equals(Object other) {
 		if ((this == other))
@@ -50,23 +35,39 @@ public class TUserRoleId implements java.io.Serializable {
 			return false;
 		TUserRoleId castOther = (TUserRoleId) other;
 
-		return ((this.getTUser() == castOther.getTUser()) || (this.getTUser() != null
-				&& castOther.getTUser() != null && this.getTUser().equals(
-				castOther.getTUser())))
-				&& ((this.getTRole() == castOther.getTRole()) || (this
-						.getTRole() != null
-						&& castOther.getTRole() != null && this.getTRole()
-						.equals(castOther.getTRole())));
+		return ((this.getUser() == castOther.getUser()) || (this.getUser() != null
+				&& castOther.getUser() != null && this.getUser().equals(
+				castOther.getUser())))
+				&& ((this.getRole() == castOther.getRole()) || (this
+						.getRole() != null
+						&& castOther.getRole() != null && this.getRole()
+						.equals(castOther.getRole())));
 	}
 
 	public int hashCode() {
 		int result = 17;
 
 		result = 37 * result
-				+ (getTUser() == null ? 0 : this.getTUser().hashCode());
+				+ (getUser() == null ? 0 : this.getUser().hashCode());
 		result = 37 * result
-				+ (getTRole() == null ? 0 : this.getTRole().hashCode());
+				+ (getRole() == null ? 0 : this.getRole().hashCode());
 		return result;
+	}
+
+	public void setUser(TUser user) {
+		this.user = user;
+	}
+
+	public TUser getUser() {
+		return user;
+	}
+
+	public void setRole(TRole role) {
+		this.role = role;
+	}
+
+	public TRole getRole() {
+		return role;
 	}
 
 }

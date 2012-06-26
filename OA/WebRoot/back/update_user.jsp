@@ -99,67 +99,79 @@ body {
 				</td>
 			</tr>
 		</table>
+		<s:form method="post" action="updateuser" namespace="/user">
 
-		<table width="100%" border="0" cellpadding="0" cellspacing="1"
-			bgcolor="#a8c7ce">
-			<tr>
-				<td width="10%" height="20" bgcolor="d3eaef" class="STYLE6"
-					colspan="3">
-					<div align="center">
-						<span class="STYLE10">用户信息编辑</span>
-					</div>
-				</td>
-			</tr>
-			<tr bgcolor="#FFFFFF">
-				<td height="20" bgcolor="#FFFFFF" class="STYLE6" width="45%"
-					align="right">
-					用户名:
-				</td>
-				<td height="20" class="STYLE6">
-					&nbsp;
-					<s:property value="%{#request.singleuser.userid}" />
-				</td>
-				<td height="20" class="STYLE6"></td>
-			</tr>
-			<tr bgcolor="#FFFFFF">
-				<td height="20" class="STYLE6" width="45%" align="right">
-					所属部门:
-				</td>
-				<td height="20" class="STYLE6">
-					&nbsp;
-					<s:select list="#session.departmentList"
-						name="userInfo.user.department.dataid" listKey="dataid"
-						listValue="dataname"
-						value="%{#request.singleuser.department.dataid}"></s:select>
+			<s:hidden value="%{#request.singleuser.userid}" name="userInfo.user.userid"></s:hidden>
 
-				</td>
-				<td height="20" class="STYLE6"></td>
-			</tr>
-			<tr bgcolor="#FFFFFF">
-				<td height="20" class="STYLE6" width="45%" align="right">
-					职务:
-				</td>
-				<td height="20" class="STYLE6">
-					&nbsp;
-					<s:select list="#session.jobList" listKey="dataid"
-						listValue="dataname" name="userInfo.user.job.dataid"
-						value="%{#request.singleuser.job.dataid}"></s:select>
-				</td>
-				<td height="20" class="STYLE6"></td>
-			</tr>
-			<tr bgcolor="#FFFFFF">
-				<td height="20" class="STYLE6" width="45%" align="right">
-					角色:
-				</td>
-				<td height="20" class="STYLE6">
-					&nbsp;
-					<s:checkboxlist list="#session.roleList" name="userInfo.user.roles"
-						listKey="roleid" listValue="rolename"></s:checkboxlist>
-				</td>
-				<td height="20" class="STYLE6"></td>
-			</tr>
-		</table>
+			<table width="100%" border="0" cellpadding="0" cellspacing="1"
+				bgcolor="#a8c7ce">
+				<tr>
+					<td width="10%" height="20" bgcolor="d3eaef" class="STYLE6"
+						colspan="3">
+						<div align="center">
+							<span class="STYLE10">用户信息编辑</span>
+						</div>
+					</td>
+				</tr>
 
+				<tr bgcolor="#FFFFFF">
+					<td height="20" bgcolor="#FFFFFF" class="STYLE6" width="10%"
+						align="right">
+						用户名:
+					</td>
+					<td height="20" class="STYLE6" width="35%">
+						&nbsp;
+						<s:property value="%{#request.singleuser.userid}" />
+					</td>
+					<td height="20" class="STYLE6"></td>
+				</tr>
+				<tr bgcolor="#FFFFFF">
+					<td height="20" class="STYLE6" width="45%" align="right">
+						所属部门:
+					</td>
+					<td height="20" class="STYLE6">
+						&nbsp;
+						<s:select list="#session.departmentList"
+							name="userInfo.user.department.dataid" listKey="dataid"
+							listValue="dataname"
+							value="%{#request.singleuser.department.dataid}"></s:select>
+
+					</td>
+					<td height="20" class="STYLE6"></td>
+				</tr>
+				<tr bgcolor="#FFFFFF">
+					<td height="20" class="STYLE6" width="45%" align="right">
+						职务:
+					</td>
+					<td height="20" class="STYLE6">
+						&nbsp;
+						<s:select list="#session.jobList" listKey="dataid"
+							listValue="dataname" name="userInfo.user.job.dataid"
+							value="%{#request.singleuser.job.dataid}"></s:select>
+					</td>
+					<td height="20" class="STYLE6"></td>
+				</tr>
+				<tr bgcolor="#FFFFFF">
+					<td height="20" class="STYLE6" width="45%" align="right">
+						角色:
+					</td>
+					<td height="20" class="STYLE6">
+						&nbsp;
+						<s:checkboxlist list="#session.roleList"
+							name="userInfo.user.roles" listKey="roleid" listValue="rolename"
+							value="#request.selectedRoles"></s:checkboxlist>
+					</td>
+					<td height="20" class="STYLE6"></td>
+				</tr>
+				<tr bgcolor="#FFFFFF">
+					<td colspan="3" class="STYLE6" align="center">
+						<s:submit value="修改"></s:submit>
+						&nbsp;&nbsp;&nbsp;&nbsp;
+						<s:reset value="重置"></s:reset>
+					</td>
+				</tr>
+			</table>
+		</s:form>
 
 	</body>
 </html>

@@ -1,6 +1,7 @@
 package com.oa.action;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.struts2.json.annotations.JSON;
@@ -15,6 +16,7 @@ import com.oa.service.inf.RoleService;
 import com.oa.service.inf.UserService;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ModelDriven;
+import com.sun.xml.internal.ws.api.pipe.Tube;
 
 public class UserAction extends BaseAction implements ModelDriven<UserInfo> {
 	private UserService userService;
@@ -81,7 +83,7 @@ public class UserAction extends BaseAction implements ModelDriven<UserInfo> {
 		request.getSession().setAttribute("departmentList", departmentList);
 		request.getSession().setAttribute("jobList", jobList);
 		request.getSession().setAttribute("provinceList", provinceList);
-		List<TRole> roleList = roleService.getRoles(null);
+		List<TRole> roleList = roleService.getRoles(userInfo);
 		request.getSession().setAttribute("roleList", roleList);
 		return SUCCESS;
 	}
@@ -95,6 +97,7 @@ public class UserAction extends BaseAction implements ModelDriven<UserInfo> {
 		String userid = ((TUser) request.getSession().getAttribute(LOGIN_USER))
 				.getUserid();
 		TUser user = userService.getUser(userid);
+
 		request.setAttribute(SINGLE_USER, user);
 		return SUCCESS;
 	}
@@ -118,6 +121,11 @@ public class UserAction extends BaseAction implements ModelDriven<UserInfo> {
 		List<TRole> roleList = roleService.getRoles(userInfo);
 		request.getSession().setAttribute("roleList", roleList);
 		TUser user = userService.getUser(userInfo.getUser().getUserid());
+		List<String> selectedRoles = new ArrayList<String>();
+		for (TRole role : user.getRoles()) {
+			selectedRoles.add(role.getRoleid().toString());
+		}
+		request.setAttribute(SELECTED_ROLES, selectedRoles);
 		request.setAttribute(SINGLE_USER, user);
 		return SUCCESS;
 	}

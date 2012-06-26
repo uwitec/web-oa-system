@@ -13,8 +13,8 @@ public class TUser implements java.io.Serializable {
 	// Fields
 
 	private String userid;
-	private TData department;
-	private TData job;
+	private TData department = new TData();
+	private TData job = new TData();
 	private String password;
 	private String realname;
 	private Date addtime;

@@ -51,6 +51,7 @@
 				<value>com/oa/dao/pojo/OaQuestion.hbm.xml</value>
 				<value>com/oa/dao/pojo/OaQuestionnaire.hbm.xml</value>
 				<value>com/oa/dao/pojo/OaUserAnswers.hbm.xml</value>
+				<value>com/oa/dao/pojo/TUserRole.hbm.xml</value>
 				
 				
 				
