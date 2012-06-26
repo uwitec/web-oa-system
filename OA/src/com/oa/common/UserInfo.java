@@ -3,6 +3,7 @@ package com.oa.common;
 import java.io.Serializable;
 import java.util.List;
 
+import com.oa.dao.pojo.TPost;
 import com.oa.dao.pojo.TRole;
 import com.oa.dao.pojo.TUser;
 
@@ -17,6 +18,7 @@ public class UserInfo implements Serializable {
 
 	private List<TUser> userList;
 	private List<TRole> roleList;
+	private List<TPost> tpostList;
 	private String message;
 	private String vcode;
 	private String newPassword;
@@ -24,6 +26,24 @@ public class UserInfo implements Serializable {
 
 	private TUser user = new TUser();
 	private TRole role = new TRole();
+	private TPost tpost =new TPost();
+	
+
+	public List<TPost> getTpostList() {
+		return tpostList;
+	}
+
+	public void setTpostList(List<TPost> tpostList) {
+		this.tpostList = tpostList;
+	}
+
+	public TPost getTpost() {
+		return tpost;
+	}
+
+	public void setTpost(TPost tpost) {
+		this.tpost = tpost;
+	}
 
 	public List<TRole> getRoleList() {
 		return roleList;

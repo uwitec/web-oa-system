@@ -32,16 +32,11 @@ public class PostServiceImpl implements PostServiceInf{
 		this.tPostDao = tPostDao;
 	}
 
-
-
 	@Override
 	public void deletePost(TUserPost tUserPost) {
 		tPostDao.deletePost(tUserPost);
 		
 	}
-
- 
-
 
 	@Override
 	public void savePost(TUserPost tUserPost, List<File> upload,
@@ -90,12 +85,8 @@ public class PostServiceImpl implements PostServiceInf{
 		
 	}
 
-	@Override
-	public List<TUserPost> findAll(TUserPost tUserPost, UserInfo userInfo) {
-		// TODO Auto-generated method stub
-		return tPostDao.selectPosts(tUserPost, userInfo);
-	}
 
+//直接删除公告对象
 	@Override
 	public void deletePost(TPost tPost) {
 		tPostDao.deletePost(tPost);
@@ -103,9 +94,9 @@ public class PostServiceImpl implements PostServiceInf{
 	}
 
 	@Override
-	public List<TPost> findAll(TPost tPost, UserInfo userInfo) {
+	public List<TPost> findAll( UserInfo userInfo) {
 		// TODO Auto-generated method stub
-		return tPostDao.selectPosts(tPost, userInfo);
+		 return tPostDao.findAll(userInfo);
 	}
 
 	@Override
@@ -132,11 +123,9 @@ public class PostServiceImpl implements PostServiceInf{
 			tPost.setHasfile(false);
 		}
 		tPost.settPostFiles(tPostFiles);
-		TUser addUser = tPost.gettUserByAdduser();
-		tPost.settUserByAdduser(addUser);
 		//级联表设置
 		Integer postid = tPostDao.savePost(tPost);
-		TUserPostId id = new TUserPostId(addUser, tPost);
+		TUserPostId id = new TUserPostId(tPost.gettUserByAdduser(), tPost);
 		TUserPost tUserPost = new TUserPost();
 		tUserPost.setId(id);
 		tPostDao.saveUserPost(tUserPost);
@@ -169,15 +158,13 @@ public class PostServiceImpl implements PostServiceInf{
 		}
 		tPost.settPostFiles(tPostFiles);
 
-		Integer postid = tPostDao.savePost(tPost);
+		Integer postid = tPostDao.upadtePost(tPost);		
+	}
 
-		tPost.setPostid(postid);
+	@Override
+	public TPost selectSinglePost(int postid) {
 		
-
-		TUser addUser = tPost.gettUserByAdduser();
-		tPost.settUserByAdduser(addUser);
-		tPostDao.upadtePost(tPost);
-		
+		return tPostDao.selectSinglePost(postid);
 	}
 
  

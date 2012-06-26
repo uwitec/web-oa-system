@@ -1,4 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="GBK"%>
+<%@ taglib uri="http://fckeditor.net/tags-fckeditor" prefix="FCK"%>
+ 
 <%@ taglib uri="/struts-tags" prefix="s"%>
 
 <%
@@ -22,158 +24,151 @@
 		<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
-		<s:head />
+ 
+<script language="javascript" type="text/javascript" src="<%=path%>/My97DatePicker/WdatePicker.js"></script>
+		
 
 		<SCRIPT type="text/javascript">
 		
-		function addMore(){
-			//先判断附件有多少个  需求要求附件数量最多为3个
-			var tbody = document.getElementById("tbody");
-			var childs = tbody.childNodes;
-			if(childs.length>=3){
-				alert("附件数量已有3个,不能添加附件,请先删除其中的一些附件");
-				return ;
-			}else{
-				var tr = document.createElement("tr");
-				var td = document.createElement("td");
-				var input = document.createElement("input");
-				var button = document.createElement("input");
-				var br = document.createElement("br");
-				input.type = "file";
-				input.name="upload";		
-				input.contentEditable="false";
-				button.type = "button";
-				button.value = "删除附件";				
-				button.onclick = function(){
-				
-					tbody.removeChild(tr);
-					
-				};
-		
-				td.appendChild(input);
-				td.appendChild(button);
-				td.appendChild(br);
-				tr.appendChild(td);
-				tbody.appendChild(tr);
-				
-			}			
-		}
-		
-		
-		//ajax代码
-		var XmlHttp = null;
-function createXMLHttp() {
-	if (window.ActiveXObject) {
-		XmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
-	} else if (window.XMLHttpRequest) {
-		XmlHttp = new XMLHttpRequest();
+	function addMore() {
+	if (i >= 3) {
+		alert("超过三个附件");
+		return false
 	}
+	;
+	var td = document.getElementById("td");
+	var br = document.createElement("br");
+	var input = document.createElement("input");
+	var button = document.createElement("input");
+	input.name = "upload";
+	input.type = "file";
+	button.type = "button";
+	button.value = "移除该文件" + i;
+
+	button.onclick = function() {
+		if (confirm("确定移除该文件吗")) {
+			td.removeChild(br);
+			td.removeChild(input);
+			td.removeChild(button);
+			i--;
+		}
+	}
+	td.appendChild(br);
+	td.appendChild(input);
+	td.appendChild(button);
+	i++;
 }
-		
-		
-		function deletePostFile(pid){
-			var tbody = document.getElementById("tbody");
-			var tr = document.getElementById("tr"+pid);
-			createXMLHttp();
-	
-			var url = "<%=path%>/post/postFileAction!?postFileId="+pfid+"&date="
-			+ new Date().getTime();
-			XmlHttp.open("get", url, true);
-			//指定回调的方法
-			XmlHttp.onreadystatechange = function(){
-				if (XmlHttp.readyState == 4) {
-					if (XmlHttp.status == 200) {
-						var text = XmlHttp.responseText;
-						alert(text);
-						tbody.removeChild(tr);
-					}
+	function deleteFile(pfid){
+		alert(pfid);
+		var params = 'tPostFile.pfid=' + pfid; 
+		$.ajax( {
+			url : 'deleteTPostFile',
+			type : 'post',
+			dataType : 'json',
+			data : params,
+			success : function(json){
+				var m = json.userInfo.message;
+				if(m == 'success'){
+					alert('删除成功');
+					i--;
+					document.getElementById("fj").removeChild(document.getElementById(efid))
 				}
 			};
-			XmlHttp.send();
-			
-			
-			
-		}
+		});
+	}
 	</SCRIPT>
+
 	</head>
 
 	<body>
 		<h4>
-			修改公告页面
+			添加公告页面<br/>
+		
+			<s:actionerror />
 		</h4>
-
-
-		<s:form namespace="/system" action="postFileAction"
-			method="POST" enctype="multipart/form-data" theme="css_xhtml">
-			<table border="1" width="80%">
+		
+		
+		<s:form id="form" action="post/addpost" method="POST" enctype="multipart/form-data"
+			 theme="css_xhtml">
+			 
+				<table align="center" width="100%" height="80%" border="1">
 				<tr>
-					<td>
-						<s:hidden name="tUserPost.id.tPost.postid" />
-
-						<s:textfield label="公告标题" name="tUserPost.id.tPost.title" maxLength="25"></s:textfield>
-						<br>
+					<td >
+						<s:textfield label="公告标题" name="tPost.title" id="title" 
+						value="%{#request.tPost.title}"></s:textfield>
+					</td>
+				</tr>
+				<tr>
+					<td >
+						生效时间
+						<input   name="testNew" 
+						class="Wdate" type="text" id="hts" 
+						onfocus="new WdatePicker(this,'%Y年%M月%D日',false)" 
+						maxdate="#F{$('hte').value}" onPicked="$('hte').onfocus()"/>
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<s:hidden value="1" name="tUserPost.id.tPost.status" id="status"></s:hidden>
-						<input type="hidden" name="tUserPost.id.tPost.content" value="">
-						<FCK:editor id="tUserPost.id.tPost.strContent" width="75%"
+						失效时间
+						<input   name="testOld" 
+						class="Wdate" type="text" id="hts" 
+						onfocus="new WdatePicker(this,'%Y年%M月%D日',false)" 
+						maxdate="#F{$('hte').value}" onPicked="$('hte').onfocus()"/>
+					</td>
+					<td>
+					</td>
+				</tr>
+				<Tr>
+					<Td>
+						附件
+					</Td>
+					<TD id="fj">
+						<s:iterator value="#request.tPost.tPostFiles" var="tPostFile">
+							<span id="<s:property value='%{#tPostFile.pfid}'/>"> <s:property
+									value="#tPostFile.oldname" /> <input type="button" value="删除"
+									onclick="javascript:deleteFile(<s:property value='#tPostFile.pfid'/>)" />
+							</span>
+						</s:iterator>
+					</TD>
+				</Tr>
+				<tr>
+					<Td colspan="2" id="td">
+						<input type="button" value="添加附件" onclick="addMore()" />
+					</Td>
+				</tr>
+				<TR>
+					<TD colspan="1" width="100%">
+						<s:hidden value="1" name="userEmail.type" id="type"></s:hidden>
+						<input type="hidden" name="userEmail.id.email.content" value="">
+						<FCK:editor id="userEmail.id.email.strContent" width="100%"
 							height="320"
 							fontNames="宋体;黑体;隶书;楷体_GB2312;Arial;Comic Sans MS;Courier 
-							New;Tahoma;Times New Roman;Verdana"
+New;Tahoma;Times New Roman;Verdana"
 							imageBrowserURL="/FCKeditor-2.3/FCKeditor/editor/filemanager/browser/default/browser.html?
-							Type=Image&Connector=connectors/jsp/connector"
+Type=Image&Connector=connectors/jsp/connector"
 							linkBrowserURL="/FCKeditor-2.3/FCKeditor/editor/filemanager/browser/default/browser.html?
-							Connector=connectors/jsp/connector"
+Connector=connectors/jsp/connector"
 							flashBrowserURL="/FCKeditor-2.3/FCKeditor/editor/filemanager/browser/default/browser.html?
-							Type=Flash&Connector=connectors/jsp/connector"
+Type=Flash&Connector=connectors/jsp/connector"
 							imageUploadURL="/FCKeditor-2.3/FCKeditor/editor/filemanager/upload/simpleuploader?Type=Image"
 							linkUploadURL="/FCKeditor-2.3/FCKeditor/editor/filemanager/upload/simpleuploader?Type=File"
 							flashUploadURL="/FCKeditor-2.3/FCKeditor/editor/filemanager/upload/simpleuploader?Type=Flash">
 						</FCK:editor>
-						<br>
+						<div align="center">
+						 	<input type="submit" value="提交"  >
+							<input type="reset" value="重置">
+						 
+						</div>
 					</td>
-				</tr>
-				<tr>
-					<td id="div">
 
-
-						<input type="button" value="添加更多附件" onclick="addMore()" />
-						<br>
-						<!-- 附件列表 -->
-						<table width="400" border="1" bgcolor="#CCFFFF">
-							<tr>
-								<td>
-									附件列表
-								</td>
-							</tr>
-							<tbody id="tbody">
-								<s:iterator value="#request.postFileBeans" var="postFileBean">
-									<tr id="tr${postFileBean.id}">
-										<td>
-											<s:property value="#postFileBean.fileName" />
-											&nbsp;
-											<input type="button"
-												onclick="deletePostFile(${postFileBean.id})" value="删除附件" />
-										</td>
-
-									</tr>
-
-								</s:iterator>
-
-							</tbody>
-						</table>
-					</td>
-				</tr>
-				<tr>
 					<td>
-						<s:submit label="提交按钮" value="提交" align="left"></s:submit>
-					</td>
-				</tr>
+
+
+					</TD>
+				</TR>
 			</table>
 		</s:form>
-
+		
 		<s:debug></s:debug>
 	</body>
 </html>

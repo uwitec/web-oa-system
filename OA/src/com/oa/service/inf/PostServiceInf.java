@@ -34,8 +34,8 @@ public interface PostServiceInf {
 				List<String> uploadFileName, List<String> uploadContentType,
 				String savePath);
 		
-		List<TPost>  findAll(TPost tPost,final UserInfo userInfo);
-		List<TUserPost>  findAll(TUserPost tUserPost,final UserInfo userInfo);
+		List<TPost>  findAll(final UserInfo userInfo);
+		TPost selectSinglePost(int postid);
 		
 		void deletePost(TPost tPost);
 		void deletePost(TUserPost tUserPost);

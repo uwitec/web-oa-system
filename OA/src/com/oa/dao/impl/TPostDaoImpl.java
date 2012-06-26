@@ -8,7 +8,9 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -31,6 +33,7 @@ import com.oa.dao.inf.TPostDao;
 import com.oa.dao.pojo.TData;
 import com.oa.dao.pojo.TEmail;
 import com.oa.dao.pojo.TPost;
+import com.oa.dao.pojo.TPostFile;
 import com.oa.dao.pojo.TUser;
 import com.oa.dao.pojo.TUserEmail;
 import com.oa.dao.pojo.TUserPost;
@@ -57,6 +60,7 @@ public class TPostDaoImpl extends HibernateDaoSupport implements TPostDao{
 						tPost.setContent(Hibernate.createClob(" "));
 						session.save(tPost);
 						session.flush();
+						//锁定
 						session.refresh(tPost, LockMode.UPGRADE);
 						Clob clob = tPost.getContent();
 						Writer writer = clob.setCharacterStream(0);
@@ -79,18 +83,11 @@ public class TPostDaoImpl extends HibernateDaoSupport implements TPostDao{
 				});
 		return postId;
 	}
-	@Override
-	public void deletePost(final TPost tpost) {
-//		 getHibernateTemplate().execute(new HibernateCallback<TPost>() {
-//			
-//			@Override
-//			public void doInHibernate(Session session)
-//					throws HibernateException, SQLException {
-//				session.delete(tpost);			 
-//			}
-//		});return true;
-		  getHibernateTemplate().delete(tpost);		
-	}
+//	@Override
+//	public void deletePost(final TPost tpost) {
+//
+//		  getHibernateTemplate().delete(tpost);		
+//	}
 	
 	
 	@Override
@@ -103,17 +100,23 @@ public class TPostDaoImpl extends HibernateDaoSupport implements TPostDao{
 							throws HibernateException, SQLException {
 						org.hibernate.Transaction ts = session
 								.beginTransaction();
-						String hql = "update TPost set t.title ='"
-							+ tPost.getTitle()
-							+ "',POSTCONTENT=empty_clob() where t.postid="
-							+ tPost.getPostid();
-						Query query = session.createQuery(hql);
+						//sql
+						//update T_Post t set t.title ='aa',t.content=empty_clob() where t.postid=1
+
+						String hql = "update TPost t set t.title =:title,t.content=empty_clob()" +
+								",t.begindate=:begindate,t.enddate=:enddate, " +
+								"t.hasfile=:hasfile,t.updatetime=sysdate where t.postid=:postid";
+						Query query = session.createQuery(hql);			
+
 						query.setParameter("title", tPost.getTitle());
 						query.setParameter("postid", tPost.getPostid());
+						query.setParameter("begindate", tPost.getBegindate());
+						query.setParameter("enddate", tPost.getEnddate());
+						query.setParameter("hasfile", tPost.getHasfile());
 						
-						//tPost.setContent(Hibernate.createClob(" "));
-						session.save(tPost);
-						session.flush();// insert postFIle 级联
+						query.executeUpdate();
+//						session.update(tPost);
+//						session.flush();
 						session.refresh(tPost, LockMode.UPGRADE);
 						Clob clob = tPost.getContent();
 						Writer writer = clob.setCharacterStream(0);
@@ -129,9 +132,9 @@ public class TPostDaoImpl extends HibernateDaoSupport implements TPostDao{
 								e.printStackTrace();
 							}
 						}
-						Integer postId = (Integer) session.save(tPost);
-						ts.commit();
-						return postId;
+						session.update(tPost);				
+						ts.commit();		
+						return 0;
 					}
 				});
 		return postId;
@@ -153,22 +156,25 @@ public class TPostDaoImpl extends HibernateDaoSupport implements TPostDao{
 	}
 	
 	@Override
-	public List<TPost> findAll(final PostInfo postInfo) {
-		List<TPost> tpostList = getHibernateTemplate().executeFind(
+	public List<TPost> findAll(final UserInfo userInfo) {
+		return getHibernateTemplate().executeFind(
 				new HibernateCallback<List<TUser>>() {
 					@Override
 					public List<TUser> doInHibernate(Session session)
 							throws HibernateException, SQLException {
-
-						StringBuffer hql = new StringBuffer(
-								"select new TPost(tpost.postid, tpost.title, tpost.content,tpost.begindate,tpost.enddate,tpost.status,tpost.adduser, tpost.addtime) from TPost tpost where 1 = 1");
+						//select new TPost(tpost.postid, tpost.title, tpost.content,tpost.begindate,tpost.enddate,tpost.status,tpost.adduser, tpost.addtime) from TPost tpost where 1 = 1
+								StringBuffer hql = new StringBuffer(
+								"from TPost tpost where 1 = 1");
 						StringBuffer countHql = new StringBuffer(
 								"select count(*) from TPost tpost where 1 = 1");
-
-						String title = postInfo.getTpost().getTitle();
-						Integer status = postInfo.getTpost().getStatus();
-						TUser addUser= postInfo.getTpost().gettUserByAdduser();
-						int currPage = postInfo.getCurrPage();
+						//根据标题查询和有效时间查询
+						String title = userInfo.getTpost().getTitle();
+//						SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");						
+//						String begin = sdf.format(userInfo.getTpost().getBegindate());
+//						String end = sdf.format(userInfo.getTpost().getEnddate());
+						Date begin = userInfo.getTpost().getBegindate();
+						Date end = userInfo.getTpost().getEnddate();
+						int currPage = userInfo.getCurrPage();
 						currPage = currPage == 0 ? 1 : currPage;
 
 						if (null != title && !"".equals(title)) {
@@ -177,10 +183,19 @@ public class TPostDaoImpl extends HibernateDaoSupport implements TPostDao{
 							countHql.append(" and tpost.title like '%" + title
 									+ "%'");
 						}
+						if (null != begin && !"".equals(begin)) {
+							hql.append(" and tpost.begindate >" + begin);
+							countHql.append(" and tpost.begindate >" + begin);
+						}
+						if (null != end && !"".equals(end)) {
+							hql.append(" and tpost.enddate >" + begin);
+							countHql.append(" and tpost.enddate >" + begin);
+						}
+							hql.append(" order by tpost.addtime desc");
 
 						Query countQuery = session.createQuery(countHql
 								.toString());
-						postInfo.setTotalCount(((Long) countQuery
+						userInfo.setTotalCount(((Long) countQuery
 								.uniqueResult()).intValue());
 
 						Query query = session.createQuery(hql.toString());
@@ -188,14 +203,15 @@ public class TPostDaoImpl extends HibernateDaoSupport implements TPostDao{
 								* PostInfo.PAGE_SIZE);
 						query.setMaxResults(PostInfo.PAGE_SIZE);
 						return query.list();
+			
 					}
 				});
-		postInfo.setTpostList(tpostList);
-		return tpostList;
+	 
+		 
 	}
 	//级联表列出用户所有公告
 	@Override
-	public List<TUserPost> selectPosts(final TUserPost tUserPost, final UserInfo userInfo) {
+	public List<TUserPost> getPosts(final TUserPost tUserPost, final UserInfo userInfo) {
 		return getHibernateTemplate().executeFind(
 				new HibernateCallback<List<TPost>>() {
 					@Override
@@ -205,36 +221,12 @@ public class TPostDaoImpl extends HibernateDaoSupport implements TPostDao{
 						String hql = "from TUserPost t where t.id.user.userid = :userid";
 						int currPage = userInfo.getCurrPage();
 						currPage = currPage == 0 ? 1 : currPage;
-
-					 
-						
+						int postStatus = tUserPost.getId().gettPost().getStatus();
+						query=session.createQuery(hql);
+						query.setParameter("userid", userInfo.getUser()
+								.getUserid());
 
 																	
-						List<TUserPost>  tposts = query.list();
-						for (TUserPost t : tposts) {
-							System.out.println(t.getId().gettPost().getTitle());
-						}
-						userInfo.setTotalCount(tposts.size());
-						query.setFirstResult((currPage - 1)
-								* UserInfo.PAGE_SIZE);
-						query.setMaxResults(currPage * UserInfo.PAGE_SIZE);
-
-						return query.list();
-					}
-				});
-	}
-	@Override
-	public List<TPost> selectPosts(final TPost tPost, final UserInfo userInfo) {
-		return getHibernateTemplate().executeFind(
-				new HibernateCallback<List<TPost>>() {
-					@Override
-					public List<TPost> doInHibernate(Session session)
-							throws HibernateException, SQLException {
-						Query query = null;
-						String hql = "from TUserPost t where t.id.user.userid = :userid";
-						int currPage = userInfo.getCurrPage();
-						currPage = currPage == 0 ? 1 : currPage;
-														
 						List<TUserPost>  tposts = query.list();
 						for (TUserPost t : tposts) {
 							System.out.println(t.getId().gettPost().getTitle());
@@ -259,7 +251,7 @@ public class TPostDaoImpl extends HibernateDaoSupport implements TPostDao{
 			@Override
 			public Integer doInHibernate(Session session)
 					throws HibernateException, SQLException {
-				String hql = "delete from TUserPost t where t.id.user.userid = :userid and t.id.post.postid = :postid";
+				String hql = "delete from TUserPost t where t.id.tUser.userid = :userid and t.id.tPost.postid = :postid";
 				Query query = session.createQuery(hql);
 				
 				query.setParameter("userid",  tpost.getId().gettUser().getUserid());
@@ -298,6 +290,19 @@ public class TPostDaoImpl extends HibernateDaoSupport implements TPostDao{
 				return tPost;
 			}
 		});
+	}
+
+//删除公告文件
+	@Override
+	public void deletePostFile(TPostFile tPostFile) {
+		getHibernateTemplate().delete(tPostFile);
+	}
+
+
+	@Override
+	public void deletePost(TPost tPost) {
+		getHibernateTemplate().delete(tPost);
+		 
 	}
 	
 
