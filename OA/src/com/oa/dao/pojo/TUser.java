@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-
 /**
  * TUser entity. @author MyEclipse Persistence Tools
  */
@@ -33,6 +32,22 @@ public class TUser implements java.io.Serializable {
 	private Set<OaQuestionnaire> questionnaires = new HashSet<OaQuestionnaire>();
 	private Set<OaQuestionnaire> fkquestionnaire = new HashSet<OaQuestionnaire>();
 	private TTips tips;
+
+	@Override
+	public int hashCode() {
+		return Integer.parseInt(userid) * 27;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == this) {
+			return true;
+		}
+		if (obj instanceof TUser) {
+			return obj.hashCode() == this.hashCode();
+		}
+		return false;
+	}
 
 	// Constructors
 
