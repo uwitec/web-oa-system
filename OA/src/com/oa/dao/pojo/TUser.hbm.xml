@@ -12,15 +12,15 @@
 			<generator class="assigned" />
 		</id>
 		<many-to-one name="department" class="com.oa.dao.pojo.TData"
-			fetch="select">
+			fetch="select" cascade="none">
 			<column name="DEPARTMENT" precision="8" scale="0" />
 		</many-to-one>
 		<many-to-one name="job" class="com.oa.dao.pojo.TData"
-			fetch="select">
+			fetch="select" cascade="none">
 			<column name="JOB" precision="8" scale="0" />
 		</many-to-one>
 		<many-to-one name="city" class="com.oa.dao.pojo.TData"
-			fetch="select">
+			fetch="select" cascade="none">
 			<column name="CITY" precision="8" scale="0" />
 		</many-to-one>
 		<property name="password" type="java.lang.String">
@@ -64,6 +64,7 @@
 			</key>
 			<many-to-many class="com.oa.dao.pojo.TRole" column="ROLEID" />
 		</set>
+		
 		<set name="fkquestionnaire" inverse="true">
 			<key>
 				<column name="CREATEUSERID" precision="8" scale="0" />
@@ -74,10 +75,11 @@
 		<set name="questionnaires" inverse="false" table="cen_naire_user"
 			cascade="save-update">
 			<key>
-				<column name="CEN_NAIRE_ID" precision="8" scale="0" />
+				<column name="CEN_USER_ID" precision="8" scale="0" />
 			</key>
-			<many-to-many class="com.oa.dao.pojo.TUser" column="CEN_USER_ID"></many-to-many>
+			<many-to-many class="com.oa.dao.pojo.OaQuestionnaire" column="qid"></many-to-many>
 		</set>
+		
 		<one-to-one name="tips" class="com.oa.dao.pojo.TTips"
 			constrained="false" cascade="all"></one-to-one>
 	</class>

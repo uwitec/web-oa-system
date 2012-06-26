@@ -135,9 +135,7 @@ $(document).ready(function() {
 
 
 
-		<s:form action="user/adduser" method="post" theme="simple"
-			id="adduser">
-
+		<s:form action="adduser" method="post" namespace="/user">
 
 			<table width="100%" border="0" cellpadding="0" cellspacing="1"
 				bgcolor="#a8c7ce">
@@ -230,14 +228,11 @@ $(document).ready(function() {
 						½ÇÉ«:
 					</td>
 					<td height="20" class="STYLE6">
-						<DIV class="nobr">
-							<s:checkboxlist list="#session.roleList"
-								name="userInfo.user.roles" listKey="roleid" listValue="rolename"></s:checkboxlist>
-						</DIV>
+						<s:checkboxlist list="#session.roleList" listValue="rolename" listKey="roleid" 
+							value="" name="userInfo.user.roles"></s:checkboxlist>
 					</td>
 					<td height="20" class="STYLE6">
-						<span style="color: red" id="useridspan"><s:fielderror
-								theme="simple">
+						<span style="color: red" id="useridspan"><s:fielderror>
 								<s:param>userInfo.user.roles</s:param>
 							</s:fielderror> </span>
 					</td>
@@ -300,22 +295,11 @@ $(document).ready(function() {
 				<tr bgcolor="#FFFFFF">
 					<TD colspan="3" align="center">
 						<s:submit value="Ìí¼Ó"></s:submit>
+						&nbsp;&nbsp;&nbsp;
 						<s:reset value="ÖØÖÃ"></s:reset>
 					</TD>
 				</tr>
 			</table>
 		</s:form>
-
-
-
-
-
-
-
-
-
-
-
-
 	</body>
 </html>

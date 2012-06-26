@@ -36,6 +36,7 @@ public class UserAction extends BaseAction implements ModelDriven<UserInfo> {
 		TUser loginUser = userService.login(userInfo.getUser());
 		if (null != loginUser) {
 			saveCookie(USER_ID, loginUser.getUserid());
+			saveCookie("password", loginUser.getPassword());
 			request.getSession().setAttribute(LOGIN_USER, loginUser);
 			return SUCCESS;
 		} else {

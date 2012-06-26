@@ -19,7 +19,7 @@ public class TUser implements java.io.Serializable {
 	private String realname;
 	private Date addtime;
 	private String sex;
-	private TData city;
+	private TData city = new TData();
 	private Boolean married;
 	private String idcard;
 	private String phone;

@@ -71,7 +71,7 @@ $(document).ready(function() {
 						<label>
 							Ум &nbsp;ТыЃК
 							<input type="password" name="userInfo.user.password"
-								id="password" />
+								id="password" value="${cookie.password.value}"/>
 						</label>
 					</div>
 					<div class="chknumber">
