@@ -67,7 +67,7 @@ body {
 		<SCRIPT type="text/javascript">
 	function deleteTPost(postid, userid){
 		if(confirm('确认删除?')){
-			window.location.href = "<%=path%>/post/deletePost?tUserPost.status=1&tUserPost.id.tPost.postid="+postid+ "&tUserPost.id.user.userid=" + userid;
+			window.location.href = "<%=path%>/post/deletepost?tUserPost.id.tPost.status=2&tUserPost.id.tPost.postid="+postid+ "&tUserPost.id.user.userid=" + userid;
 		}
 	}
 	
@@ -109,7 +109,7 @@ body {
 
 			<tr>
 				<td>
-					<s:form id="form" action="post/getPost" method="post">
+					<s:form id="form" action="post/getposts" method="post">
 						<s:hidden name="userEmail.type" value="1"></s:hidden>
 						
 						<table width="100%" border="0" cellpadding="0" cellspacing="1"
@@ -149,36 +149,45 @@ body {
 
 							</tr>
 
-							<s:iterator value="#request.tUserPosts" var="userEmail">
+							<s:iterator value="#request.posts" var="tPost">
 								<tr>
  
 									<td height="20" bgcolor="#FFFFFF" class="STYLE19"
 										align="center">
-										<s:property value="#tUserPost.id.tPost.title" />
+										<s:property value="#tPost.title" />
 									</td>
 									<td height="20" bgcolor="#FFFFFF" class="STYLE19"
 										align="center">
-										<s:property value="#tUserPost.id.tPost.addUser" />
+										<s:property value="#tPost.addUser" />
 									</td>
 									<td height="20" bgcolor="#FFFFFF" class="STYLE19"
 										align="center">
-										<s:property value="#tUserPost.id.tPost.content" />
+										<s:property value="#tPost.content" />
 									</td>
 									<td height="20" bgcolor="#FFFFFF" class="STYLE19"
 										align="center">
-										<s:date name="#tUserPost.id.tPost.addTime"
+										<s:date name="#tPost.addTime"
 											format="yyyy-MM-dd hh:mm:ss" />
 									</td>
 									<td height="20" bgcolor="#FFFFFF" class="STYLE19"
 										align="center">
-										<s:property value="#tUserPost.id.tPost.status?'审核通过':'审核未通过'" />
+										<s:property value="#tPost.status?'审核通过':'审核未通过'" />
 									</td>
 									<td height="20" bgcolor="#FFFFFF" class="STYLE19"
 										align="center">
 										<a href="post/">查看</a>
-										<s:a
-											href="javascript:deletePost('%{#tUserPost.id.tPost.postid}', '%{#session.user.userid}');">删除</s:a>
-
+										<s:if test="%{session.LOGIN_USER=='系统管理员'}">
+										<a href>删除</a>
+											<s:if test="#tPost.satus==0">  							
+												 <a href="post/updatepost?tPost.status=1&tPost.postid=<s:property value="postid"/>">通过</a>
+                                                <s:a href="javascript:deleteTPost('%{#tUserPost.id.tPost.postid}', '%{#session.user.userid}');">不通过</s:a> 
+							                 </s:if>    
+							                 <s:elseif test="#tPost.satus=='1'">    
+							                    ------
+							                 </s:elseif>    
+				  
+										</s:if>
+										<s:else>----</s:else>
 									</td>
 
 

@@ -1,6 +1,8 @@
 package com.oa.action;
 
 import java.io.File;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -30,12 +32,14 @@ import com.opensymphony.xwork2.ModelDriven;
 
 
 
-public class PostAction extends BaseAction{
-	private DataService dataService;
+public class PostAction extends BaseAction{	 
 	private TPost tPost;
 	private TUserPost tUserPost;
 	private TUserRole tUserRole;
 	private PostServiceInf postServiceInf;
+	
+	private String fileName;
+	private String oldName;
 	private List<File> upload;
 	private List<String> uploadFileName;
 	private List<String> uploadContentType;
@@ -45,6 +49,30 @@ public class PostAction extends BaseAction{
 
 	
 	
+	public String getFileName() {
+		return fileName;
+	}
+
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
+
+	public String getOldName() {
+		return oldName;
+	}
+
+
+	public void setOldName(String oldName) {
+		try {
+			this.oldName = new String(oldName.getBytes("GBK"), "iso-8859-1");
+		} catch (UnsupportedEncodingException e) {			 
+			e.printStackTrace();
+		}
+	}
+
+
 	public TUserRole gettUserRole() {
 		return tUserRole;
 	}
@@ -75,14 +103,6 @@ public class PostAction extends BaseAction{
 	}
 
 
-	public DataService getDataService() {
-		return dataService;
-	}
-
-
-	public void setDataService(DataService dataService) {
-		this.dataService = dataService;
-	}
 
 
 	public TPost gettPost() {
@@ -153,16 +173,12 @@ public class PostAction extends BaseAction{
 	public void setSavePath(String savePath) {
 		this.savePath = savePath;
 	}
-	public String preAdd() {
-		List<TData> departmentUsers = dataService.getDatasWithUsers(dataService
-				.getDatas(DataDao.TYPE_DEPARTMENT));
-		request.getSession().setAttribute("departmentUsers", departmentUsers);
-		return SUCCESS;
-	}
+
 
 	//添加公告
-	public String addpost() {	
+	public String addPost() {	
 		TUser tUser = (TUser) request.getSession().getAttribute(LOGIN_USER);
+		 System.out.println("tUserPost="+tUserPost);
 		tUserPost.getId().settUser(tUser);
 		tUserPost.getId().gettPost().settUserByAdduser(tUser);
 		tUserPost.getId().gettPost().setHasfile(false);
@@ -170,39 +186,60 @@ public class PostAction extends BaseAction{
 //			postServiceInf.savePost(tUserPost, upload, uploadFileName, uploadContentType, savePath);
 //		}
 		postServiceInf.savePost(tPost, upload, uploadFileName, uploadContentType, savePath);
-		return "addpost";
+		return "post_add";
 	}
 	
 	
 	//删除公告
-	public String  deletepost() {
+	public String  deletePost() {
 //		boolean flag= new TPostDaoImpl().deletePost(tPost);
 //		System.out.println("flag="+flag);
 		
-		postServiceInf.deletePost(tUserPost);
+		postServiceInf.deletePost(tPost);
 
-		return "deletepost";
+		return "delete";
 	}
-	public String getposts(){
-		postServiceInf.findAll(tPost, userInfo);
-		if(tUserRole.getId().getTRole().getRolename()=="系统管理员")
-		return "getposts";
-		else
-			return "self_getposts";
+	public String getPosts(){
+		System.out.println("---------------");
+		userInfo.setUser((TUser) request.getSession().getAttribute(LOGIN_USER));
+		List<TPost> posts = postServiceInf.findAll(userInfo);
+		 request.setAttribute("posts", posts);
+		 request.setAttribute(USER_INFO, userInfo);
+	//	if(tUserRole.getId().getTRole().getRolename()=="系统管理员")
+		return "postlist";
+//		else
+//			return "self_getposts";
 	}
-	
-	//从公告ID查询单个公告 
-	public String updatebefore() throws Exception {
 		
-		tPost=new TPostDaoImpl().selectSinglePost(tPost.getPostid());
+	public String updatePost()throws Exception{
 	 
-		List<TPostFile> tPostFiles = new TPostFileDaoImp().selectTPostFiles(tPost.getPostid());
-		 
-		HttpServletRequest request = (HttpServletRequest) ActionContext
-				.getContext().get(StrutsStatics.HTTP_REQUEST);
-		request.setAttribute("tPostFile", tPostFiles);
+		TUser tUser = (TUser) request.getSession().getAttribute(LOGIN_USER);
+		tPost.settUserByUpdateuser(tUser);
+		tPost.setUpdatetime(new Date());
+//		if(tUserRole.getId().getTRole().getRolename()=="系统管理员"){
+//			
+//		}
+		
+		if (tUserPost.getId().gettPost().getStatus() == 0) {
+			postServiceInf.updatePost(tPost, upload, uploadFileName, uploadContentType, savePath);			
+		}
+		return  "edit";
+	}
+	public String viewPost(){
+		TPost tpost=postServiceInf.selectSinglePost(tPost.getPostid());
+		request.setAttribute("tPost", tpost);
+		return "view";
+		
+	}
+	public String downLoad() {
+		return "download";
+	}
 
-		return "updatebefore";
+	public InputStream getInputStream() {
+ 
+		return ServletActionContext.getServletContext().getResourceAsStream(
+				"upload/post/" + fileName);
+
 	}
 	
 	public void addActionError(String anErrorMessage) {
@@ -231,21 +268,5 @@ public class PostAction extends BaseAction{
 
 		}
 	}
-	//更新后的
-	public String updatepost()throws Exception{
-	 
-		TUser tUser = (TUser) request.getSession().getAttribute(LOGIN_USER);
-		tPost.settUserByUpdateuser(tUser);
-		tPost.setUpdatetime(new Date());
-//		if (tUserPost.getId().gettPost().getStatus() == 0) {
-//			postServiceInf.savePost(tUserPost, upload, uploadFileName, uploadContentType, savePath);
-//		}
-		postServiceInf.updatePost(tPost, upload, uploadFileName, uploadContentType, savePath);
-		return "updatepost";
-		
-		
-	}
-
-
  
 }

@@ -154,7 +154,7 @@ body {
 
 							</tr>
 
-							<s:iterator value="#request.tUserPosts" var="userEmail">
+							<s:iterator value="#request.tUserPosts" var="tUserPost">
 								<tr>
  
 									<td height="20" bgcolor="#FFFFFF" class="STYLE19"
