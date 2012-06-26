@@ -42,7 +42,7 @@
 			</key>
 			<many-to-many class="com.oa.dao.pojo.TRole" column="ROLEID"/>
 		</set>
-		<set inverse="true" name="sonMenus" sort="unsorted" lazy="false">
+		<set inverse="true" name="sonMenus" sort="unsorted" lazy="false" order-by="ORDERID">
 			<key>
 				<column name="PMENUID" precision="8" scale="0" />
 			</key>
