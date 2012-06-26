@@ -35,7 +35,7 @@ public class TUser implements java.io.Serializable {
 
 	@Override
 	public int hashCode() {
-		return Integer.parseInt(userid) * 27;
+		return userid.hashCode();
 	}
 
 	@Override
