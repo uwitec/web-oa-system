@@ -14,8 +14,8 @@ public class TPost implements java.io.Serializable {
 	// Fields
 
 	private Integer postid;
-	private TUser tUserByUpdateuser;
-	private TUser tUserByAdduser;
+	private TUser updateUser;
+	private TUser addUser;
 	private String title;
 	private Clob content;
 	private String strContent;
@@ -35,12 +35,12 @@ public class TPost implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public TPost(TUser TUserByUpdateuser, TUser TUserByAdduser, String title,
+	public TPost(TUser updateUser, TUser addUser, String title,
 			Clob content, Date begindate, Date enddate, Integer status,
 			Boolean hasfile, Date addtime, Date updatetime, Set tUserPosts,
 			Set TPostFiles) {
-		this.tUserByUpdateuser = tUserByUpdateuser;
-		this.tUserByAdduser = tUserByAdduser;
+		this.updateUser = updateUser;
+		this.addUser = addUser;
 		this.title = title;
 		this.content = content;
 		this.begindate = begindate;
@@ -141,22 +141,6 @@ public class TPost implements java.io.Serializable {
 		this.updatetime = updatetime;
 	}
 
-	public TUser gettUserByUpdateuser() {
-		return tUserByUpdateuser;
-	}
-
-	public void settUserByUpdateuser(TUser tUserByUpdateuser) {
-		this.tUserByUpdateuser = tUserByUpdateuser;
-	}
-
-	public TUser gettUserByAdduser() {
-		return tUserByAdduser;
-	}
-
-	public void settUserByAdduser(TUser tUserByAdduser) {
-		this.tUserByAdduser = tUserByAdduser;
-	}
-
 
 
 	public Set<TUserPost> gettUserPosts() {
@@ -173,6 +157,22 @@ public class TPost implements java.io.Serializable {
 
 	public void settPostFiles(Set<TPostFile> tPostFiles) {
 		this.tPostFiles = tPostFiles;
+	}
+
+	public void setUpdateUser(TUser updateUser) {
+		this.updateUser = updateUser;
+	}
+
+	public TUser getUpdateUser() {
+		return updateUser;
+	}
+
+	public void setAddUser(TUser addUser) {
+		this.addUser = addUser;
+	}
+
+	public TUser getAddUser() {
+		return addUser;
 	}
 
 

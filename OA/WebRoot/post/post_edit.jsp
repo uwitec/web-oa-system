@@ -29,7 +29,7 @@
 		
 
 		<SCRIPT type="text/javascript">
-		
+	var i=0;	
 	function addMore() {
 	if (i >= 3) {
 		alert("超过三个附件");
@@ -138,9 +138,9 @@
 				</tr>
 				<TR>
 					<TD colspan="1" width="100%">
-						<s:hidden value="1" name="userEmail.type" id="type"></s:hidden>
-						<input type="hidden" name="userEmail.id.email.content" value="">
-						<FCK:editor id="userEmail.id.email.strContent" width="100%"
+						<s:hidden value="1" name="tPost.status" id="status"></s:hidden>
+						<input type="hidden" name="tPost.strContent" value="">
+						<FCK:editor id="tPost.strContent" width="100%"
 							height="320"
 							fontNames="宋体;黑体;隶书;楷体_GB2312;Arial;Comic Sans MS;Courier 
 New;Tahoma;Times New Roman;Verdana"

@@ -76,6 +76,7 @@ public class TPostDaoImpl extends HibernateDaoSupport implements TPostDao{
 								e.printStackTrace();
 							}
 						}
+						tPost.setAddtime(new Date());
 						Integer postId = (Integer) session.save(tPost);
 						ts.commit();
 						return postId;
@@ -83,11 +84,11 @@ public class TPostDaoImpl extends HibernateDaoSupport implements TPostDao{
 				});
 		return postId;
 	}
-//	@Override
-//	public void deletePost(final TPost tpost) {
-//
-//		  getHibernateTemplate().delete(tpost);		
-//	}
+	@Override
+	public void deletePost(final TPost tpost) {
+
+		  getHibernateTemplate().delete(tpost);		
+	}
 	
 	
 	@Override
@@ -155,12 +156,13 @@ public class TPostDaoImpl extends HibernateDaoSupport implements TPostDao{
 		});
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<TPost> findAll(final UserInfo userInfo) {
 		return getHibernateTemplate().executeFind(
-				new HibernateCallback<List<TUser>>() {
+				new HibernateCallback<List<TPost>>() {
 					@Override
-					public List<TUser> doInHibernate(Session session)
+					public List<TPost> doInHibernate(Session session)
 							throws HibernateException, SQLException {
 						//select new TPost(tpost.postid, tpost.title, tpost.content,tpost.begindate,tpost.enddate,tpost.status,tpost.adduser, tpost.addtime) from TPost tpost where 1 = 1
 								StringBuffer hql = new StringBuffer(
@@ -202,7 +204,15 @@ public class TPostDaoImpl extends HibernateDaoSupport implements TPostDao{
 						query.setFirstResult((currPage - 1)
 								* PostInfo.PAGE_SIZE);
 						query.setMaxResults(PostInfo.PAGE_SIZE);
-						return query.list();
+						
+						
+						List<TPost> postList = query.list();
+						for (TPost post : postList) {
+							Clob content = post.getContent();
+							post.setStrContent(content.getSubString(1L, (int) content
+									.length()));				
+						}
+						return postList;
 			
 					}
 				});
@@ -210,87 +220,87 @@ public class TPostDaoImpl extends HibernateDaoSupport implements TPostDao{
 		 
 	}
 	//级联表列出用户所有公告
-	@Override
-	public List<TUserPost> getPosts(final TUserPost tUserPost, final UserInfo userInfo) {
-		return getHibernateTemplate().executeFind(
-				new HibernateCallback<List<TPost>>() {
-					@Override
-					public List<TPost> doInHibernate(Session session)
-							throws HibernateException, SQLException {
-						Query query = null;
-						String hql = "from TUserPost t where t.id.user.userid = :userid";
-						int currPage = userInfo.getCurrPage();
-						currPage = currPage == 0 ? 1 : currPage;
-						int postStatus = tUserPost.getId().gettPost().getStatus();
-						query=session.createQuery(hql);
-						query.setParameter("userid", userInfo.getUser()
-								.getUserid());
-
-																	
-						List<TUserPost>  tposts = query.list();
-						for (TUserPost t : tposts) {
-							System.out.println(t.getId().gettPost().getTitle());
-						}
-						userInfo.setTotalCount(tposts.size());
-						query.setFirstResult((currPage - 1)
-								* UserInfo.PAGE_SIZE);
-						query.setMaxResults(currPage * UserInfo.PAGE_SIZE);
-
-						return query.list();
-					}
-				});
-	}
+//	@Override
+//	public List<TUserPost> getPosts(final TUserPost tUserPost, final UserInfo userInfo) {
+//		return getHibernateTemplate().executeFind(
+//				new HibernateCallback<List<TPost>>() {
+//					@Override
+//					public List<TPost> doInHibernate(Session session)
+//							throws HibernateException, SQLException {
+//						Query query = null;
+//						String hql = "from TUserPost t where t.id.user.userid = :userid";
+//						int currPage = userInfo.getCurrPage();
+//						currPage = currPage == 0 ? 1 : currPage;
+//						int postStatus = tUserPost.getId().gettPost().getStatus();
+//						query=session.createQuery(hql);
+//						query.setParameter("userid", userInfo.getUser()
+//								.getUserid());
+//
+//																	
+//						List<TUserPost>  tposts = query.list();
+//						for (TUserPost t : tposts) {
+//							System.out.println(t.getId().gettPost().getTitle());
+//						}
+//						userInfo.setTotalCount(tposts.size());
+//						query.setFirstResult((currPage - 1)
+//								* UserInfo.PAGE_SIZE);
+//						query.setMaxResults(currPage * UserInfo.PAGE_SIZE);
+//
+//						return query.list();
+//					}
+//				});
+//	}
 	
 	
 	
 	//通过级联删除
-	@Override
-	public void deletePost(final TUserPost tpost) {
-		getHibernateTemplate().execute(new HibernateCallback<Integer>() {
-
-			@Override
-			public Integer doInHibernate(Session session)
-					throws HibernateException, SQLException {
-				String hql = "delete from TUserPost t where t.id.tUser.userid = :userid and t.id.tPost.postid = :postid";
-				Query query = session.createQuery(hql);
-				
-				query.setParameter("userid",  tpost.getId().gettUser().getUserid());
-				query.setParameter("postid", tpost.getId().gettPost().getPostid());
-
-				return query.executeUpdate();
-			}
-		});
+//	@Override
+//	public void deletePost(final TUserPost tpost) {
+//		getHibernateTemplate().execute(new HibernateCallback<Integer>() {
+//
+//			@Override
+//			public Integer doInHibernate(Session session)
+//					throws HibernateException, SQLException {
+//				String hql = "delete from TUserPost t where t.id.tUser.userid = :userid and t.id.tPost.postid = :postid";
+//				Query query = session.createQuery(hql);
+//				
+//				query.setParameter("userid",  tpost.getId().gettUser().getUserid());
+//				query.setParameter("postid", tpost.getId().gettPost().getPostid());
+//
+//				return query.executeUpdate();
+//			}
+//		});
 		
-	}
+//	}
 
 
 
 
 	
 	//级联表的记录增加
-	@Override
-	public void saveUserPost(TUserPost tUserPost) {
-		getHibernateTemplate().save(tUserPost);
-		
-	}
+//	@Override
+//	public void saveUserPost(TUserPost tUserPost) {
+//		getHibernateTemplate().save(tUserPost);
+//		
+//	}
 	//通过级选择
-	@Override
-	public TPost selectSinglePost(final TUserPost tUserPost) {
-		return getHibernateTemplate().execute(new HibernateCallback<TPost>() {
-			
-			@Override
-			public TPost doInHibernate(Session session)
-					throws HibernateException, SQLException {
-				TPost tPost = (TPost) session.load(TPost.class, tUserPost
-						.getId().gettPost().getPostid());
-				Clob content = tPost.getContent();
-				tPost.setStrContent(content.getSubString(1L, (int) content
-						.length()));
- 
-				return tPost;
-			}
-		});
-	}
+//	@Override
+//	public TPost selectSinglePost(final TUserPost tUserPost) {
+//		return getHibernateTemplate().execute(new HibernateCallback<TPost>() {
+//			
+//			@Override
+//			public TPost doInHibernate(Session session)
+//					throws HibernateException, SQLException {
+//				TPost tPost = (TPost) session.load(TPost.class, tUserPost
+//						.getId().gettPost().getPostid());
+//				Clob content = tPost.getContent();
+//				tPost.setStrContent(content.getSubString(1L, (int) content
+//						.length()));
+// 
+//				return tPost;
+//			}
+//		});
+//	}
 
 //删除公告文件
 	@Override
@@ -299,11 +309,11 @@ public class TPostDaoImpl extends HibernateDaoSupport implements TPostDao{
 	}
 
 
-	@Override
-	public void deletePost(TPost tPost) {
-		getHibernateTemplate().delete(tPost);
-		 
-	}
+//	@Override
+//	public void deletePost(TPost tPost) {
+//		getHibernateTemplate().delete(tPost);
+//		 
+//	}
 	
 
 	
