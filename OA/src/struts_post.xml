@@ -15,12 +15,12 @@
 	<package name="postPack" extends="struts-default" namespace="/post">
 	 <action name="getpost" class="com.oa.action.PostAction" 
 		 method="getPosts">
-		 <result name="postlist">/post/post.jsp</result>
+		 <result name="postlist">/post/postlist.jsp</result>
 	 </action>
 	  <action name="addpost" class="com.oa.action.PostAction" 
 		 method="addPost">
 		 <param name="savePath">/upload/post</param>
-		 <result name="post_add">getpost</result>
+		 <result name="post_add">/post/success.jsp</result>
 		 	<result name="input">/post/post_add.jsp</result>
 	 </action>
 	 <action name="deletepost" class="com.oa.action.PostAction" method="deletePost">

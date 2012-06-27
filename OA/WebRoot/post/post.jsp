@@ -67,7 +67,7 @@ body {
 		<SCRIPT type="text/javascript">
 	function deleteTPost(postid, userid){
 		if(confirm('确认删除?')){
-			window.location.href = "<%=path%>/post/deletepost?tUserPost.id.tPost.status=2&tUserPost.id.tPost.postid="+postid+ "&tUserPost.id.user.userid=" + userid;
+			window.location.href = "<%=path%>/post/deletepost?post.status=2;
 		}
 	}
 	
@@ -77,7 +77,8 @@ body {
 	</head>
 
 	<body>
-		<table width="100%" border="0" align="center" cellpadding="0"
+		<s:debug></s:debug>
+		<!--<table width="100%" border="0" align="center" cellpadding="0"
 			cellspacing="0">
 			<tr>
 				<td height="30">
@@ -111,11 +112,11 @@ body {
 				<td>
 					<s:form id="form" action="post/getposts" method="post">
 						<s:hidden name="userEmail.type" value="1"></s:hidden>
-						
+
 						<table width="100%" border="0" cellpadding="0" cellspacing="1"
 							bgcolor="#a8c7ce">
 							<tr>
-					 
+
 								<td width="10%" height="20" bgcolor="d3eaef" class="STYLE6">
 									<div align="center">
 										<span class="STYLE10">标题</span>
@@ -148,49 +149,46 @@ body {
 								</td>
 
 							</tr>
-
-							<s:iterator value="#request.posts" var="tPost">
+							<s:property value="#request.posts.size()" />
+							<s:iterator value="#request.posts" var="post">
 								<tr>
- 
 									<td height="20" bgcolor="#FFFFFF" class="STYLE19"
 										align="center">
-										<s:property value="#tPost.title" />
+										<s:property value="#post.title" />
 									</td>
 									<td height="20" bgcolor="#FFFFFF" class="STYLE19"
 										align="center">
-										<s:property value="#tPost.addUser" />
+										<s:property value="#post.addUser" />
 									</td>
 									<td height="20" bgcolor="#FFFFFF" class="STYLE19"
 										align="center">
-										<s:property value="#tPost.content" />
+										<s:property value="#post.strContent" />
 									</td>
 									<td height="20" bgcolor="#FFFFFF" class="STYLE19"
 										align="center">
-										<s:date name="#tPost.addTime"
-											format="yyyy-MM-dd hh:mm:ss" />
+										<s:date name="#post.addTime" format="yyyy-MM-dd hh:mm:ss" />
 									</td>
 									<td height="20" bgcolor="#FFFFFF" class="STYLE19"
 										align="center">
-										<s:property value="#tPost.status?'审核通过':'审核未通过'" />
+										<s:property value="#post.status?'审核通过':'审核未通过'" />
 									</td>
 									<td height="20" bgcolor="#FFFFFF" class="STYLE19"
 										align="center">
 										<a href="post/">查看</a>
 										<s:if test="%{session.LOGIN_USER=='系统管理员'}">
-										<a href>删除</a>
-											<s:if test="#tPost.satus==0">  							
-												 <a href="post/updatepost?tPost.status=1&tPost.postid=<s:property value="postid"/>">通过</a>
-                                                <s:a href="javascript:deleteTPost('%{#tUserPost.id.tPost.postid}', '%{#session.user.userid}');">不通过</s:a> 
-							                 </s:if>    
-							                 <s:elseif test="#tPost.satus=='1'">    
+											<a href>删除</a>
+											<s:if test="#post.satus==0">
+												<a
+													href="post/updatepost?post.status=1&post.postid=<s:property value="postid"/>">通过</a>
+												<s:a
+													href="javascript:deleteTPost('%{#post.postid}', '%{#session.user.userid}');">不通过</s:a>
+											</s:if>
+											<s:elseif test="#post.satus=='1'">    
 							                    ------
-							                 </s:elseif>    
-				  
+							                 </s:elseif>
 										</s:if>
 										<s:else>----</s:else>
 									</td>
-
-
 								</tr>
 							</s:iterator>
 						</table>
@@ -198,7 +196,7 @@ body {
 				</td>
 			</tr>
 		</table>
-		<oa:pageTag />
+
 		<s:debug></s:debug>
-	</body>
+	--></body>
 </html>

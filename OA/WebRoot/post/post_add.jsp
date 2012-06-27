@@ -74,17 +74,16 @@
 			添加公告页面
 			<br />
 
-			<s:actionerror />
 		</h4>
 
-
+	<SPAN><s:fielderror></s:fielderror> <s:actionerror /> </SPAN>
 		<s:form id="form" action="post/addpost" method="POST"
 			enctype="multipart/form-data" theme="css_xhtml">
 
 			<table align="center" width="100%" height="80%" border="1">
 				<tr>
 					<td>
-						<s:textfield label="公告标题" name="tPost.title" id="title"
+						<s:textfield label="公告标题" name="post.title" id="title"
 							value="%{#request.tPost.title}"></s:textfield>
 					</td>
 				</tr>
@@ -92,7 +91,7 @@
 					<td>
 					生效时间
 
-						<input name="testNew" class="Wdate" type="text" id="hts"
+						<input name="post.begindate" class="Wdate" type="text" id="hts"
 							onfocus="new WdatePicker(this,'%Y年%M月%D日',false)"
 							maxdate="#F{$('hte').value}" onpicked="$('hte').onfocus()" />
 					</td>
@@ -101,7 +100,7 @@
 					<td>
 						失效时间
 
-						<input name="testOld" class="Wdate" type="text" id="hte"
+						<input name="post.enddate" class="Wdate" type="text" id="hte"
 							onfocus="new WdatePicker(this,'%Y年%M月%D日',false)"
 							mindate="#F{$('hts').value}" maxdate="2020-1-1" />
 					</td>
@@ -116,9 +115,9 @@
 				</tr>
 				<TR>
 					<TD colspan="1" width="100%">
-						<s:hidden value="1" name="tPost.status" id="status"></s:hidden>
-						<input type="hidden" name="tPost.content" value="">
-						<FCK:editor id="tPost.strContent" width="100%" height="320"
+						<s:hidden value="1" name="post.status" id="status"></s:hidden>
+						<input type="hidden" name="post.strContent" value="">
+						<FCK:editor id="post.strContent" width="100%" height="320"
 							fontNames="宋体;黑体;隶书;楷体_GB2312;Arial;Comic Sans MS;Courier 
 New;Tahoma;Times New Roman;Verdana"
 							imageBrowserURL="/FCKeditor-2.3/FCKeditor/editor/filemanager/browser/default/browser.html?

@@ -9,6 +9,7 @@ import com.oa.common.FileUtil;
 import com.oa.common.UserInfo;
 import com.oa.dao.inf.EmailDao;
 import com.oa.dao.inf.TPostDao;
+import com.oa.dao.inf.TPostFileDao;
 import com.oa.dao.pojo.TEmail;
 import com.oa.dao.pojo.TEmailFile;
 import com.oa.dao.pojo.TPost;
@@ -21,9 +22,18 @@ import com.oa.dao.pojo.TUserPostId;
 import com.oa.service.inf.PostServiceInf;
 import com.oa.util.PostInfo;
 
-public class PostServiceImpl implements PostServiceInf{
+public class PostServiceImpl implements PostServiceInf {
 	private TPostDao tPostDao;
-	
+	private TPostFileDao postFileDao;
+
+	public TPostFileDao getPostFileDao() {
+		return postFileDao;
+	}
+
+	public void setPostFileDao(TPostFileDao postFileDao) {
+		this.postFileDao = postFileDao;
+	}
+
 	public TPostDao gettPostDao() {
 		return tPostDao;
 	}
@@ -34,8 +44,8 @@ public class PostServiceImpl implements PostServiceInf{
 
 	@Override
 	public void deletePost(TUserPost tUserPost) {
-		tPostDao.deletePost(tUserPost);
-		
+		// tPostDao.deletePost(tUserPost);
+
 	}
 
 	@Override
@@ -43,7 +53,7 @@ public class PostServiceImpl implements PostServiceInf{
 			List<String> uploadFileName, List<String> uploadContentType,
 			String savePath) {
 		TPost tPost = tUserPost.getId().gettPost();
-		 
+
 		Set<TPostFile> tPostFiles = new HashSet<TPostFile>();
 		if (null != upload) {
 			tPost.setHasfile(true);
@@ -54,7 +64,7 @@ public class PostServiceImpl implements PostServiceInf{
 				File newFile = new File(newFilePath);
 				FileUtil.copyFile(upload.get(i), newFile);
 				TPostFile tPostFile = new TPostFile();
-				
+
 				tPostFile.setNewname(newFileName);
 				tPostFile.setOldname(uploadFileName.get(i));
 				tPostFile.settPost(tPost);
@@ -68,13 +78,12 @@ public class PostServiceImpl implements PostServiceInf{
 		Integer postid = tPostDao.savePost(tPost);
 
 		tPost.setPostid(postid);
-		
 
-		TUser addUser = tUserPost.getId().gettPost().gettUserByAdduser();
-		tPost.settUserByAdduser(addUser);
-		tPostDao.saveUserPost(tUserPost);
-		//.........
-		
+		TUser addUser = tUserPost.getId().gettPost().getAddUser();
+		tPost.setAddUser(addUser);
+		// tPostDao.saveUserPost(tUserPost);
+		// .........
+
 	}
 
 	@Override
@@ -82,21 +91,20 @@ public class PostServiceImpl implements PostServiceInf{
 			List<String> uploadFileName, List<String> uploadContentType,
 			String savePath) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
-
-//直接删除公告对象
+	// 直接删除公告对象
 	@Override
 	public void deletePost(TPost tPost) {
 		tPostDao.deletePost(tPost);
-		
+
 	}
 
 	@Override
-	public List<TPost> findAll( UserInfo userInfo) {
+	public List<TPost> findAll(UserInfo userInfo) {
 		// TODO Auto-generated method stub
-		 return tPostDao.findAll(userInfo);
+		return tPostDao.findAll(userInfo);
 	}
 
 	@Override
@@ -113,7 +121,7 @@ public class PostServiceImpl implements PostServiceInf{
 				File newFile = new File(newFilePath);
 				FileUtil.copyFile(upload.get(i), newFile);
 				TPostFile tPostFile = new TPostFile();
-				
+
 				tPostFile.setNewname(newFileName);
 				tPostFile.setOldname(uploadFileName.get(i));
 				tPostFile.settPost(tPost);
@@ -123,20 +131,17 @@ public class PostServiceImpl implements PostServiceInf{
 			tPost.setHasfile(false);
 		}
 		tPost.settPostFiles(tPostFiles);
-		//级联表设置
+		// 级联表设置
 		Integer postid = tPostDao.savePost(tPost);
-		TUserPostId id = new TUserPostId(tPost.gettUserByAdduser(), tPost);
-		TUserPost tUserPost = new TUserPost();
-		tUserPost.setId(id);
-		tPostDao.saveUserPost(tUserPost);
-		
+		// postFileDao.addPostFile(tPostFile);
+
 	}
 
 	@Override
 	public void updatePost(TPost tPost, List<File> upload,
 			List<String> uploadFileName, List<String> uploadContentType,
 			String savePath) {
-		 
+
 		Set<TPostFile> tPostFiles = new HashSet<TPostFile>();
 		if (null != upload) {
 			tPost.setHasfile(true);
@@ -147,7 +152,7 @@ public class PostServiceImpl implements PostServiceInf{
 				File newFile = new File(newFilePath);
 				FileUtil.copyFile(upload.get(i), newFile);
 				TPostFile tPostFile = new TPostFile();
-				
+
 				tPostFile.setNewname(newFileName);
 				tPostFile.setOldname(uploadFileName.get(i));
 				tPostFile.settPost(tPost);
@@ -158,16 +163,13 @@ public class PostServiceImpl implements PostServiceInf{
 		}
 		tPost.settPostFiles(tPostFiles);
 
-		Integer postid = tPostDao.upadtePost(tPost);		
+		Integer postid = tPostDao.upadtePost(tPost);
 	}
 
 	@Override
 	public TPost selectSinglePost(int postid) {
-		
+
 		return tPostDao.selectSinglePost(postid);
 	}
-
- 
-
 
 }

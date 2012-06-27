@@ -11,7 +11,7 @@
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
 	-->
-	<bean id="postServiceImpl" class="com.oa.service.impl.PostServiceImpl">
+	<bean id="postServiceInf" class="com.oa.service.impl.PostServiceImpl">
 		<property name="tPostDao" ref="tPostDao"></property>
 	</bean>
 

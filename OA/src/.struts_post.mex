@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Struts2Diagram version="2.0">
+  <package name="postPack" location="0,0" size="0,0">
+    <action name="getpost" location="0,0" size="0,0">
+      <result name="postlist">
+        <resourceEdge source="postlist" routing="0" target="post.jsp" />
+      </result>
+    </action>
+    <action name="addpost" location="0,0" size="0,0">
+      <result name="post_add">
+        <resourceEdge source="post_add" routing="0" target="success.jsp" />
+      </result>
+      <result name="input">
+        <resourceEdge source="input" routing="0" target="post_add.jsp" />
+      </result>
+    </action>
+    <action name="deletepost" location="0,0" size="0,0">
+      <result name="delete" />
+    </action>
+    <action name="viewpost" location="0,0" size="0,0">
+      <result name="view">
+        <resourceEdge source="view" routing="0" target="post_view.jsp" />
+      </result>
+    </action>
+    <action name="updatepost" location="0,0" size="0,0">
+      <result name="edit">
+        <resourceEdge source="edit" routing="0" target="post_edit.jsp" />
+      </result>
+    </action>
+    <action name="download" location="0,0" size="0,0">
+      <result name="download" />
+    </action>
+  </package>
+  <webResource name="post.jsp" path="/post/post.jsp" location="0,0" size="0,0" />
+  <webResource name="success.jsp" path="/post/success.jsp" location="0,0" size="0,0" />
+  <webResource name="post_add.jsp" path="/post/post_add.jsp" location="0,0" size="0,0" />
+  <webResource name="post_view.jsp" path="/post/post_view.jsp" location="0,0" size="0,0" />
+  <webResource name="post_edit.jsp" path="/post/post_edit.jsp" location="0,0" size="0,0" />
+</Struts2Diagram>
+

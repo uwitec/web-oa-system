@@ -116,7 +116,7 @@ public class TPostTest {
 			e.printStackTrace();
 		}	
 		
-		tpost.settUserByAdduser(tuser);
+		tpost.setAddUser(tuser) ;
 		 String str="³¬¼¶´ó×Ö¶Î";
  
 		tpost.setStrContent(str);

@@ -19,22 +19,22 @@ public interface TPostDao {
 	//public int addPost(TPost tPost);
 	//保存公告表和附件表
 	public Integer savePost(TPost tPost);
-	public void saveUserPost(TUserPost userPost);	
+//	public void saveUserPost(TUserPost userPost);	
 	
 	
-	//public void deletePost(final TPost tpost);
+	public void deletePost(final TPost tpost);
 	//删除
 	public void deletePostFile(TPostFile tPostFile);;
-	public void deletePost(TUserPost tUserPost);
-	public void deletePost(TPost tPost);
+//	public void deletePost(TUserPost tUserPost);
+//	public void deletePost(TPost tPost);
 	
 	public int upadtePost(TPost tPost);	
 
 	//查看个人发布的公告
-	public List<TUserPost> getPosts(final TUserPost tUserPost,
-			final UserInfo userInfo); 
+//	public List<TUserPost> getPosts(final TUserPost tUserPost,
+//			final UserInfo userInfo); 
 	public TPost selectSinglePost(final int postid);
-	public TPost selectSinglePost(TUserPost tUserPost);
+//	public TPost selectSinglePost(TUserPost tUserPost);
 	//查看全部公告
 	public List<TPost> findAll(UserInfo userInfo);	
 	
