@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-
 <!DOCTYPE struts PUBLIC
     "-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
     "http://struts.apache.org/dtds/struts-2.1.7.dtd">
-
 <struts>
 	<constant name="struts.configuration.xml.reload" value="true"></constant>
 	<constant name="struts.i18n.encoding" value="GBK"></constant>
 	<constant name="struts.ognl.allowStaticMethodAccess" value="true"></constant>
+	<constant name="struts.devMode" value="true"></constant>
+	<constant name="struts.ui.theme" value="simple"></constant>
 
-	
-	<include file="struts-user.xml"></include>
-	<include file="struts-role.xml"></include>
-	<include file="struts-menu.xml"></include>
-	<include file="struts_post.xml"></include>
-	<include file="struts-email.xml"></include>
-	<include file="struts-questionnaire.xml"></include>
+
+	<package name="menuPack" extends="struts-default" namespace="/menu">
+
+		
+	</package>
 </struts>

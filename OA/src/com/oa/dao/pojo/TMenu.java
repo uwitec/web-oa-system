@@ -26,6 +26,24 @@ public class TMenu implements java.io.Serializable {
 	/** default constructor */
 	public TMenu() {
 	}
+	
+	public TMenu(String menuname, String menuinfo,
+			String menulink, Integer orderid) {
+		this.menuname = menuname;
+		this.menuinfo = menuinfo;
+		this.menulink = menulink;
+		this.orderid = orderid;
+	}
+
+	/** full constructor */
+	public TMenu(Integer menuid, String menuname, String menuinfo,
+			String menulink, Integer orderid) {
+		this.menuid = menuid;
+		this.menuname = menuname;
+		this.menuinfo = menuinfo;
+		this.menulink = menulink;
+		this.orderid = orderid;
+	}
 
 	public Integer getMenuid() {
 		return menuid;
@@ -98,7 +116,4 @@ public class TMenu implements java.io.Serializable {
 	public void setSonMenus(Set<TMenu> sonMenus) {
 		this.sonMenus = sonMenus;
 	}
-
-	/** full constructor */
-
 }

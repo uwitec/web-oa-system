@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Struts2Diagram version="2.0">
+  <include file="struts-user.xml" location="0,0" size="0,0" />
   <include file="struts_post.xml" location="0,0" size="0,0" />
   <include file="struts-email.xml" location="0,0" size="0,0" />
   <include file="struts-questionnaire.xml" location="0,0" size="0,0" />
