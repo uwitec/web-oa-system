@@ -11,6 +11,7 @@
 
 	
 	<include file="struts-user.xml"></include>
+	<include file="struts-role.xml"></include>
 	<include file="struts_post.xml"></include>
 	<include file="struts-email.xml"></include>
 	<include file="struts-questionnaire.xml"></include>
