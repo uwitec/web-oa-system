@@ -64,8 +64,93 @@ body {
 .nobr br {
 	display: none
 }
+
+.error {
+	font-size: 12px;
+	color: red
+}
 -->
 </style>
+
+
+		<SCRIPT type="text/javascript" src="<%=path%>/js/oa/jquery-1.7.2.js"></SCRIPT>
+		<SCRIPT type="text/javascript" src="<%=path%>/js/oa/validate.js"></SCRIPT>
+
+
+		<SCRIPT type="text/javascript">
+			var submit;
+			var ok1 = true;
+			var ok2 = true;
+			var ok3 = true;
+			var ok4 = true;
+			var ok5 = true;
+			var ok6 = true;
+			$(document).ready(function(){
+				$("#realname").blur(function(){
+					ok1 = !isEmpty(this.value);
+					if(!ok1){
+						$("#realnamespan").html("姓名不能为空");
+					} else {
+						$("#realnamespan").html("");
+					}
+				})
+				
+				$("#idcard").blur(function(){
+					ok2 = isCard(this.value) || isEmpty(this.value);
+					if(!ok2){
+						$("#idcardspan").html("身份证号码不正确");
+					} else {
+						$("#idcardspan").html("");
+					}
+				})
+				
+				$("#phone").blur(function(){
+					ok3 = isPhone(this.value) || isEmpty(this.value);
+					if(!ok3){
+						$("#phonespan").html("电话号码不正确");
+					} else {
+						$("#phonespan").html("");
+					}
+				})
+				
+				$("#handset").blur(function(){
+					ok4 = isMobile(this.value) || isEmpty(this.value);
+					if(!ok4){
+						$("#handsetspan").html("手机号码不正确");
+					} else {
+						$("#handsetspan").html("");
+					}
+				})
+				
+				$("#email").blur(function(){
+					ok5 = isEmail(this.value) || isEmpty(this.value);
+					if(!ok5){
+						$("#emailspan").html("邮件格式不正确");
+					} else {
+						$("#emailspan").html("");
+					}
+				})
+				$("#address").blur(function(){
+					ok6 = trim(this.value).length <= 100;
+					if(!ok6){
+						$("#addressspan").html("地址不大于100个字");
+					} else {
+						$("#addressspan").html("");
+					}
+				})
+				
+				$("#sub").click(function(){
+					submit = ok1 & ok2 & ok3 & ok4 & ok5 & ok6;
+					if(submit == true){
+						window.form.submit();
+					} else {
+						alert("信息填写不正确");
+					}
+				})
+			});
+			
+		</SCRIPT>
+
 	</head>
 
 	<body>
@@ -100,11 +185,11 @@ body {
 			</tr>
 		</table>
 
-		<s:form name="form" method="post" action="user/selfupdate">
+		<s:form method="post" action="user/selfupdate" id="form" name="form">
 			<table width="100%" border="0" cellpadding="0" cellspacing="1"
 				bgcolor="#a8c7ce">
 				<s:hidden value="%{#request.singleuser.userid}"
-							name="userInfo.user.userid"></s:hidden>
+					name="userInfo.user.userid"></s:hidden>
 				<tr>
 					<td width="10%" height="20" bgcolor="d3eaef" class="STYLE6"
 						colspan="3">
@@ -120,9 +205,11 @@ body {
 					<td height="20" class="STYLE6">
 						&nbsp;
 						<s:textfield value="%{#request.singleuser.realname}"
-							name="userInfo.user.realname"></s:textfield>
+							name="userInfo.user.realname" id="realname"></s:textfield>
 					</td>
-					<td height="20" class="STYLE6"></td>
+					<td height="20" class="STYLE6" width="40%">
+						<span id="realnamespan" class="error"></span>
+					</td>
 				</tr>
 				<tr bgcolor="#FFFFFF">
 					<td height="20" class="STYLE6" width="45%" align="right">
@@ -143,9 +230,11 @@ body {
 					<td height="20" class="STYLE6">
 						&nbsp;
 						<s:textfield value="%{#request.singleuser.idcard}"
-							name="userInfo.user.idcard"></s:textfield>
+							name="userInfo.user.idcard" id="idcard"></s:textfield>
 					</td>
-					<td height="20" class="STYLE6"></td>
+					<td height="20" class="STYLE6">
+						<span id="idcardspan" class="error"></span>
+					</td>
 				</tr>
 				<tr bgcolor="#FFFFFF">
 					<td height="20" class="STYLE6" width="45%" align="right">
@@ -154,9 +243,11 @@ body {
 					<td height="20" class="STYLE6">
 						&nbsp;
 						<s:textfield value="%{#request.singleuser.phone}"
-							name="userInfo.user.phone"></s:textfield>
+							name="userInfo.user.phone" id="phone"></s:textfield>
 					</td>
-					<td height="20" class="STYLE6"></td>
+					<td height="20" class="STYLE6">
+						<span id="phonespan" class="error"></span>
+					</td>
 				</tr>
 				<tr bgcolor="#FFFFFF">
 					<td height="20" class="STYLE6" width="45%" align="right">
@@ -165,9 +256,11 @@ body {
 					<td height="20" class="STYLE6">
 						&nbsp;
 						<s:textfield value="%{#request.singleuser.handset}"
-							name="userInfo.user.handset"></s:textfield>
+							name="userInfo.user.handset" id="handset"></s:textfield>
 					</td>
-					<td height="20" class="STYLE6"></td>
+					<td height="20" class="STYLE6">
+						<span id="handsetspan" class="error"></span>
+					</td>
 				</tr>
 				<tr bgcolor="#FFFFFF">
 					<td height="20" class="STYLE6" width="45%" align="right">
@@ -176,9 +269,11 @@ body {
 					<td height="20" class="STYLE6">
 						&nbsp;
 						<s:textfield value="%{#request.singleuser.email}"
-							name="userInfo.user.email"></s:textfield>
+							name="userInfo.user.email" id="email"></s:textfield>
 					</td>
-					<td height="20" class="STYLE6"></td>
+					<td height="20" class="STYLE6">
+						<span id="emailspan" class="error"></span>
+					</td>
 				</tr>
 				<tr bgcolor="#FFFFFF">
 					<td height="20" class="STYLE6" width="45%" align="right">
@@ -187,14 +282,17 @@ body {
 					<td height="20" class="STYLE6">
 						&nbsp;
 						<s:textfield value="%{#request.singleuser.address}"
-							name="userInfo.user.address"></s:textfield>
+							name="userInfo.user.address" id="address"></s:textfield>
 					</td>
-					<td height="20" class="STYLE6"></td>
+					<td height="20" class="STYLE6">
+						<span id="addressspan" class="error"></span>
+					</td>
 				</tr>
 				<tr bgcolor="#FFFFFF">
 					<TD colspan="3" align="center">
-						<s:submit value="修改"></s:submit>
-						<s:reset value="重置"></s:reset>
+						<input type="button" id="sub" value="提交" />
+						&nbsp;&nbsp;
+						<input type="reset" value="重置" />
 					</TD>
 				</tr>
 			</table>
