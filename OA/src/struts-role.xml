@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+    "http://struts.apache.org/dtds/struts-2.1.7.dtd">
+
+<struts>
+	<constant name="struts.configuration.xml.reload" value="true"></constant>
+	<constant name="struts.i18n.encoding" value="GBK"></constant>
+	<constant name="struts.ognl.allowStaticMethodAccess" value="true"></constant>
+	<constant name="struts.devMode" value="true"></constant>
+	<constant name="struts.ui.theme" value="simple"></constant>
+
+
+	<package name="rolePack" extends="struts-default" namespace="/role">
+
+		<action name="preupdate" class="com.oa.action.RoleAction"
+			method="preUpdate">
+			<result name="success">/back/self_update.jsp</result>
+		</action>
+		<action name="selfupdate" class="com.oa.action.RoleAction"
+			method="selfUpdate">
+			<result name="success">/back/self_updatea_succ.jsp</result>
+		</action>
+		<action name="updaterole" class="com.oa.action.RoleAction"
+			method="updateRole">
+			<result name="success">/back/self_updatea_succ.jsp</result>
+		</action>
+
+
+		<action name="preupdaterole" class="com.oa.action.RoleAction"
+			method="preUpdateRole">
+			<result name="success">/back/update_role.jsp</result>
+		</action>
+
+		<action name="rolelist" class="com.oa.action.RoleAction"
+			method="findRoles">
+			<result name="success">/back/rolelist.jsp</result>
+		</action>
+		<action name="getrole" class="com.oa.action.RoleAction" method="getSingleRole">
+			<result name="success">/back/checkrole.jsp</result>
+		</action>
+		<action name="delrole" class="com.oa.action.RoleAction" method="deleteRole">
+			<result name="success" type="redirectAction">
+				<param name="actionName">rolelist</param>
+			</result>
+		</action>
+		<action name="preadd" class="com.oa.action.RoleAction" method="preAddRole">
+			<result name="success">/back/addrole.jsp</result>
+		</action>
+		<action name="addrole" class="com.oa.action.RoleAction" method="addRole">
+			<result name="success" type="redirectAction">
+				<param name="actionName">rolelist</param>
+			</result>
+			<result name="input">
+				/back/addrole.jsp
+			</result>
+		</action>
+
+
+		<action name="vcode" class="com.oa.action.ValidationCodeAction"></action>
+	</package>
+
+
+
+
+	<package name="ajaxPack2" extends="json-default">
+		<action name="checkrolename" class="com.oa.action.RoleAction"
+			method="isRoleNameExists">
+			<result name="true" type="json">
+				<param name="includeProperties">
+					roleInfo\.message
+				</param>
+			</result>
+			<result name="false" type="json">
+				<param name="includeProperties">
+					roleInfo\.message
+				</param>
+			</result>
+		</action>
+	</package>
+</struts>
