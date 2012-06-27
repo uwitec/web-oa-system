@@ -172,23 +172,27 @@ function popshow() {
 												cellspacing="0">
 												<tr>
 													<td height="17">
-														<div align="right">
+														<%--<div align="right">
 															<a href="pwd.php" target="rightFrame"><img
 																	src="images/pass.gif" width="69" height="17" /> </a>
 														</div>
+													--%>
 													</td>
 													<td>
+														<%--
 														<div align="right">
 															<a href="user.php" target="rightFrame"><img
 																	src="images/user.gif" width="69" height="17" /> </a>
 														</div>
-													</td>
-													<td>
+													--%>
 														<div align="right">
 															<a href="exit.php" target="_parent"><img
 																	src="images/quit.gif" alt=" " width="69" height="17" />
 															</a>
 														</div>
+													</td>
+													<td>
+
 													</td>
 												</tr>
 											</table>
@@ -264,8 +268,7 @@ function popshow() {
 										</td>
 										<td width="75%">
 											<div align="center">
-												<span class="STYLE7">By Jessica (<a
-													href="http://Www.865171.cn" target="_blank">Www.865171.cn</a>)</span>
+												<span class="STYLE7">OA办公系统</span>
 											</div>
 										</td>
 										<td width="9%">
