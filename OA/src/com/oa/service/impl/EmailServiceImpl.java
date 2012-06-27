@@ -16,7 +16,7 @@ import com.oa.dao.pojo.TUserEmail;
 import com.oa.dao.pojo.TUserEmailId;
 import com.oa.service.inf.EmailService;
 
-public  class EmailServiceImpl implements EmailService {
+public class EmailServiceImpl implements EmailService {
 	private EmailDao emailDao;
 
 	public void setEmailDao(EmailDao emailDao) {
@@ -83,7 +83,7 @@ public  class EmailServiceImpl implements EmailService {
 			for (int i = 0; i < upload.size(); ++i) {
 				String newFileName = FileUtil.makeNewFileName(uploadFileName
 						.get(i));
-				String newFilePath = savePath + newFileName;
+				String newFilePath = savePath + "\\" + newFileName;
 				File newFile = new File(newFilePath);
 				FileUtil.copyFile(upload.get(i), newFile);
 				TEmailFile emailFile = new TEmailFile();
