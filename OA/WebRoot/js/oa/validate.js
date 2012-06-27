@@ -60,7 +60,7 @@ function isColor(s){
 //手机号码;
 function isMobile(s){
     s = trim(s);
-    var p = /^1[3|4|5|8][0-9]\d{4,8}$/;
+    var p = /^1[3|4|5|8][0-9]\d{8}$/;
     return p.test(s);
 }
 //身份证;
@@ -78,7 +78,7 @@ function isURL(s){
 //Phone;
 function isPhone(s){
     s = trim(s);
-    var p = /^[0-9]{8,15}$/; 
+    var p = /^\d{8,15}$/; 
     return p.test(s);
 }
 //Zip;
