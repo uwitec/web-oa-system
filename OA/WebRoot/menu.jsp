@@ -99,7 +99,7 @@ body {
 
 	<body>
 
-		<div style="height: 100%;">
+		<div style="height: 100%; overflow: auto;">
 			<ul id="navigation">
 				<s:iterator value="#session.user.roles" var="role">
 					<s:iterator value="#role.menus" var="userMenus">
