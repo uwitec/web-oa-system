@@ -116,8 +116,6 @@ public class TPostDaoImpl extends HibernateDaoSupport implements TPostDao{
 						query.setParameter("hasfile", tPost.getHasfile());
 						
 						query.executeUpdate();
-//						session.update(tPost);
-//						session.flush();
 						session.refresh(tPost, LockMode.UPGRADE);
 						Clob clob = tPost.getContent();
 						Writer writer = clob.setCharacterStream(0);
@@ -158,7 +156,7 @@ public class TPostDaoImpl extends HibernateDaoSupport implements TPostDao{
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<TPost> findAll(final UserInfo userInfo) {
+	public List<TPost> findSelfAll(final UserInfo userInfo) {
 		return getHibernateTemplate().executeFind(
 				new HibernateCallback<List<TPost>>() {
 					@Override
@@ -166,14 +164,12 @@ public class TPostDaoImpl extends HibernateDaoSupport implements TPostDao{
 							throws HibernateException, SQLException {
 						//select new TPost(tpost.postid, tpost.title, tpost.content,tpost.begindate,tpost.enddate,tpost.status,tpost.adduser, tpost.addtime) from TPost tpost where 1 = 1
 								StringBuffer hql = new StringBuffer(
-								"from TPost tpost where 1 = 1");
+								"from TPost tpost where  1 = 1 and tpost.status=1");
 						StringBuffer countHql = new StringBuffer(
-								"select count(*) from TPost tpost where 1 = 1");
+								"select count(*) from TPost tpost where 1 = 1 and tpost.status=1 ");
 						//根据标题查询和有效时间查询
 						String title = userInfo.getTpost().getTitle();
-//						SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");						
-//						String begin = sdf.format(userInfo.getTpost().getBegindate());
-//						String end = sdf.format(userInfo.getTpost().getEnddate());
+
 						Date begin = userInfo.getTpost().getBegindate();
 						Date end = userInfo.getTpost().getEnddate();
 						int currPage = userInfo.getCurrPage();
@@ -216,106 +212,81 @@ public class TPostDaoImpl extends HibernateDaoSupport implements TPostDao{
 			
 					}
 				});
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<TPost> findAll(final UserInfo userInfo) {
+		return getHibernateTemplate().executeFind(
+				new HibernateCallback<List<TPost>>() {
+					@Override
+					public List<TPost> doInHibernate(Session session)
+							throws HibernateException, SQLException {
+						//select new TPost(tpost.postid, tpost.title, tpost.content,tpost.begindate,tpost.enddate,tpost.status,tpost.adduser, tpost.addtime) from TPost tpost where 1 = 1
+								StringBuffer hql = new StringBuffer(
+								"from TPost tpost where 1 = 1");
+						StringBuffer countHql = new StringBuffer(
+								"select count(*) from TPost tpost where 1 = 1");
+						//根据标题查询和有效时间查询
+						String title = userInfo.getTpost().getTitle();
+						Date begin = userInfo.getTpost().getBegindate();
+						Date end = userInfo.getTpost().getEnddate();
+						int currPage = userInfo.getCurrPage();
+						currPage = currPage == 0 ? 1 : currPage;
+						
+ 
+						if (null != begin && !"".equals(begin)) {
+							hql.append(" and tpost.begindate >" + begin);
+							countHql.append(" and tpost.begindate >" + begin);
+						}
+						if (null != title && !"".equals(title)) {
+							hql.append(" and tpost.title like '%" + title
+									+ "%'");
+							countHql.append(" and tpost.title like '%" + title
+									+ "%'");
+						}
+						if (null != begin && !"".equals(begin)) {
+							hql.append(" and tpost.begindate >" + begin);
+							countHql.append(" and tpost.begindate >" + begin);
+						}
+						if (null != end && !"".equals(end)) {
+							hql.append(" and tpost.enddate >" + begin);
+							countHql.append(" and tpost.enddate >" + begin);
+						}
+							hql.append(" order by tpost.addtime desc");
+
+						Query countQuery = session.createQuery(countHql
+								.toString());
+						userInfo.setTotalCount(((Long) countQuery
+								.uniqueResult()).intValue());
+
+						Query query = session.createQuery(hql.toString());
+						query.setFirstResult((currPage - 1)
+								* PostInfo.PAGE_SIZE);
+						query.setMaxResults(PostInfo.PAGE_SIZE);
+						
+						
+						List<TPost> postList = query.list();
+						for (TPost post : postList) {
+							Clob content = post.getContent();
+							post.setStrContent(content.getSubString(1L, (int) content
+									.length()));				
+						}
+						return postList;
+			
+					}
+				});
 	 
 		 
 	}
-	//级联表列出用户所有公告
-//	@Override
-//	public List<TUserPost> getPosts(final TUserPost tUserPost, final UserInfo userInfo) {
-//		return getHibernateTemplate().executeFind(
-//				new HibernateCallback<List<TPost>>() {
-//					@Override
-//					public List<TPost> doInHibernate(Session session)
-//							throws HibernateException, SQLException {
-//						Query query = null;
-//						String hql = "from TUserPost t where t.id.user.userid = :userid";
-//						int currPage = userInfo.getCurrPage();
-//						currPage = currPage == 0 ? 1 : currPage;
-//						int postStatus = tUserPost.getId().gettPost().getStatus();
-//						query=session.createQuery(hql);
-//						query.setParameter("userid", userInfo.getUser()
-//								.getUserid());
-//
-//																	
-//						List<TUserPost>  tposts = query.list();
-//						for (TUserPost t : tposts) {
-//							System.out.println(t.getId().gettPost().getTitle());
-//						}
-//						userInfo.setTotalCount(tposts.size());
-//						query.setFirstResult((currPage - 1)
-//								* UserInfo.PAGE_SIZE);
-//						query.setMaxResults(currPage * UserInfo.PAGE_SIZE);
-//
-//						return query.list();
-//					}
-//				});
-//	}
 	
 	
 	
-	//通过级联删除
-//	@Override
-//	public void deletePost(final TUserPost tpost) {
-//		getHibernateTemplate().execute(new HibernateCallback<Integer>() {
-//
-//			@Override
-//			public Integer doInHibernate(Session session)
-//					throws HibernateException, SQLException {
-//				String hql = "delete from TUserPost t where t.id.tUser.userid = :userid and t.id.tPost.postid = :postid";
-//				Query query = session.createQuery(hql);
-//				
-//				query.setParameter("userid",  tpost.getId().gettUser().getUserid());
-//				query.setParameter("postid", tpost.getId().gettPost().getPostid());
-//
-//				return query.executeUpdate();
-//			}
-//		});
-		
-//	}
-
-
-
-
 	
-	//级联表的记录增加
-//	@Override
-//	public void saveUserPost(TUserPost tUserPost) {
-//		getHibernateTemplate().save(tUserPost);
-//		
-//	}
-	//通过级选择
-//	@Override
-//	public TPost selectSinglePost(final TUserPost tUserPost) {
-//		return getHibernateTemplate().execute(new HibernateCallback<TPost>() {
-//			
-//			@Override
-//			public TPost doInHibernate(Session session)
-//					throws HibernateException, SQLException {
-//				TPost tPost = (TPost) session.load(TPost.class, tUserPost
-//						.getId().gettPost().getPostid());
-//				Clob content = tPost.getContent();
-//				tPost.setStrContent(content.getSubString(1L, (int) content
-//						.length()));
-// 
-//				return tPost;
-//			}
-//		});
-//	}
-
-//删除公告文件
 	@Override
 	public void deletePostFile(TPostFile tPostFile) {
 		getHibernateTemplate().delete(tPostFile);
 	}
-
-
-//	@Override
-//	public void deletePost(TPost tPost) {
-//		getHibernateTemplate().delete(tPost);
-//		 
-//	}
-	
-
-	
+ 
 
 }

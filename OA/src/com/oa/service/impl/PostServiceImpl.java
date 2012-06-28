@@ -81,8 +81,7 @@ public class PostServiceImpl implements PostServiceInf {
 
 		TUser addUser = tUserPost.getId().gettPost().getAddUser();
 		tPost.setAddUser(addUser);
-		// tPostDao.saveUserPost(tUserPost);
-		// .........
+ 
 
 	}
 
@@ -106,6 +105,12 @@ public class PostServiceImpl implements PostServiceInf {
 		// TODO Auto-generated method stub
 		return tPostDao.findAll(userInfo);
 	}
+	
+	@Override
+	public List<TPost> findSelfAll(UserInfo userInfo) {
+		// TODO Auto-generated method stub
+		return tPostDao.findSelfAll(userInfo);
+	}
 
 	@Override
 	public void savePost(TPost tPost, List<File> upload,
@@ -125,6 +130,7 @@ public class PostServiceImpl implements PostServiceInf {
 				tPostFile.setNewname(newFileName);
 				tPostFile.setOldname(uploadFileName.get(i));
 				tPostFile.settPost(tPost);
+				 postFileDao.addPostFile(tPostFile);
 				tPostFiles.add(tPostFile);
 			}
 		} else {
@@ -133,7 +139,7 @@ public class PostServiceImpl implements PostServiceInf {
 		tPost.settPostFiles(tPostFiles);
 		// 级联表设置
 		Integer postid = tPostDao.savePost(tPost);
-		// postFileDao.addPostFile(tPostFile);
+		
 
 	}
 
@@ -171,5 +177,7 @@ public class PostServiceImpl implements PostServiceInf {
 
 		return tPostDao.selectSinglePost(postid);
 	}
+
+
 
 }

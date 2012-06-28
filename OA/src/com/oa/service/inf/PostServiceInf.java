@@ -9,9 +9,7 @@ import com.oa.dao.pojo.TUserPost;
 import com.oa.util.PostInfo;
 
 public interface PostServiceInf {
-//		TPost addTPost(TPost tPost);
-//		void selectPost(int postid);
-//		List<TPost>  getPosts();
+ 
 		
 		/**
 		 * ±£´æ¹«¸æ
@@ -34,6 +32,7 @@ public interface PostServiceInf {
 				List<String> uploadFileName, List<String> uploadContentType,
 				String savePath);
 		
+		List<TPost>  findSelfAll(final UserInfo userInfo);
 		List<TPost>  findAll(final UserInfo userInfo);
 		TPost selectSinglePost(int postid);
 		
