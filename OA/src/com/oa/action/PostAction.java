@@ -16,6 +16,7 @@ import com.oa.dao.impl.TPostDaoImpl;
 import com.oa.dao.impl.TPostFileDaoImp;
 import com.oa.dao.inf.DataDao;
 import com.oa.dao.inf.EmailDao;
+import com.oa.dao.inf.TPostDao;
 import com.oa.dao.pojo.TData;
 import com.oa.dao.pojo.TPost;
 import com.oa.dao.pojo.TPostFile;
@@ -31,8 +32,7 @@ import com.opensymphony.xwork2.ModelDriven;
 
 public class PostAction extends BaseAction {
 	private TPost post;
-	private TUserPost tUserPost;
-	private TUserRole tUserRole;
+
 	private PostServiceInf postServiceInf;
 
 	private String fileName;
@@ -64,13 +64,7 @@ public class PostAction extends BaseAction {
 		}
 	}
 
-	public TUserRole gettUserRole() {
-		return tUserRole;
-	}
 
-	public void settUserRole(TUserRole tUserRole) {
-		this.tUserRole = tUserRole;
-	}
 
 	public PostServiceInf getPostServiceInf() {
 		return postServiceInf;
@@ -96,13 +90,6 @@ public class PostAction extends BaseAction {
 		this.post = post;
 	}
 
-	public TUserPost gettUserPost() {
-		return tUserPost;
-	}
-
-	public void settUserPost(TUserPost tUserPost) {
-		this.tUserPost = tUserPost;
-	}
 
 	public List<File> getUpload() {
 		return upload;
@@ -147,12 +134,9 @@ public class PostAction extends BaseAction {
 	// 添加公告
 	public String addPost() {
 		TUser tUser = (TUser) request.getSession().getAttribute(LOGIN_USER);
-		// TPost t =userInfo.getTpost();
-		// System.out.println(t.getTitle());
 		System.out.println("tUsr:" + tUser.getRealname() + "ggggg");
 		post.setAddUser(tUser);
 		System.out.println(post.getTitle() + "----");
-
 		postServiceInf.savePost(post, upload, uploadFileName,
 				uploadContentType, savePath);
 		return "post_add";
@@ -168,36 +152,33 @@ public class PostAction extends BaseAction {
 	public String getPosts() {
 
 		List<TPost> posts = postServiceInf.findAll(userInfo);
-		// for (TPost tPost : posts) {
-		// System.out.println(tPost.getTitle());
-		// }
+		request.setAttribute("posts", posts);
+		request.setAttribute(USER_INFO, userInfo);	
+		return "postlist";
+
+	}
+	public String getSelfPost(){
+		List<TPost> posts = postServiceInf.findSelfAll(userInfo);
 		request.setAttribute("posts", posts);
 		request.setAttribute(USER_INFO, userInfo);
-		// if(tUserRole.getId().getTRole().getRolename()=="系统管理员")
+ 
 		return "postlist";
-		// else
-		// return "self_getposts";
 	}
 
 	public String updatePost() throws Exception {
 
 		TUser tUser = (TUser) request.getSession().getAttribute(LOGIN_USER);
 		post.setUpdateUser(tUser);
-		post.setUpdatetime(new Date());
-		// if(tUserRole.getId().getTRole().getRolename()=="系统管理员"){
-		//			
-		// }
-
-		if (tUserPost.getId().gettPost().getStatus() == 0) {
+		post.setUpdatetime(new Date());		
 			postServiceInf.updatePost(post, upload, uploadFileName,
 					uploadContentType, savePath);
-		}
+	
 		return "edit";
 	}
 
 	public String viewPost() {
 		TPost tpost = postServiceInf.selectSinglePost(post.getPostid());
-		request.setAttribute("tPost", tpost);
+		request.setAttribute("post", tpost);
 		return "view";
 
 	}

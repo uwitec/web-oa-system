@@ -13,16 +13,14 @@
 	<head>
 		<base href="<%=basePath%>">
 
-		<title>My JSP 'view_email.jsp' starting page</title>
+		<title>My JSP 'post_view.jsp' starting page</title>
 
 		<meta http-equiv="pragma" content="no-cache">
 		<meta http-equiv="cache-control" content="no-cache">
 		<meta http-equiv="expires" content="0">
 		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 		<meta http-equiv="description" content="This is my page">
-		<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
+ 
 		<style type="text/css">
 <!--
 body {
@@ -75,7 +73,7 @@ body {
 						公告标题:
 					</td>
 					<td bgcolor="#FFFFFF" class="STYLE19">
-						<s:property value="%{#request.tPost.title}" />
+						<s:property value="%{#request.post.title}" />
 					</td>
 				</tr>
 				<tr bgcolor="#FFFFFF" class="STYLE19" height="30">
@@ -83,8 +81,8 @@ body {
 						生效时间
 					</td>
 					<td>
-						<s:date name="#request.tPost.begindate"
-						 format="yyyy-MM-dd hh:mm:ss" />
+						<s:date name="#request.post.begindate"
+						 format="yyyy-MM-dd " />
 					</td>
 				</tr>
 				 <tr bgcolor="#FFFFFF" class="STYLE19" height="30">
@@ -92,8 +90,8 @@ body {
 						失效时间
 					</td>
 					<td>
-						<s:date name="#request.tPost.enddate"
-						 format="yyyy-MM-dd hh:mm:ss" />
+						<s:date name="#request.post.enddate"
+						 format="yyyy-MM-dd  " />
 					</td>
 				</tr>
 				<tr bgcolor="#FFFFFF" class="STYLE19" height="30">
@@ -101,10 +99,10 @@ body {
 						附件下载
 					</Td>
 					<td>
-						<s:iterator value="#request.tPost.tPostFiles" var="tPostFiles">
+						<s:iterator value="#request.post.tPostFiles" var="postFiles">
 							<s:a
-								href="email/download?fileName=%{#tPostFiles.newname}&oldName=%{#tPostFiles.oldname}">
-								<s:property value="#tPostFiles.oldname" />
+								href="post/download?fileName=%{#postFiles.newname}&oldName=%{#postFiles.oldname}">
+								<s:property value="#postFiles.oldname" />
 							</s:a>
 						</s:iterator>
 					</td>
@@ -112,9 +110,9 @@ body {
 				<TR>
 					<TD width="100%" align="center" colspan="2">
 					 
-						<s:hidden name="tPost.strContent"
-							value="%{#request.tPost.strContent}"></s:hidden>
-						<FCK:editor id="tPost.strContent" width="100%"
+						<s:hidden name="post.strContent"
+							value="%{#request.post.strContent}"></s:hidden>
+						<FCK:editor id="post.strContent" width="100%"
 							height="360"
 							fontNames="宋体;黑体;隶书;楷体_GB2312;Arial;Comic Sans MS;Courier 
 New;Tahoma;Times New Roman;Verdana"

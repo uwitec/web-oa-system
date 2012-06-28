@@ -13,9 +13,15 @@
 	<constant name="struts.custom.i18n.resources" value="error"></constant>
 
 	<package name="postPack" extends="struts-default" namespace="/post">
+	<!-- 管理员获得所有公告，在menu表中menulink存入post/getpost -->
 	 <action name="getpost" class="com.oa.action.PostAction" 
 		 method="getPosts">
 		 <result name="postlist">/post/postlist.jsp</result>
+	 </action>
+	 <!-- 普通员工获得所有审核过的公告，在menu表中menulink存入post/getselfpost -->
+	 	 <action name="getselfpost" class="com.oa.action.PostAction" 
+		 method="getSelfPost">
+		 <result name="postlist">/post/post_self.jsp</result>
 	 </action>
 	  <action name="addpost" class="com.oa.action.PostAction" 
 		 method="addPost">

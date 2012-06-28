@@ -27,7 +27,7 @@
 	</head>
 
 	<body>
-		<s:form id="form" action="post/getpost" method="post">
+		<s:form id="form" action="post/getselfpost" method="post">
 			<table width="100%" border="0" cellpadding="0" cellspacing="1"
 				bgcolor="#a8c7ce">
 				<tr>
@@ -101,19 +101,7 @@
 						<td height="20" bgcolor="#FFFFFF" class="STYLE19" align="center">
 						<s:a
 						href="post/viewpost?post.postid=%{#post.postid}">查看</s:a>
-						 
-								<a href>删除</a>
-								<s:if test="#post.satus==0">
-									<a
-										href="post/updatepost?post.status=1&post.postid=<s:property value="postid"/>">通过</a>
-									<s:a
-										href="javascript:deleteTPost('%{#post.postid}', '%{#session.user.userid}');">不通过</s:a>
-								</s:if>
-								<s:elseif test="#post.satus=='1'">    
-							                    ------
-							                 </s:elseif>
-							 
-							<s:else>----</s:else>
+	 
 						</td>
 					</tr>
 				</s:iterator>

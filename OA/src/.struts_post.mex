@@ -3,7 +3,12 @@
   <package name="postPack" location="0,0" size="0,0">
     <action name="getpost" location="0,0" size="0,0">
       <result name="postlist">
-        <resourceEdge source="postlist" routing="0" target="post.jsp" />
+        <resourceEdge source="postlist" routing="0" target="postlist.jsp" />
+      </result>
+    </action>
+    <action name="getselfpost" location="0,0" size="0,0">
+      <result name="postlist">
+        <resourceEdge source="postlist" routing="0" target="post_self.jsp" />
       </result>
     </action>
     <action name="addpost" location="0,0" size="0,0">
@@ -36,5 +41,7 @@
   <webResource name="post_add.jsp" path="/post/post_add.jsp" location="0,0" size="0,0" />
   <webResource name="post_view.jsp" path="/post/post_view.jsp" location="0,0" size="0,0" />
   <webResource name="post_edit.jsp" path="/post/post_edit.jsp" location="0,0" size="0,0" />
+  <webResource name="postlist.jsp" path="/post/postlist.jsp" location="0,0" size="0,0" />
+  <webResource name="post_self.jsp" path="/post/post_self.jsp" location="0,0" size="0,0" />
 </Struts2Diagram>
 

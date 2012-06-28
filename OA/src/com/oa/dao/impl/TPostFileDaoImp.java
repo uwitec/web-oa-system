@@ -33,7 +33,7 @@ public class TPostFileDaoImp extends HibernateDaoSupport implements TPostFileDao
 		session=HibernateSessionFactory.getSession();
 		transaction = session.beginTransaction();
 		
-		String hql = "delete from T_POST where POSTID=" + id;
+		String hql = "delete from T_POST_FILE where POSTID=" + id;
 		Query query =session.createQuery(hql);
 		transaction.commit();
 		return false;
@@ -45,6 +45,7 @@ public class TPostFileDaoImp extends HibernateDaoSupport implements TPostFileDao
 		return getHibernateTemplate().load(TPostFile.class, id);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<TPostFile> selectTPostFiles(final int postId) {
 		return getHibernateTemplate().executeFind(
