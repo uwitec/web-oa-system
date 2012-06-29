@@ -26,18 +26,30 @@
 	  <action name="addpost" class="com.oa.action.PostAction" 
 		 method="addPost">
 		 <param name="savePath">/upload/post</param>
-		 <result name="post_add">/post/success.jsp</result>
+		 <result name="post_add" type="chain">getselfpost</result>
 		 	<result name="input">/post/post_add.jsp</result>
 	 </action>
 	 <action name="deletepost" class="com.oa.action.PostAction" method="deletePost">
 		 <result name="delete" type="chain">
 		 getpost
-		 </result>
-	 </action>
+		 </result> 
+	  </action>
 	 
 	 <action name="viewpost" class="com.oa.action.PostAction" method="viewPost">
 	 	 <result name="view">/post/post_view.jsp</result>	 	
 	 </action>
+	
+	<action name="passpost" class="com.oa.action.PostAction" method="passPost">
+	  			<result name="success" type="chain">
+				getpost
+			</result>
+	 </action> 
+	 
+	 <action name="getpost1" class="com.oa.action.PostAction" 
+		 method="getPosts">
+		 <result name="postlist">/post/post_update.jsp</result>
+	 </action>
+	 
 	 
 	 <action name="updatepost" class="com.oa.action.PostAction" method="updatePost">
 	  	<result name="edit">/post/post_edit.jsp</result>

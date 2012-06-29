@@ -12,15 +12,15 @@
       </result>
     </action>
     <action name="addpost" location="0,0" size="0,0">
-      <result name="post_add">
-        <resourceEdge source="post_add" routing="0" target="success.jsp" />
-      </result>
+      <result name="post_add" />
       <result name="input">
         <resourceEdge source="input" routing="0" target="post_add.jsp" />
       </result>
     </action>
     <action name="deletepost" location="0,0" size="0,0">
-      <result name="delete" />
+      <result name="delete">
+        <resourceEdge source="delete" routing="0" target="success.jsp" />
+      </result>
     </action>
     <action name="viewpost" location="0,0" size="0,0">
       <result name="view">

@@ -29,6 +29,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 
 import com.oa.common.UserInfo;
+import com.oa.dao.inf.EmailDao;
 import com.oa.dao.inf.TPostDao;
 import com.oa.dao.pojo.TData;
 import com.oa.dao.pojo.TEmail;
@@ -76,6 +77,7 @@ public class TPostDaoImpl extends HibernateDaoSupport implements TPostDao{
 								e.printStackTrace();
 							}
 						}
+						tPost.setStatus(0);
 						tPost.setAddtime(new Date());
 						Integer postId = (Integer) session.save(tPost);
 						ts.commit();
@@ -138,6 +140,26 @@ public class TPostDaoImpl extends HibernateDaoSupport implements TPostDao{
 				});
 		return postId;
 	}
+	
+	//设置通过
+	@Override
+	public void passPost(final TPost tPost) {
+		getHibernateTemplate().execute(new HibernateCallback<Integer>() {
+
+			@Override
+			public Integer doInHibernate(Session session)
+					throws HibernateException, SQLException {
+				String hql = "update TPost t set t.status = "
+						+ TPostDao.STATUS_PASS
+						+ " where t.postid=:postid";
+				Query query = session.createQuery(hql);
+				query.setParameter("postid",tPost.getPostid());
+	 
+				return query.executeUpdate();
+			}
+		});		
+	}
+	
 	//通过Id获得公告
 	public TPost selectSinglePost(final int postid) {
 		return getHibernateTemplate().execute(new HibernateCallback<TPost>() {
@@ -287,6 +309,22 @@ public class TPostDaoImpl extends HibernateDaoSupport implements TPostDao{
 	public void deletePostFile(TPostFile tPostFile) {
 		getHibernateTemplate().delete(tPostFile);
 	}
+	@Override
+	public void deltePost(final int postid) {
+//		getHibernateTemplate().delete(postid);
+		getHibernateTemplate().execute(new HibernateCallback<Integer>() {
+
+			@Override
+			public Integer doInHibernate(Session session)
+					throws HibernateException, SQLException {
+				String hql = "delete from TPost t where t.postid=:postid";
+				Query query = session.createQuery(hql);
+				query.setParameter("postid",postid);
+				return query.executeUpdate();
+			}
+		});		
+	}
+
  
 
 }

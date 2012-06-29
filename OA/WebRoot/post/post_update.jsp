@@ -19,7 +19,7 @@
 		<meta http-equiv="cache-control" content="no-cache">
 		<meta http-equiv="expires" content="0">
 		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-		<meta http-equiv="description" content="This is my page"><!--
+		<meta http-equiv="description" content="This is my page">
  
  <SCRIPT type="text/javascript">
 	function deletePost(postid){
@@ -30,10 +30,10 @@
 
 </SCRIPT>
 
-	--></head>
+	</head>
 
 	<body>
-		<s:form id="form" action="post/getpost" method="post">
+		<s:form id="form" action="post/getpost1" method="post">
 			<table width="100%" border="0" cellpadding="0" cellspacing="1"
 				bgcolor="#a8c7ce">
 				<tr>
@@ -109,12 +109,10 @@
 						href="post/viewpost?post.postid=%{#post.postid}">查看</s:a> 						 
 						 <s:if test="#post.status==0">
 						 <a
-						 href="post/passpost?post.status=1&post.postid=<s:property value="postid"/>">通过</a><!--
+						 href="post/updaetpost?post.status=0&post.postid=<s:property value="postid"/>">修改</a>
 						<s:a
-						href="javascript:deletePost('%{#post.postid}');">不通过</s:a>					 								
-						 --><s:a 
-						href="post/deletepost?post.postid=%{#post.postid}">不通过</s:a>	
-								</s:if>							 
+						href="javascript:deletePost('%{#post.postid}');">删除</s:a>
+						</s:if>							 
 							<s:else>----</s:else>
 						</td>
 					</tr>
