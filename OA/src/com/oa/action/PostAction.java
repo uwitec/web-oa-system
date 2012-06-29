@@ -144,11 +144,10 @@ public class PostAction extends BaseAction {
 
 	// 删除公告
 	public String deletePost() {
-		postServiceInf.deletePost(post);
-
+		postServiceInf.deletePost(post.getPostid());
 		return "delete";
 	}
-
+	//获得所有公告
 	public String getPosts() {
 
 		List<TPost> posts = postServiceInf.findAll(userInfo);
@@ -157,6 +156,7 @@ public class PostAction extends BaseAction {
 		return "postlist";
 
 	}
+	//获得已审核公告
 	public String getSelfPost(){
 		List<TPost> posts = postServiceInf.findSelfAll(userInfo);
 		request.setAttribute("posts", posts);
@@ -175,7 +175,13 @@ public class PostAction extends BaseAction {
 	
 		return "edit";
 	}
-
+	//管理员对某个公告审核通过
+	public String passPost(){
+		postServiceInf.passPost(post);
+		return SUCCESS;
+	}
+	
+	//查看公告
 	public String viewPost() {
 		TPost tpost = postServiceInf.selectSinglePost(post.getPostid());
 		request.setAttribute("post", tpost);

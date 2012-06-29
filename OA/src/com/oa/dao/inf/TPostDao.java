@@ -22,10 +22,12 @@ public interface TPostDao {
 	
 	
 	public void deletePost(final TPost tpost);
+	public void deltePost(final int postid);
 	//删除
 	public void deletePostFile(TPostFile tPostFile);;
 	
 	public int upadtePost(TPost tPost);	
+	public void passPost(TPost tPost);
 
 	//查看个人发布的公告
 	public TPost selectSinglePost(final int postid);

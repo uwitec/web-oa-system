@@ -31,11 +31,17 @@ public interface PostServiceInf {
 		void updatePost(TUserPost tUserPost, List<File> upload,
 				List<String> uploadFileName, List<String> uploadContentType,
 				String savePath);
+		/*
+		 * π‹¿Ì‘±…Û∫À
+		 */
+		void passPost(TPost tPost);
+		
 		
 		List<TPost>  findSelfAll(final UserInfo userInfo);
 		List<TPost>  findAll(final UserInfo userInfo);
 		TPost selectSinglePost(int postid);
 		
 		void deletePost(TPost tPost);
+		void deletePost(int postid);
 		void deletePost(TUserPost tUserPost);
 }

@@ -138,7 +138,7 @@ public class PostServiceImpl implements PostServiceInf {
 		}
 		tPost.settPostFiles(tPostFiles);
 		// 级联表设置
-		Integer postid = tPostDao.savePost(tPost);
+		tPostDao.savePost(tPost);
 		
 
 	}
@@ -176,6 +176,18 @@ public class PostServiceImpl implements PostServiceInf {
 	public TPost selectSinglePost(int postid) {
 
 		return tPostDao.selectSinglePost(postid);
+	}
+
+	@Override
+	public void deletePost(int postid) {
+		tPostDao.deltePost(postid);
+		
+	}
+
+	@Override
+	public void passPost(TPost tPost) {
+		tPostDao.passPost(tPost);
+		
 	}
 
 
