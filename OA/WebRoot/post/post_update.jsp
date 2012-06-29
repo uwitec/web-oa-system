@@ -109,11 +109,12 @@
 						href="post/viewpost?post.postid=%{#post.postid}">查看</s:a> 						 
 						 <s:if test="#post.status==0">
 						 <a
-						 href="post/updaetpost?post.status=0&post.postid=<s:property value="postid"/>">修改</a>
-						<s:a
-						href="javascript:deletePost('%{#post.postid}');">删除</s:a>
+						 href="post/updatepost?post.status=0&post.postid=<s:property value="postid"/>">修改</a>
+						
 						</s:if>							 
-							<s:else>----</s:else>
+							<s:else>
+							<s:a
+						href="javascript:deletePost('%{#post.postid}');">删除</s:a></s:else>
 						</td>
 					</tr>
 				</s:iterator>

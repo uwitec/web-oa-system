@@ -44,7 +44,7 @@
 				getpost
 			</result>
 	 </action> 
-	 
+	 <!-- 管理员进入修改公告页面..menulink :    post/getpost1 -->
 	 <action name="getpost1" class="com.oa.action.PostAction" 
 		 method="getPosts">
 		 <result name="postlist">/post/post_update.jsp</result>

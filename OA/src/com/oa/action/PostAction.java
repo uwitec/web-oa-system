@@ -164,10 +164,11 @@ public class PostAction extends BaseAction {
  
 		return "postlist";
 	}
-
+//管理员在公告管理-修改公告 中修改
 	public String updatePost() throws Exception {
 
 		TUser tUser = (TUser) request.getSession().getAttribute(LOGIN_USER);
+		System.out.println(tUser.getRealname());
 		post.setUpdateUser(tUser);
 		post.setUpdatetime(new Date());		
 			postServiceInf.updatePost(post, upload, uploadFileName,
