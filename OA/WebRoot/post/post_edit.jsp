@@ -88,42 +88,43 @@
 		</h4>
 		
 		
-		<s:form id="form" action="post/addpost" method="POST" enctype="multipart/form-data"
+		<s:form id="form" action="post/updatepost" method="POST" enctype="multipart/form-data"
 			 theme="css_xhtml">
 			 
 				<table align="center" width="100%" height="80%" border="1">
 				<tr>
 					<td >
-						<s:textfield label="公告标题" name="tPost.title" id="title" 
-						value="%{#request.tPost.title}"></s:textfield>
+						<s:textfield label="公告标题" name="post.title" id="title" 
+						value="%{#request.post.title}"></s:textfield>
 					</td>
 				</tr>
 				<tr>
 					<td >
 						生效时间
-						<input   name="testNew" 
+						<input   name="post.begindate" 
 						class="Wdate" type="text" id="hts" 
 						onfocus="new WdatePicker(this,'%Y年%M月%D日',false)" 
-						maxdate="#F{$('hte').value}" onPicked="$('hte').onfocus()"/>
+						maxdate="#F{$('hte').value}" onPicked="$('hte').onfocus()"
+						value =<s:property value ="#request.post.beginate"/>/>
 					</td>
 				</tr>
 				<tr>
 					<td>
 						失效时间
-						<input   name="testOld" 
+						<input   name="post.enddate" 
 						class="Wdate" type="text" id="hts" 
 						onfocus="new WdatePicker(this,'%Y年%M月%D日',false)" 
-						maxdate="#F{$('hte').value}" onPicked="$('hte').onfocus()"/>
+						maxdate="#F{$('hte').value}" onPicked="$('hte').onfocus()"
+						value =<s:property value ="#request.post.endate"/>/>
 					</td>
-					<td>
-					</td>
+ 
 				</tr>
 				<Tr>
 					<Td>
 						附件
 					</Td>
 					<TD id="fj">
-						<s:iterator value="#request.tPost.tPostFiles" var="tPostFile">
+						<s:iterator value="#request.post.tPostFiles" var="tPostFile">
 							<span id="<s:property value='%{#tPostFile.pfid}'/>"> <s:property
 									value="#tPostFile.oldname" /> <input type="button" value="删除"
 									onclick="javascript:deleteFile(<s:property value='#tPostFile.pfid'/>)" />
@@ -138,9 +139,9 @@
 				</tr>
 				<TR>
 					<TD colspan="1" width="100%">
-						<s:hidden value="1" name="tPost.status" id="status"></s:hidden>
-						<input type="hidden" name="tPost.strContent" value="">
-						<FCK:editor id="tPost.strContent" width="100%"
+						<s:hidden name="post.strContent"
+							value="%{#request.post.strContent}"></s:hidden>
+						<FCK:editor id="post.strContent" width="100%"  
 							height="320"
 							fontNames="宋体;黑体;隶书;楷体_GB2312;Arial;Comic Sans MS;Courier 
 New;Tahoma;Times New Roman;Verdana"

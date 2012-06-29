@@ -61,6 +61,10 @@ body {
 }
 -->
 </style>
+
+		<script language="javascript" type="text/javascript"
+			src="<%=path%>/My97DatePicker/WdatePicker.js">
+</script>
 	</head>
 
 	<body>
@@ -81,8 +85,8 @@ body {
 						生效时间
 					</td>
 					<td>
-						<s:date name="#request.post.begindate"
-						 format="yyyy-MM-dd " />
+						<input   name="testNew2" class="Wdate"	readonly="readonly"
+						 value=<s:property value="#request.post.begindate"/> />
 					</td>
 				</tr>
 				 <tr bgcolor="#FFFFFF" class="STYLE19" height="30">
@@ -90,10 +94,11 @@ body {
 						失效时间
 					</td>
 					<td>
-						<s:date name="#request.post.enddate"
-						 format="yyyy-MM-dd  " />
+						<input   name="testOld2" class="Wdate"	 readonly="readonly"
+						value =<s:property value ="#request.post.enddate"/>/>
 					</td>
 				</tr>
+			
 				<tr bgcolor="#FFFFFF" class="STYLE19" height="30">
 					<Td>
 						附件下载
@@ -112,7 +117,7 @@ body {
 					 
 						<s:hidden name="post.strContent"
 							value="%{#request.post.strContent}"></s:hidden>
-						<FCK:editor id="post.strContent" width="100%"
+						<FCK:editor  id="post.strContent" width="100%"
 							height="360"
 							fontNames="宋体;黑体;隶书;楷体_GB2312;Arial;Comic Sans MS;Courier 
 New;Tahoma;Times New Roman;Verdana"
