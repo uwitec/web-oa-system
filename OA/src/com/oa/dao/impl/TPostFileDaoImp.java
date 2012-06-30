@@ -27,16 +27,25 @@ public class TPostFileDaoImp extends HibernateDaoSupport implements TPostFileDao
 	}
 
 	@Override
-	public boolean deletePostFile(int id) {
-		Session session = null;
-		Transaction transaction = null;
-		session=HibernateSessionFactory.getSession();
-		transaction = session.beginTransaction();
-		
-		String hql = "delete from T_POST_FILE where POSTID=" + id;
-		Query query =session.createQuery(hql);
-		transaction.commit();
+	public boolean deletePostFile(final int id) {
+		getHibernateTemplate().execute(new HibernateCallback<Boolean>() {
+
+			@Override
+			public Boolean doInHibernate(Session session)
+					throws HibernateException, SQLException {
+				//Ææ¹ÖµÄ´íÎó
+//				String hql = "delete from TPostFile t where t.postid=:postid";
+//				Query query =session.createQuery(hql);
+//				query.setInteger("postid", id);
+				
+				String hql = "delete from TPostFile where postid="+id;
+				Query query =session.createQuery(hql);
+				  query.executeUpdate();
+				return false;
+			}
+		});
 		return false;
+
 	}
 
 	@Override

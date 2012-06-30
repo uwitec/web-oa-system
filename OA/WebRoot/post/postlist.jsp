@@ -19,21 +19,84 @@
 		<meta http-equiv="cache-control" content="no-cache">
 		<meta http-equiv="expires" content="0">
 		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-		<meta http-equiv="description" content="This is my page"><!--
- 
+		<meta http-equiv="description" content="This is my page">
+		
+		<style type="text/css">
+<!--
+body {
+	margin-left: 3px;
+	margin-top: 0px;
+	margin-right: 3px;
+	margin-bottom: 0px;
+}
+
+.STYLE1 {
+	color: #e1e2e3;
+	font-size: 12px;
+}
+
+.STYLE6 {
+	color: #000000;
+	font-size: 12;
+}
+
+.STYLE10 {
+	color: #000000;
+	font-size: 12px;
+}
+
+.STYLE19 {
+	color: #344b50;
+	font-size: 12px;
+}
+
+.STYLE21 {
+	font-size: 12px;
+	color: #3b6375;
+}
+
+.STYLE22 {
+	font-size: 12px;
+	color: #295568;
+}
+-->
+</style>
+		<!--
  <SCRIPT type="text/javascript">
 	function deletePost(postid){
 		if(confirm('确认删除?')){
 			window.location.href = "<%=path%>/post/deletepost?post.postid="+postid ;
 		}
 	}
-
 </SCRIPT>
-
 	--></head>
 
 	<body>
 		<s:form id="form" action="post/getpost" method="post">
+			<tr>
+				<td height="30">
+					<table width="100%" border="0" cellspacing="0" cellpadding="0">
+						<tr>
+							<td height="24" bgcolor="#353c44">
+								<table width="100%" border="0" cellspacing="0" cellpadding="0">
+									<tr>
+										<td>
+											<table width="100%" border="0" cellspacing="0"
+												cellpadding="0">
+												<tr>
+													<td width="94%" valign="bottom" align="center">
+														<span class="STYLE1"> 公告审核列表</span>
+													</td>
+												</tr>
+											</table>
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
 			<table width="100%" border="0" cellpadding="0" cellspacing="1"
 				bgcolor="#a8c7ce">
 				<tr>

@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page  language="java" import="java.util.*" pageEncoding="GB18030"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ taglib uri="/oa-tag" prefix="oa"%>
 <%
@@ -20,56 +20,153 @@
 		<meta http-equiv="expires" content="0">
 		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 		<meta http-equiv="description" content="This is my page">
-		<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
 
+		<style type="text/css">
+<!--
+body {
+	margin-left: 3px;
+	margin-top: 0px;
+	margin-right: 3px;
+	margin-bottom: 0px;
+}
+
+.STYLE1 {
+	color: #e1e2e3;
+	font-size: 12px;
+}
+
+.STYLE6 {
+	color: #000000;
+	font-size: 12;
+}
+
+.STYLE10 {
+	color: #000000;
+	font-size: 12px;
+}
+
+.STYLE19 {
+	color: #344b50;
+	font-size: 12px;
+}
+
+.STYLE21 {
+	font-size: 12px;
+	color: #3b6375;
+}
+
+.STYLE22 {
+	font-size: 12px;
+	color: #295568;
+}
+-->
+</style>
+
+
+<script language="javascript" type="text/javascript"
+			src="<%=path%>/My97DatePicker/WdatePicker.js">
+</script>
 	</head>
 
 	<body>
+		<table width="100%" border="0" align="center" cellpadding="0"
+			cellspacing="0">
+			<tr>
+				<td height="30">
+					<table width="100%" border="0" cellspacing="0" cellpadding="0">
+						<tr>
+							<td height="24" bgcolor="#353c44">
+								<table width="100%" border="0" cellspacing="0" cellpadding="0">
+									<tr>
+										<td>
+											<table width="100%" border="0" cellspacing="0"
+												cellpadding="0">
+												<tr>
+													<td width="94%" valign="bottom" align="center">
+														<span class="STYLE1"> ¹«¸æÁÐ±í</span>
+													</td>
+												</tr>
+											</table>
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			
+			
 		<s:form id="form" action="post/getselfpost" method="post">
-			<table width="100%" border="0" cellpadding="0" cellspacing="1"
+
+				<table width="100%" border="0" cellpadding="0" cellspacing="1">
+					<tr>
+						<TD height="20" bgcolor="d3eaef" class="STYLE6" align="center">
+							¹«¸æ±êÌâ:
+							<s:textfield label="¹«¸æ±êÌâ" name="userInfo.tpost.title"></s:textfield>
+						
+						</TD>
+					<TD height="20" bgcolor="d3eaef" class="STYLE6" align="center">
+							ÉúÐ§Ê±¼ä
+
+							<input name="userInfo.tpost.begindate" class="Wdate" type="text"
+								id="hts" onfocus="new WdatePicker(this,'%Y-%M-%D %h:%m',true)"
+								maxdate="#F{$('hte').value}" onpicked="$('hte').onfocus()" />
+						</td>
+					<TD height="20" bgcolor="d3eaef" class="STYLE6" align="center">
+							Ê§Ð§Ê±¼ä
+							<input  name="userInfo.tpost.enddate" class="Wdate" type="text"
+								id="hte" onfocus="new WdatePicker(this,'%Y-%M-%D %h:%m',true)"
+								mindate="#F{$('hts').value}" maxdate="2020-1-1" />
+						</td>
+						<td>	<s:submit value="²éÑ¯" /></td>
+				</table>
+		 </s:form>
+			<tr>
+				<td>
+				
+				<table width="100%" border="0" cellpadding="0" cellspacing="1"
 				bgcolor="#a8c7ce">
 				<tr>
 
 					<td width="10%" height="20" bgcolor="d3eaef" class="STYLE6">
 						<div align="center">
-							<span class="STYLE10">æ ‡é¢˜</span>
+							<span class="STYLE10">±êÌâ</span>
 						</div>
 					</td>
 					<td width="9%" height="20" bgcolor="d3eaef" class="STYLE6">
 						<div align="center">
-							<span class="STYLE10">å‘å¸ƒè€…</span>
+							<span class="STYLE10">·¢²¼Õß</span>
 						</div>
 					</td>
 					<td width="10%" height="20" bgcolor="d3eaef" class="STYLE6">
 						<div align="center">
-							<span class="STYLE10">ç”Ÿæ•ˆæ—¥æœŸ</span>
+							<span class="STYLE10">ÉúÐ§ÈÕÆÚ</span>
 						</div>
 					</td>
 					<td width="10%" height="20" bgcolor="d3eaef" class="STYLE6">
 						<div align="center">
-							<span class="STYLE10">å¤±æ•ˆæ—¥æœŸ</span>
+							<span class="STYLE10">Ê§Ð§ÈÕÆÚ</span>
 						</div>
 					</td>
 					<td width="14%" height="20" bgcolor="d3eaef" class="STYLE6">
 						<div align="center">
-							<span class="STYLE10">å…¬å‘Šå†…å®¹</span>
+							<span class="STYLE10">¹«¸æÄÚÈÝ</span>
 						</div>
 					</td>
 					<td width="16%" height="20" bgcolor="d3eaef" class="STYLE6">
 						<div align="center">
-							<span class="STYLE10">æ·»åŠ æ—¥æœŸ</span>
+							<span class="STYLE10">Ìí¼ÓÈÕÆÚ</span>
 						</div>
 					</td>
 					<td width="15%" height="20" bgcolor="d3eaef" class="STYLE6">
 						<div align="center">
-							<span class="STYLE10">çŠ¶æ€</span>
+							<span class="STYLE10">×´Ì¬</span>
 						</div>
 					</td>
 					<td width="16%" height="20" bgcolor="d3eaef" class="STYLE6">
 						<div align="center">
-							<span class="STYLE10">æ“ä½œ</span>
+							<span class="STYLE10">²Ù×÷</span>
 						</div>
 					</td>
 
@@ -96,18 +193,20 @@
 						</td>
 							
 						<td height="20" bgcolor="#FFFFFF" class="STYLE19" align="center">
-							<s:property value="#post.status?'å®¡æ ¸é€šè¿‡':'å®¡æ ¸ä¸­'" />
+							<s:property value="#post.status?'ÉóºËÍ¨¹ý':'ÉóºËÖÐ'" />
 						</td>
 						<td height="20" bgcolor="#FFFFFF" class="STYLE19" align="center">
 						<s:a
-						href="post/viewpost?post.postid=%{#post.postid}">æŸ¥çœ‹</s:a>
+						href="post/viewpost?post.postid=%{#post.postid}">²é¿´</s:a>
 	 
 						</td>
 					</tr>
 				</s:iterator>
 			</table>
-		</s:form>
+			</td>
+		 </tr>
+		 <oa:pageTag/>
 		
-		<oa:pageTag/>
+		</table>
 	</body>
 </html>

@@ -21,7 +21,8 @@
 	 <!-- 普通员工获得所有审核过的公告，在menu表中menulink存入post/getselfpost -->
 	 	 <action name="getselfpost" class="com.oa.action.PostAction" 
 		 method="getSelfPost">
-		 <result name="postlist">/post/post_self.jsp</result>
+		 <result name="success">/post/post_self.jsp</result>
+		 <result name="input" type="chain">getselfpost</result>
 	 </action>
 	  <action name="addpost" class="com.oa.action.PostAction" 
 		 method="addPost">
