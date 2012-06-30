@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
+ 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -194,6 +195,8 @@ public class TPostDaoImpl extends HibernateDaoSupport implements TPostDao{
 
 						Date begin = userInfo.getTpost().getBegindate();
 						Date end = userInfo.getTpost().getEnddate();
+//						SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//						 String strBegin=df.format(begin);
 						int currPage = userInfo.getCurrPage();
 						currPage = currPage == 0 ? 1 : currPage;
 
@@ -208,8 +211,8 @@ public class TPostDaoImpl extends HibernateDaoSupport implements TPostDao{
 							countHql.append(" and tpost.begindate >" + begin);
 						}
 						if (null != end && !"".equals(end)) {
-							hql.append(" and tpost.enddate >" + begin);
-							countHql.append(" and tpost.enddate >" + begin);
+							hql.append(" and tpost.enddate <" + end);
+							countHql.append(" and tpost.enddate <" + end);
 						}
 							hql.append(" order by tpost.addtime desc");
 

@@ -18,13 +18,19 @@
       </result>
     </action>
     <action name="deletepost" location="0,0" size="0,0">
-      <result name="delete">
-        <resourceEdge source="delete" routing="0" target="success.jsp" />
-      </result>
+      <result name="delete" />
     </action>
     <action name="viewpost" location="0,0" size="0,0">
       <result name="view">
         <resourceEdge source="view" routing="0" target="post_view.jsp" />
+      </result>
+    </action>
+    <action name="passpost" location="0,0" size="0,0">
+      <result name="success" />
+    </action>
+    <action name="getpost1" location="0,0" size="0,0">
+      <result name="postlist">
+        <resourceEdge source="postlist" routing="0" target="post_update.jsp" />
       </result>
     </action>
     <action name="updatepost" location="0,0" size="0,0">
@@ -43,5 +49,6 @@
   <webResource name="post_edit.jsp" path="/post/post_edit.jsp" location="0,0" size="0,0" />
   <webResource name="postlist.jsp" path="/post/postlist.jsp" location="0,0" size="0,0" />
   <webResource name="post_self.jsp" path="/post/post_self.jsp" location="0,0" size="0,0" />
+  <webResource name="post_update.jsp" path="/post/post_update.jsp" location="0,0" size="0,0" />
 </Struts2Diagram>
 

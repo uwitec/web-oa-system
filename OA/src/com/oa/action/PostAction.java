@@ -162,7 +162,7 @@ public class PostAction extends BaseAction {
 		request.setAttribute("posts", posts);
 		request.setAttribute(USER_INFO, userInfo);
  
-		return "postlist";
+		return SUCCESS;
 	}
 //管理员在公告管理-修改公告 中修改
 	public String updatePost() throws Exception {

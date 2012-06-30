@@ -1,6 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="GBK"%>
 <%@ taglib uri="http://fckeditor.net/tags-fckeditor" prefix="FCK"%>
-
+ 
 <%@ taglib uri="/struts-tags" prefix="s"%>
 
 <%
@@ -21,9 +21,46 @@
 		<meta http-equiv="expires" content="0">
 		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 		<meta http-equiv="description" content="This is my page">
-		<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
+	<style type="text/css">
+<!--
+body {
+	margin-left: 3px;
+	margin-top: 0px;
+	margin-right: 3px;
+	margin-bottom: 0px;
+}
+
+.STYLE1 {
+	color: #e1e2e3;
+	font-size: 12px;
+}
+
+.STYLE6 {
+	color: #000000;
+	font-size: 12;
+}
+
+.STYLE10 {
+	color: #000000;
+	font-size: 12px;
+}
+
+.STYLE19 {
+	color: #344b50;
+	font-size: 12px;
+}
+
+.STYLE21 {
+	font-size: 12px;
+	color: #3b6375;
+}
+
+.STYLE22 {
+	font-size: 12px;
+	color: #295568;
+}
+-->
+</style>
 		<s:head />
 		<script language="javascript" type="text/javascript"
 			src="<%=path%>/My97DatePicker/WdatePicker.js">
@@ -62,7 +99,7 @@
 }
 	function clearHtml() {
 	//FCK赋值
-	var editor = FCKeditorAPI.GetInstance("tPost.strContent");
+	var editor = FCKeditorAPI.GetInstance("post.strContent");
 	editor.EditorDocument.body.innerHTML = "";
 }
 	</SCRIPT>
@@ -70,34 +107,59 @@
 	</head>
 
 	<body>
-		<h4>
-			添加公告页面
-			<br />
-
-		</h4>
+ 
 
 	<SPAN><s:fielderror></s:fielderror> <s:actionerror /> </SPAN>
 		<s:form id="form" action="post/addpost" method="POST"
 			enctype="multipart/form-data" theme="css_xhtml">
 
+	<tr>
+				<td height="30">
+					<table width="100%" border="0" cellspacing="0" cellpadding="0">
+						<tr>
+							<td height="24" bgcolor="#353c44">
+								<table width="100%" border="0" cellspacing="0" cellpadding="0">
+									<tr>
+										<td>
+											<table width="100%" border="0" cellspacing="0"
+												cellpadding="0">
+												<tr>
+													<td width="94%" valign="bottom" align="center">
+														<span class="STYLE1"> 发布新的公告</span>
+													</td>
+												</tr>
+											</table>
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+
+
 			<table align="center" width="100%" height="80%" border="1">
 				<tr>
-					<td>
+				<td height="20" bgcolor="d3eaef" class="STYLE6" align="left">
+				公告标题
+				<input type="text" name="post.title" id="titile">
+				</td><!--
+					<TD height="20" bgcolor="d3eaef" class="STYLE6" align="left">
 						<s:textfield label="公告标题" name="post.title" id="title"
 							value="%{#request.tPost.title}"></s:textfield>
 					</td>
-				</tr>
+				--></tr>
 				<tr>
-					<td>
-					生效时间
-
+					<TD height="20" bgcolor="d3eaef" class="STYLE6" align="left">
+						生效时间
 						<input name="post.begindate" class="Wdate" type="text" id="hts"
 							onfocus="new WdatePicker(this,'%Y年%M月%D日',false)"
-							maxdate="#F{$('hte').value}" onpicked="$('hte').onfocus()" />
+							MINDATE="#Year#-#Month#-#Day#" onpicked="$('hte').onfocus()" />
 					</td>
 				</tr>
 				<tr>
-					<td>
+					<TD height="20" bgcolor="d3eaef" class="STYLE6" align="left">
 						失效时间
 
 						<input name="post.enddate" class="Wdate" type="text" id="hte"
@@ -133,7 +195,7 @@ Type=Flash&Connector=connectors/jsp/connector"
 						<div align="center">
 							<input type="submit" value="提交">
 							<input type="reset" value="重置">
-
+							<input type="button" value="清空" onclick="clearHtml();">							
 						</div>
 					</TD>
 				</TR>
