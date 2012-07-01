@@ -8,7 +8,8 @@
 	<constant name="struts.devMode" value="true" />
 	<constant name="struts.configuration.xml.reload" value="true" />
 	<constant name="struts.ognl.allowStaticMethodAccess" value="true" />
-	<constant name="struts.multipart.saveDir" value="d:/tomcat" />
+	<!-- 保存临时文件的路径 -->
+	<constant name="struts.multipart.saveDir" value="d:/" />
 	<constant name="struts.multipart.maxSize" value="15728640" />
 	<constant name="struts.custom.i18n.resources" value="error"></constant>
 
@@ -26,7 +27,7 @@
 	 </action>
 	  <action name="addpost" class="com.oa.action.PostAction" 
 		 method="addPost">
-		 <param name="savePath">/upload/post</param>
+		<param name="savePath">/upload/post</param>
 		 <result name="post_add" type="chain">getselfpost</result>
 		 	<result name="input">/post/post_add.jsp</result>
 	 </action>
@@ -50,10 +51,15 @@
 		 method="getPosts">
 		 <result name="postlist">/post/post_update.jsp</result>
 	 </action>
-	 
+	
+	 <action name="updatebefore" class="com.oa.action.PostAction" method="updateBefore">
+	  	 
+	  	<result name="success">/post/post_edit.jsp</result>
+	 </action>
 	 
 	 <action name="updatepost" class="com.oa.action.PostAction" method="updatePost">
-	  	<result name="edit">/post/post_edit.jsp</result>
+	  	<param name="savePath">/upload/post</param>
+	  	<result name="edit" type="chain">getpost</result>
 	 </action>
 	 
 	 <action name="download" class="com.oa.action.PostAction"

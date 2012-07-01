@@ -68,7 +68,7 @@ body {
 
 
 		<SCRIPT type="text/javascript">
-		
+	var i=0;	
 	function addMore() {
 	if (i >= 3) {
 		alert("超过三个附件");
@@ -166,8 +166,7 @@ body {
 							onfocus="new WdatePicker(this,'%Y年%M月%D日',false)"
 							mindate="#F{$('hts').value}" maxdate="2020-1-1" />
 					</td>
-					<td>
-					</td>
+ 
 				</tr>
 
 				<tr>

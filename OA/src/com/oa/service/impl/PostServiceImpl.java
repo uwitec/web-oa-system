@@ -116,29 +116,37 @@ public class PostServiceImpl implements PostServiceInf {
 	public void savePost(TPost tPost, List<File> upload,
 			List<String> uploadFileName, List<String> uploadContentType,
 			String savePath) {
+		//传到此处savePath应该为tomcat下的绝对路径
 		Set<TPostFile> tPostFiles = new HashSet<TPostFile>();
 		if (null != upload) {
 			tPost.setHasfile(true);
+//			TPostFile tPostFile = new TPostFile();
+			tPostDao.savePost(tPost);
+			
 			for (int i = 0; i < upload.size(); ++i) {
 				String newFileName = FileUtil.makeNewFileName(uploadFileName
 						.get(i));
 				String newFilePath = savePath + File.separator + newFileName;
 				File newFile = new File(newFilePath);
 				FileUtil.copyFile(upload.get(i), newFile);
-				TPostFile tPostFile = new TPostFile();
+ 				TPostFile tPostFile = new TPostFile();
 
 				tPostFile.setNewname(newFileName);
+				 
 				tPostFile.setOldname(uploadFileName.get(i));
 				tPostFile.settPost(tPost);
-				 postFileDao.addPostFile(tPostFile);
+				
+				
+				postFileDao.addPostFile(tPostFile);
 				tPostFiles.add(tPostFile);
 			}
 		} else {
 			tPost.setHasfile(false);
 		}
 		tPost.settPostFiles(tPostFiles);
-		// 级联表设置
-		tPostDao.savePost(tPost);
+//利用更新操作来改变TPost表中hasfile字段
+		tPostDao.upadtePost(tPost);
+		
 		
 
 	}
@@ -154,7 +162,7 @@ public class PostServiceImpl implements PostServiceInf {
 			for (int i = 0; i < upload.size(); ++i) {
 				String newFileName = FileUtil.makeNewFileName(uploadFileName
 						.get(i));
-				String newFilePath = savePath + File.separator + newFileName;
+				String newFilePath = savePath + "//"+ newFileName;
 				File newFile = new File(newFilePath);
 				FileUtil.copyFile(upload.get(i), newFile);
 				TPostFile tPostFile = new TPostFile();
@@ -169,7 +177,7 @@ public class PostServiceImpl implements PostServiceInf {
 		}
 		tPost.settPostFiles(tPostFiles);
 
-		Integer postid = tPostDao.upadtePost(tPost);
+		tPostDao.upadtePost(tPost);
 	}
 
 	@Override
@@ -188,6 +196,12 @@ public class PostServiceImpl implements PostServiceInf {
 	public void passPost(TPost tPost) {
 		tPostDao.passPost(tPost);
 		
+	}
+
+	@Override
+	public List<TPostFile> findAll(int postid) {
+		 
+		return postFileDao.selectTPostFiles(postid);
 	}
 
 

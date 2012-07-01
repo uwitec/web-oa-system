@@ -7,9 +7,10 @@
       </result>
     </action>
     <action name="getselfpost" location="0,0" size="0,0">
-      <result name="postlist">
-        <resourceEdge source="postlist" routing="0" target="post_self.jsp" />
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="post_self.jsp" />
       </result>
+      <result name="input" />
     </action>
     <action name="addpost" location="0,0" size="0,0">
       <result name="post_add" />
