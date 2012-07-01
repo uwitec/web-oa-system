@@ -33,7 +33,7 @@ public class TPostFileDaoImp extends HibernateDaoSupport implements TPostFileDao
 			@Override
 			public Boolean doInHibernate(Session session)
 					throws HibernateException, SQLException {
-				//奇怪的错误
+				//动态参数绑定错误?
 //				String hql = "delete from TPostFile t where t.postid=:postid";
 //				Query query =session.createQuery(hql);
 //				query.setInteger("postid", id);
@@ -63,9 +63,12 @@ public class TPostFileDaoImp extends HibernateDaoSupport implements TPostFileDao
 					public List<TPostFile> doInHibernate(Session session)
 							throws HibernateException, SQLException {
 						List<TPostFile> tPostFiles =new  ArrayList<TPostFile>();
-						String hql = "from TPostFile tpf where tpf.postid=:postid";
+						
+						//发生错误
+//						String hql = "from TPostFile t where t.postid = :postid";
+						String hql = "from TPostFile   where  postid="+postId;
 						Query query = session.createQuery(hql);
-						query.setParameter("postid", postId);
+//						query.setParameter("postid", postId);
 						tPostFiles = query.list();
 						return tPostFiles;
 					}

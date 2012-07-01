@@ -1,5 +1,7 @@
 package com.oa.dao.test;
 
+import java.util.List;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -12,7 +14,9 @@ public class PostFileTest {
 	"applicationContext_post.xml" };
 	public static void main(String[] args) {
 //		add();
-		delete();
+//		delete();
+		
+		findByPostId();
 	}
 	public static void add(){
 		ApplicationContext context = new ClassPathXmlApplicationContext(PATH);
@@ -24,6 +28,18 @@ public class PostFileTest {
 		fileDao.addPostFile(tPostFile);
 		
 	}
+	public static void findByPostId(){
+		ApplicationContext context = new ClassPathXmlApplicationContext(PATH);
+		TPostFileDao fileDao =(TPostFileDao) context.getBean("tpotFileDao");
+		TPost tpost =new TPost();
+		tpost.setPostid(50);
+		List<TPostFile> postFiles = fileDao.selectTPostFiles(tpost.getPostid());
+		for (TPostFile tPostFile : postFiles) {
+			System.out.println(tPostFile.getNewname());
+		}
+		
+	}
+	
 	
 	
 	public static void delete(){

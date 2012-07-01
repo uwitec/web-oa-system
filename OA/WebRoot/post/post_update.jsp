@@ -172,8 +172,9 @@ body {
 						<s:a
 						href="post/viewpost?post.postid=%{#post.postid}">查看</s:a> 						 
 						 <s:if test="#post.status==0">
+					 
 						 <a
-						 href="post/updatepost?post.status=0&post.postid=<s:property value="postid"/>">修改</a>
+						 href="post/updatebefore?post.postid=<s:property value="postid"/>">修改</a>
 						
 						</s:if>							 
 							<s:else>

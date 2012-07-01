@@ -104,10 +104,10 @@ body {
 						╦╫╪Чобть
 					</Td>
 					<td>
-						<s:iterator value="#request.post.tPostFiles" var="postFiles">
+						<s:iterator value="#request.post.tPostFiles" var="postFile">
 							<s:a
-								href="post/download?fileName=%{#postFiles.newname}&oldName=%{#postFiles.oldname}">
-								<s:property value="#postFiles.oldname" />
+								href="post/download?fileName=%{#postFile.newname}&oldName=%{#postFile.oldname}">
+								<s:property value="#postFile.oldname" />
 							</s:a>
 						</s:iterator>
 					</td>

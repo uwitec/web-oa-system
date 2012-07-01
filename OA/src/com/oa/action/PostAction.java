@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.StrutsStatics;
-
+ 
 import com.oa.common.UserInfo;
 import com.oa.dao.impl.TPostDaoImpl;
 import com.oa.dao.impl.TPostFileDaoImp;
@@ -30,7 +30,7 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
-public class PostAction extends BaseAction {
+public class PostAction extends BaseAction   {
 	private TPost post;
 
 	private PostServiceInf postServiceInf;
@@ -124,11 +124,13 @@ public class PostAction extends BaseAction {
 	}
 
 	public String getSavePath() {
-		return savePath;
+		//根据工程的路径，设置存储的路径
+		return ServletActionContext.getServletContext().getRealPath(savePath);
 	}
 
 	public void setSavePath(String savePath) {
-		this.savePath = savePath;
+		this.savePath =savePath;
+		
 	}
 
 	// 添加公告
@@ -138,7 +140,7 @@ public class PostAction extends BaseAction {
 		post.setAddUser(tUser);
 		System.out.println(post.getTitle() + "----");
 		postServiceInf.savePost(post, upload, uploadFileName,
-				uploadContentType, savePath);
+				uploadContentType, getSavePath());
 		return "post_add";
 	}
 
@@ -164,6 +166,22 @@ public class PostAction extends BaseAction {
  
 		return SUCCESS;
 	}
+	
+	//根据公告ID查询单个公告信息带到修改公告页面
+	public String updateBefore() throws Exception {
+
+		TPost tpost = postServiceInf.selectSinglePost(post.getPostid());
+		System.out.println(tpost.getTitle()+"; id:"+tpost.getPostid());
+		request.setAttribute("post", tpost);
+		if(tpost.getHasfile()==true){
+			List<TPostFile> postFiles =postServiceInf.findAll(tpost.getPostid());
+		request.setAttribute("postFiles", postFiles);
+		}
+		return SUCCESS;
+	}	
+	
+	
+	
 //管理员在公告管理-修改公告 中修改
 	public String updatePost() throws Exception {
 
@@ -172,7 +190,7 @@ public class PostAction extends BaseAction {
 		post.setUpdateUser(tUser);
 		post.setUpdatetime(new Date());		
 			postServiceInf.updatePost(post, upload, uploadFileName,
-					uploadContentType, savePath);
+					uploadContentType, getSavePath());
 	
 		return "edit";
 	}

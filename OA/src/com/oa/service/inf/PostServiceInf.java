@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.oa.common.UserInfo;
 import com.oa.dao.pojo.TPost;
+import com.oa.dao.pojo.TPostFile;
 import com.oa.dao.pojo.TUserPost;
 import com.oa.util.PostInfo;
 
@@ -40,6 +41,7 @@ public interface PostServiceInf {
 		List<TPost>  findSelfAll(final UserInfo userInfo);
 		List<TPost>  findAll(final UserInfo userInfo);
 		TPost selectSinglePost(int postid);
+		List<TPostFile> findAll(int postid);
 		
 		void deletePost(TPost tPost);
 		void deletePost(int postid);

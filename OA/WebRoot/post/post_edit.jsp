@@ -21,13 +21,50 @@
 		<meta http-equiv="expires" content="0">
 		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 		<meta http-equiv="description" content="This is my page">
-		<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
- 
-<script language="javascript" type="text/javascript" src="<%=path%>/My97DatePicker/WdatePicker.js"></script>
-		
+	<style type="text/css">
+<!--
+body {
+	margin-left: 3px;
+	margin-top: 0px;
+	margin-right: 3px;
+	margin-bottom: 0px;
+}
 
+.STYLE1 {
+	color: #e1e2e3;
+	font-size: 12px;
+}
+
+.STYLE6 {
+	color: #000000;
+	font-size: 12;
+}
+
+.STYLE10 {
+	color: #000000;
+	font-size: 12px;
+}
+
+.STYLE19 {
+	color: #344b50;
+	font-size: 14px;
+}
+
+.STYLE21 {
+	font-size: 12px;
+	color: #3b6375;
+}
+
+.STYLE22 {
+	font-size: 12px;
+	color: #295568;
+}
+-->
+</style>
+
+		<script language="javascript" type="text/javascript"
+			src="<%=path%>/My97DatePicker/WdatePicker.js">
+</script>
 		<SCRIPT type="text/javascript">
 	var i=0;	
 	function addMore() {
@@ -76,53 +113,78 @@
 			};
 		});
 	}
+		function clearHtml() {
+	//FCK赋值
+	var editor = FCKeditorAPI.GetInstance("post.strContent");
+	editor.EditorDocument.body.innerHTML = "";
+}
 	</SCRIPT>
 
 	</head>
 
-	<body>
-		<h4>
-			添加公告页面<br/>
-		
-			<s:actionerror />
-		</h4>
-		
-		
+	<body>	
 		<s:form id="form" action="post/updatepost" method="POST" enctype="multipart/form-data"
 			 theme="css_xhtml">
-			 
-				<table align="center" width="100%" height="80%" border="1">
-				<tr>
-					<td >
-						<s:textfield label="公告标题" name="post.title" id="title" 
-						value="%{#request.post.title}"></s:textfield>
+			<tr>
+				<td height="30">
+					<table width="100%" border="0" cellspacing="0" cellpadding="0">
+						<tr>
+							<td height="24" bgcolor="#353c44">
+								<table width="100%" border="0" cellspacing="0" cellpadding="0">
+									<tr>
+										<td>
+											<table width="100%" border="0" cellspacing="0"
+												cellpadding="0">
+												<tr>
+													<td width="94%" valign="bottom" align="center">
+														<span class="STYLE1"> 公告修改</span>
+													</td>
+												</tr>
+											</table>
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr> 	
+			
+			
+			 <table align="center" width="100%" height="80%" border="0"
+				cellpadding="0" cellspacing="1" bgcolor="#a8c7ce">
+				<tr height="30">
+					<td width="20%" bgcolor="#FFFFFF" class="STYLE19">
+						公告标题
+					</td>
+					<td bgcolor="#FFFFFF" class="STYLE19">
+						<s:property value="%{#request.post.title}" />
 					</td>
 				</tr>
-				<tr>
-					<td >
+				<tr bgcolor="#FFFFFF" class="STYLE19" height="30">
+					<td bgcolor="#FFFFFF" class="STYLE19">
 						生效时间
-						<input   name="post.begindate" 
-						class="Wdate" type="text" id="hts" 
-						onfocus="new WdatePicker(this,'%Y年%M月%D日',false)" 
-						maxdate="#F{$('hte').value}" onPicked="$('hte').onfocus()"
-						value =<s:property value ="#request.post.beginate"/>/>
 					</td>
-				</tr>
-				<tr>
 					<td>
-						失效时间
-						<input   name="post.enddate" 
-						class="Wdate" type="text" id="hts" 
-						onfocus="new WdatePicker(this,'%Y年%M月%D日',false)" 
-						maxdate="#F{$('hte').value}" onPicked="$('hte').onfocus()"
-						value =<s:property value ="#request.post.endate"/>/>
+						<input   name="testNew2" class="Wdate"	readonly="readonly"
+						 value=<s:property value="#request.post.begindate"/> />
 					</td>
- 
 				</tr>
-				<Tr>
+				 <tr bgcolor="#FFFFFF" class="STYLE19" height="30">
+					<td bgcolor="#FFFFFF" class="STYLE19">
+						失效时间
+					</td>
+					<td>
+						<input   name="testOld2" class="Wdate"	 readonly="readonly"
+						value =<s:property value ="#request.post.enddate"/>/>
+					</td>
+				</tr>
+
+				<tr bgcolor="#FFFFFF" class="STYLE19" height="30">
 					<Td>
-						附件
+						附件下载
 					</Td>
+					<td>
 					<TD id="fj">
 						<s:iterator value="#request.post.tPostFiles" var="tPostFile">
 							<span id="<s:property value='%{#tPostFile.pfid}'/>"> <s:property
@@ -139,10 +201,9 @@
 				</tr>
 				<TR>
 					<TD colspan="1" width="100%">
-						<s:hidden name="post.strContent"
-							value="%{#request.post.strContent}"></s:hidden>
-						<FCK:editor id="post.strContent" width="100%"  
-							height="320"
+						<s:hidden value="1" name="post.status" id="status"></s:hidden>
+						<input type="hidden" name="post.strContent" value="">
+						<FCK:editor id="post.strContent" width="100%" height="320"
 							fontNames="宋体;黑体;隶书;楷体_GB2312;Arial;Comic Sans MS;Courier 
 New;Tahoma;Times New Roman;Verdana"
 							imageBrowserURL="/FCKeditor-2.3/FCKeditor/editor/filemanager/browser/default/browser.html?
@@ -156,20 +217,14 @@ Type=Flash&Connector=connectors/jsp/connector"
 							flashUploadURL="/FCKeditor-2.3/FCKeditor/editor/filemanager/upload/simpleuploader?Type=Flash">
 						</FCK:editor>
 						<div align="center">
-						 	<input type="submit" value="提交"  >
+							<input type="submit" value="提交">
 							<input type="reset" value="重置">
-						 
+							<input type="button" value="清空" onclick="clearHtml();">							
 						</div>
-					</td>
-
-					<td>
-
-
 					</TD>
 				</TR>
 			</table>
-		</s:form>
-		
+		</s:form>		
 		<s:debug></s:debug>
 	</body>
 </html>
