@@ -20,7 +20,7 @@
 			</result>
 			<result name="login">/login.jsp</result>
 		</action>
-		
+
 		<action name="logout" class="com.oa.action.UserAction" method="logout">
 			<result name="login">/login.jsp</result>
 		</action>
@@ -55,8 +55,10 @@
 		<action name="preadd" class="com.oa.action.UserAction" method="preAddUser">
 			<result name="success">/back/adduser.jsp</result>
 		</action>
-		<action name="updateuser" class="com.oa.action.UserAction" method="updateUser">
+		<action name="updateuser" class="com.oa.action.UserAction"
+			method="updateUser">
 			<result name="success">/back/updatea_succ.jsp</result>
+			<result name="input">/back/1.jsp</result>
 		</action>
 		<action name="adduser" class="com.oa.action.UserAction" method="addUser">
 			<result name="success" type="redirectAction">
@@ -67,7 +69,7 @@
 			</result>
 		</action>
 
-	<action name="vcode" class="com.oa.action.ValidationCodeAction"></action>
+		<action name="vcode" class="com.oa.action.ValidationCodeAction"></action>
 	</package>
 
 

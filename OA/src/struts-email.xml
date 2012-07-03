@@ -10,8 +10,12 @@
 	<constant name="struts.ognl.allowStaticMethodAccess" value="true"></constant>
 	<constant name="struts.devMode" value="true"></constant>
 	<constant name="struts.ui.theme" value="simple"></constant>
-
-
+	<!-- 指定存放临时文件的路径 -->
+	<constant name="struts.multipart.saveDir" value="D:/tomcat"></constant>
+	<!-- 允许上传的总文件的大小 单位是字节  这里是15M 默认2M-->
+	<!--<constant name="struts.multipart.maxSize" value="15728640"></constant>
+	--><!-- 引入资源文件(src/error.properties)  文件名不需要拓展 -->
+	<constant name="struts.custom.i18n.resources" value="upload-message"></constant>
 	<package name="emailPack" extends="struts-default" namespace="/email">
 
 
@@ -23,6 +27,20 @@
 
 		<action name="saveEmail" class="com.oa.action.EmailAction"
 			method="saveEmail">
+			
+			<!-- 显示引用默认文件上传的拦截器 -->
+			<interceptor-ref name="fileUpload">
+				<!-- 指定上传文件的类型
+				<param name="allowedTypes">
+					image/bmp,image/png,image/gif,image/jpg</param> -->
+				<!-- 配置单个文件的大小 单位字节   5M-->
+				<param name="maximumSize">5242880</param>
+				<!-- 配置允许上传文件的拓展名
+				<param name="allowedExtensions">.gif,.jpg</param>
+				 -->
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			
 			<param name="savePath">/upload/email</param>
 			<result name="success" type="chain">
 				getemail

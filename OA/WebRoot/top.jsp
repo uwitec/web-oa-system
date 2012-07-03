@@ -186,7 +186,7 @@ function popshow() {
 														</div>
 													--%>
 														<div align="right">
-															<a href="exit.php" target="_parent"><img
+															<a href="<%=path %>/user/logout" target="_parent"><img
 																	src="images/quit.gif" alt=" " width="69" height="17" />
 															</a>
 														</div>
