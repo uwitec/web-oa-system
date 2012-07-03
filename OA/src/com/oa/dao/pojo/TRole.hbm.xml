@@ -30,12 +30,12 @@
 			</key>
 			<many-to-many class="com.oa.dao.pojo.TUser" column="USERID" />
 		</set>
-		<set inverse="true" name="menus"  table="T_ROLE_MENU"
-			lazy="false" >
+		<set inverse="true" name="menus" table="T_ROLE_MENU" lazy="false">
 			<key>
 				<column name="ROLEID" not-null="true" precision="8" scale="0" />
 			</key>
-			<many-to-many class="com.oa.dao.pojo.TMenu" column="MENUID" order-by="ORDERID"/>
+			<many-to-many class="com.oa.dao.pojo.TMenu" column="MENUID"
+				order-by="ORDERID" />
 		</set>
 	</class>
 </hibernate-mapping>
