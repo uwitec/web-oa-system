@@ -67,10 +67,9 @@ body {
 -->
 </style>
 
-		<SCRIPT type="text/javascript" src="js/oa/jquery-1.7.2.js">
-		</SCRIPT>
-		<SCRIPT type="text/javascript" src="js/oa/jquery.validate.js">
-		</SCRIPT>
+
+		<SCRIPT type="text/javascript" src="<%=path%>/js/oa/jquery-1.7.2.js"></SCRIPT>
+		<SCRIPT type="text/javascript" src="<%=path%>/js/oa/validate.js"></SCRIPT>
 		<script type="text/javascript">
 $(document).ready(function() {
 	var ok = true;
@@ -89,9 +88,13 @@ $(document).ready(function() {
 
 	});
 	$("#realname").blur(function() {
-		var realname = $(this).val();
-	});
-
+		ok1 = !isEmpty(this.value) && (byteLength(this.value) <= 16);
+		if (!ok1) {
+			$("#realnamespan").html("姓名不能为空且长度小于16");
+		} else {
+			$("#realnamespan").html("");
+		}
+	})
 	function callback(json) {
 		$("#useridspan").html(json.userInfo.message);
 	}
@@ -182,7 +185,7 @@ $(document).ready(function() {
 						<s:textfield name="userInfo.user.realname" id="realname"></s:textfield>
 					</td>
 					<td height="20" class="STYLE6">
-						<span style="color: red" id="useridspan"><s:fielderror
+						<span style="color: red" id="realnamespan"><s:fielderror
 								theme="simple">
 								<s:param>userInfo.user.realname</s:param>
 							</s:fielderror> </span>
@@ -228,8 +231,8 @@ $(document).ready(function() {
 						角色:
 					</td>
 					<td height="20" class="STYLE6">
-						<s:checkboxlist list="#session.roleList" listValue="rolename" listKey="roleid" 
-							value="" name="userInfo.user.roles"></s:checkboxlist>
+						<s:checkboxlist list="#session.roleList" listValue="rolename"
+							listKey="roleid" value="" name="userInfo.user.roles"></s:checkboxlist>
 					</td>
 					<td height="20" class="STYLE6">
 						<span style="color: red" id="useridspan"><s:fielderror>
