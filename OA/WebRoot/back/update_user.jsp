@@ -99,7 +99,9 @@ body {
 				</td>
 			</tr>
 		</table>
-		<s:form method="post" action="updateuser" namespace="/user">
+		
+		
+		<s:form method="post" action="updateuser" namespace="/user" theme="simple">
 
 			<s:hidden value="%{#request.singleuser.userid}" name="userInfo.user.userid"></s:hidden>
 
@@ -159,7 +161,7 @@ body {
 						&nbsp;
 						<s:checkboxlist list="#session.roleList"
 							name="userInfo.user.roles" listKey="roleid" listValue="rolename"
-							value="#request.selectedRoles"></s:checkboxlist>
+							value="#request.selectedRoles" id="roles"></s:checkboxlist>
 					</td>
 					<td height="20" class="STYLE6"></td>
 				</tr>
@@ -172,6 +174,5 @@ body {
 				</tr>
 			</table>
 		</s:form>
-
 	</body>
 </html>

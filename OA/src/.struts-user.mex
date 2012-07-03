@@ -9,6 +9,11 @@
         <resourceEdge source="login" routing="0" target="login.jsp" />
       </result>
     </action>
+    <action name="logout" location="0,0" size="0,0">
+      <result name="login">
+        <resourceEdge source="login" routing="0" target="login.jsp" />
+      </result>
+    </action>
     <action name="preupdate" location="0,0" size="0,0">
       <result name="success">
         <resourceEdge source="success" routing="0" target="self_update.jsp" />
@@ -16,7 +21,7 @@
     </action>
     <action name="selfupdate" location="0,0" size="0,0">
       <result name="success">
-        <resourceEdge source="success" routing="0" target="self_updatea_succ.jsp" />
+        <resourceEdge source="success" routing="0" target="updatea_succ.jsp" />
       </result>
     </action>
     <action name="preupdateuser" location="0,0" size="0,0">
@@ -40,6 +45,11 @@
     <action name="preadd" location="0,0" size="0,0">
       <result name="success">
         <resourceEdge source="success" routing="0" target="adduser.jsp" />
+      </result>
+    </action>
+    <action name="updateuser" location="0,0" size="0,0">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="updatea_succ.jsp" />
       </result>
     </action>
     <action name="adduser" location="0,0" size="0,0">
@@ -68,5 +78,6 @@
   <webResource name="self_update.jsp" path="/back/self_update.jsp" location="0,0" size="0,0" />
   <webResource name="self_updatea_succ.jsp" path="/back/self_updatea_succ.jsp" location="0,0" size="0,0" />
   <webResource name="update_user.jsp" path="/back/update_user.jsp" location="0,0" size="0,0" />
+  <webResource name="updatea_succ.jsp" path="/back/updatea_succ.jsp" location="0,0" size="0,0" />
 </Struts2Diagram>
 
