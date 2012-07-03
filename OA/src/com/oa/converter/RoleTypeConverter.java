@@ -18,7 +18,7 @@ public class RoleTypeConverter extends StrutsTypeConverter {
 	@Override
 	public Object convertFromString(Map context, String[] values, Class toClass) {
 		Set<TRole> roles = new HashSet<TRole>();
-		if (null == values || values.length == 0 && values[0].equals("")) {
+		/*if (null == values || values.length == 0 && values[0].equals("")) {
 			Map<String, Object> conversionErrors = (Map<String, Object>) context
 					.get(ActionContext.CONVERSION_ERRORS);
 
@@ -28,7 +28,7 @@ public class RoleTypeConverter extends StrutsTypeConverter {
 			}
 			conversionErrors.put("userInfo.user.roles", "角色不能为空");
 			return null;
-		}
+		}*/
 		for (String s : values) {
 			TRole role = new TRole();
 			role.setRoleid(Integer.parseInt(s));
