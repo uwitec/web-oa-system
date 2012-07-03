@@ -14,7 +14,8 @@ public interface EmailDao {
 	int TYPE_RECE = 2;
 	int TYPE_DRAFT = 3;
 	int TYPE_DUST = 4;
-	int TYPE_NEW = 0;
+	int TYPE_DRAFT_SEND = 5;// ²Ý¸å·¢ËÍ
+	int TYPE_DRAFT_UPDATE = 6;// ²Ý¸å¸üÐÂ
 
 	/**
 	 * ±£´æÓÊ¼þ±í ÓÊ¼þ¸½¼þ±í
@@ -44,7 +45,15 @@ public interface EmailDao {
 	 * ÓÀ¾ÃÉ¾³ý
 	 * */
 	void deleteEmail(TUserEmail userEmail);
-	
-	
+
 	void deleteEmailFile(TEmailFile emailFile);
+	/**
+	 * ²Ý¸å¸Ä·¢¼þ
+	 * */
+	void draftToSend(TUserEmail userEmail);
+	
+	/**
+	 * ²Ý¸åÓÊ¼þÐÞ¸Ä
+	 * */
+	void updateEmail(TEmail email);
 }

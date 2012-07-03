@@ -209,4 +209,55 @@ public class EmailDaoImpl extends HibernateDaoSupport implements EmailDao {
 	public void deleteEmailFile(TEmailFile emailFile) {
 		getHibernateTemplate().delete(emailFile);
 	}
+
+	@Override
+	public void draftToSend(final TUserEmail userEmail) {
+		getHibernateTemplate().execute(new HibernateCallback<Boolean>() {
+
+			@Override
+			public Boolean doInHibernate(Session session)
+					throws HibernateException, SQLException {
+				String hql = "update TUserEmail t set t.type = "
+						+ EmailDao.TYPE_SEND + " where t.id.email.emailid = "
+						+ userEmail.getId().getEmail().getEmailid();
+				Query query = session.createQuery(hql);
+				query.executeUpdate();
+				return null;
+			}
+		});
+	}
+
+	@Override
+	public void updateEmail(final TEmail email) {
+		getHibernateTemplate().execute(new HibernateCallback<Integer>() {
+
+			@Override
+			public Integer doInHibernate(Session session)
+					throws HibernateException, SQLException {
+				org.hibernate.Transaction ts = session.beginTransaction();
+				// 更新TEmail
+				email.setContent(Hibernate.createClob(" "));
+				session.update(email);
+				session.flush();// insert emailFIle 级联
+				session.refresh(email, LockMode.UPGRADE);
+				Clob clob = email.getContent();
+				Writer writer = clob.setCharacterStream(0);
+				try {
+					writer.write(email.getStrContent());
+					writer.flush();
+				} catch (IOException e) {
+					e.printStackTrace();
+				} finally {
+					try {
+						writer.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+				ts.commit();
+				return null;
+			}
+		});
+
+	}
 }

@@ -81,19 +81,27 @@ public class EmailAction extends BaseAction implements ModelDriven<UserInfo> {
 	}
 
 	/**
-	 * ·¢ËÍ »ò ±£´æ²Ý¸å
+	 * ·¢ËÍ ±£´æ²Ý¸å ¸üÐÂ²Ý¸å ²Ý¸å·¢ËÍ
 	 * */
 	public String saveEmail() {
 		TUser sendUser = (TUser) request.getSession().getAttribute(LOGIN_USER);
 		userEmail.getId().setUser(sendUser);
 		userEmail.getId().getEmail().setSenduser(sendUser);
 		userEmail.getId().getEmail().setHasfile(false);
-		if (userEmail.getType() == EmailDao.TYPE_SEND) {
+		if (userEmail.getType() == EmailDao.TYPE_SEND) { // ·¢ËÍ
 			emailService.saveEmail(userEmail, upload, uploadFileName,
 					uploadContentType, getSavePath());
-		} else if (userEmail.getType() == EmailDao.TYPE_DRAFT) {
+		} else if (userEmail.getType() == EmailDao.TYPE_DRAFT) { // ±£´æ²Ý¸å
 			emailService.saveEmailToDraft(userEmail, upload, uploadFileName,
 					uploadContentType, getSavePath());
+		} else if (userEmail.getType() == EmailDao.TYPE_DRAFT_SEND) {// ²Ý¸å·¢ËÍ 5
+			emailService.draftSend(userEmail, upload, uploadFileName,
+					uploadContentType, getSavePath());
+			userEmail.setType(EmailDao.TYPE_SEND);
+		} else if (userEmail.getType() == EmailDao.TYPE_DRAFT_UPDATE) {// ²Ý¸å¸üÐÂ 6
+			emailService.updateDraft(userEmail, upload, uploadFileName,
+					uploadContentType, getSavePath());
+			userEmail.setType(EmailDao.TYPE_DRAFT);
 		}
 		return SUCCESS;
 	}
@@ -112,7 +120,10 @@ public class EmailAction extends BaseAction implements ModelDriven<UserInfo> {
 
 	// ajaxÉ¾³ý²Ý¸å¸½¼þ
 	public String deleteEmailFile() {
+		emailFile.setNewname(getSavePath() + File.separator
+				+ emailFile.getNewname());
 		emailService.deleteEmailFile(emailFile);
+		userInfo.setMessage("success");
 		return SUCCESS;
 	}
 

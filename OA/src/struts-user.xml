@@ -92,6 +92,7 @@
 
 		<action name="deleteEmailFile" class="com.oa.action.EmailAction"
 			method="deleteEmailFile">
+			<param name="savePath">/upload/email</param>
 			<result name="success" type="json">
 				<param name="includeProperties">
 					userInfo\.message
