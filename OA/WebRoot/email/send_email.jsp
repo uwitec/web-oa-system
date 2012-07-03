@@ -73,7 +73,6 @@ function addMore() {
 		alert("超过三个附件");
 		return false
 	}
-	;
 	var td = document.getElementById("td");
 	var br = document.createElement("br");
 	var input = document.createElement("input");
@@ -295,7 +294,6 @@ function setDisplay(o) {
 						<span style="color: red"><s:fielderror>
 								<s:param>userEmail.id.email.receusers</s:param>
 							</s:fielderror> </span>
-
 					</td>
 					<td width="20%" rowspan="4" height="100%" bgcolor="d3eaef"
 						class="STYLE6" valign="top">

@@ -24,6 +24,20 @@ public interface EmailService {
 			List<String> uploadFileName, List<String> uploadContentType,
 			String savePath);
 
+	/**
+	 * ²Ý¸å·¢ËÍ
+	 * */
+	void draftSend(TUserEmail userEmail, List<File> upload,
+			List<String> uploadFileName, List<String> uploadContentType,
+			String savePath);
+
+	/**
+	 * ¸üÐÂ²Ý¸å
+	 * */
+	void updateDraft(TUserEmail userEmail, List<File> upload,
+			List<String> uploadFileName, List<String> uploadContentType,
+			String savePath);
+
 	List<TUserEmail> getEmails(TUserEmail userEmail, UserInfo userInfo);
 
 	void deleteEmail(TUserEmail userEmail);

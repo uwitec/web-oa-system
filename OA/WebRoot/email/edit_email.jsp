@@ -70,14 +70,13 @@ body {
 		</SCRIPT>
 
 		<script type="text/javascript">
-
 var i= <s:property value='#request.email.emailFiles.size()'/>;
 function addMore() {
+	
 	if (i >= 3) {
 		alert("超过三个附件");
-		return false
+		return false;
 	}
-	;
 	var td = document.getElementById("td");
 	var br = document.createElement("br");
 	var input = document.createElement("input");
@@ -101,11 +100,9 @@ function addMore() {
 	i++;
 }
 
-
-	function deleteFile(efid){
-		alert(efid);
-		var params = 'emailFile.efid=' + efid; 
-		$.ajax( {
+function deleteFile(efid, newname) {
+	var params = 'emailFile.efid=' + efid + '&emailFile.newname=' + newname;
+	$.ajax({
 			url : 'deleteEmailFile',
 			type : 'post',
 			dataType : 'json',
@@ -115,9 +112,9 @@ function addMore() {
 				if(m == 'success'){
 					alert('删除成功');
 					i--;
-					document.getElementById("fj").removeChild(document.getElementById(efid))
+					document.getElementById("td").removeChild(document.getElementById(efid))
 				}
-			};
+			}
 		});
 	}
 	
@@ -240,6 +237,31 @@ function setDisplay(o) {
 		o.style.display = "";
 	}
 }
+
+function initTree() {
+	var all = document.getElementById("all");
+	//获得本菜单的tr
+	var otr = all.parentElement.parentElement;
+	//获得子菜单的tr
+	var otrmenu = otr.nextSibling;
+	//遍历子菜单的checkbox
+	var receusers = '<s:property value='
+#request.email.receusers'/>';
+var userArr = receusers.split(";");
+for ( var i = 0; i < otrmenu.all.length; i++) {
+		
+		if (otrmenu.all[i].type == "checkbox" &&  otrmenu.all[i].name != "m11") {
+			var value = otrmenu.all[i].nextSibling.nodeValue;
+			for(var j = 0; j < userArr.length; ++j){
+				if(value == userArr[j]){
+					otrmenu.all[i].checked = "checked";
+					selectParent(otrmenu.all[i]);
+				}
+			}
+			
+		}
+	}
+}
 </script>
 
 
@@ -260,10 +282,9 @@ function setDisplay(o) {
 			var value = otrmenu.all[i].nextSibling.nodeValue;
 			if(!first){
 				userStr += ";";
-				
 			}
-				userStr += value;
-				first = false;
+			userStr += value;
+			first = false;
 			
 		}
 	}
@@ -272,24 +293,26 @@ function setDisplay(o) {
 	}
 	
 	function sub(type){
+		alert(type);
 		document.getElementById("type").value = type;
 		document.form.submit();
 	}
 	function init(){
 		var editor = FCKeditorAPI.GetInstance("userEmail.id.email.strContent");
-		editor.EditorDocument.body.innerHTML = '<s:property value="#request.email.strContent"/>';
+		editor.EditorDocument.body.innerHTML = "1111111111111111111111";
+			//'<s:property value="#request.email.strContent"/>';
 	}
 </SCRIPT>
 
 
 	</head>
 
-	<body onload="javascript:init();">
-		<SPAN><s:fielderror></s:fielderror> <s:actionerror /> </SPAN>
+	<body onload="initTree()">
 
 		<form name="form" action='email/saveEmail' method="post"
 			enctype="multipart/form-data">
-
+			<s:hidden name="userEmail.id.email.emailid"
+				value="%{#request.email.emailid}"></s:hidden>
 			<table width="100%" border="0" cellspacing="0" cellpadding="0">
 				<tr>
 					<td height="24" bgcolor="#353c44">
@@ -312,6 +335,7 @@ function setDisplay(o) {
 
 			<table align="center" width="100%" height="*" border="0"
 				cellpadding="0" cellspacing="1" bgcolor="#a8c7ce">
+
 				<tr>
 					<td width="20%" bgcolor="d3eaef" class="STYLE6" align="center"
 						height="20px">
@@ -325,7 +349,55 @@ function setDisplay(o) {
 								<s:param>userEmail.id.email.receusers</s:param>
 							</s:fielderror> </span>
 					</td>
+					<td width="20%" rowspan="4" height="100%" bgcolor="d3eaef"
+						class="STYLE6" valign="top">
+						<br />
+						<p align="center" style="font-size: 14px;">
+							请选择收件人:
+						</p>
+						<table cellpadding="0" cellspacing="0">
+							<tr>
+								<td bgcolor="d3eaef" class="STYLE6">
+									<input type="checkbox" name="m1" onClick="selectChild(this);"
+										id="all">
+									<span onClick="setDisplay(m1_menu);" style="cursor: hand">全部</span>
+								</td>
+							</tr>
+							<tr id="m1_menu" style="">
+								<td bgcolor="d3eaef" class="STYLE6">
+									<table cellpadding="0" cellspacing="0">
+										<s:iterator value="#session.departmentUsers" var="dept"
+											status="s">
+											<tr>
+												<td bgcolor="d3eaef" class="STYLE6">
+													&nbsp;&nbsp;
+													<input type="checkbox" name="m11"
+														onClick="selectChild(this);selectRoot(this);">
+													<span
+														onClick="setDisplay(name<s:property value='%{#s.index}'/>);"
+														style="cursor: hand"><s:property
+															value="#dept.dataname" /> </span>
+												</td>
+											</tr>
+											<tr id="name<s:property value='%{#s.index}'/>">
+												<td bgcolor="d3eaef" class="STYLE6">
+													<s:iterator value="#dept.departmentUsers" var="user">
+													&nbsp;&nbsp;&nbsp;&nbsp;
+												<input type="checkbox" name="m11_chk"
+															onClick="selectParent(this);">
+														<s:property value="#user.userid" />
+													</s:iterator>
+												</td>
+											</tr>
+										</s:iterator>
+
+									</table>
+								</td>
+							</tr>
+						</table>
+					</td>
 				</tr>
+
 				<tr>
 					<td bgcolor="d3eaef" class="STYLE6" align="center">
 						主题:
@@ -333,36 +405,51 @@ function setDisplay(o) {
 					<td bgcolor="d3eaef" class="STYLE6">
 						<s:textfield name="userEmail.id.email.title"
 							value="%{#request.email.title}" cssStyle="width :60%"></s:textfield>
-
 						<span style="color: red"> <s:fielderror>
 								<s:param>userEmail.id.email.title</s:param>
 							</s:fielderror> </span>
 
 					</td>
 				</tr>
-				<Tr>
-					<Td>
-						附件
-					</Td>
-					<TD id="fj">
-						<s:iterator value="#request.email.emailFiles" var="emailFile">
-							<span id="<s:property value='%{#emailFile.efid}'/>"> <s:property
-									value="#emailFile.oldname" /> <input type="button" value="删除"
-									onclick="javascript:deleteFile(<s:property value='#emailFile.efid'/>)" />
-							</span>
-						</s:iterator>
-					</TD>
-				</Tr>
 				<tr>
-					<Td colspan="2" id="td">
+					<td bgcolor="d3eaef" class="STYLE6" align="center">
+						编辑时间:
+					</td>
+					<td bgcolor="d3eaef" class="STYLE6">
+						<s:date name="#userEmail.id.email.sendtime"
+											format="yyyy-MM-dd hh:mm:ss" />
+						<span style="color: red"> <s:fielderror>
+								<s:param>userEmail.id.email.title</s:param>
+							</s:fielderror> </span>
+
+					</td>
+				</tr>
+
+				<tr>
+					<Td colspan="2" id="td" bgcolor="d3eaef" class="STYLE6">
+						<s:iterator value="#request.email.emailFiles" var="emailFile">
+							<span id="<s:property value='#emailFile.efid'/>"> <s:a
+									href="email/download?fileName=%{#emailFile.newname}&oldName=%{#emailFile.oldname}">
+									<s:property value="#emailFile.oldname" />
+									<input type="button" value="删除"
+										onclick="deleteFile('<s:property value='#emailFile.efid'/>', '<s:property value='#emailFile.newname'/>')" />
+								</s:a> </span>
+						</s:iterator>
+						<br />
 						<input type="button" value="添加附件" onclick="addMore()" />
+
+						<SPAN style="color: red"> <s:fielderror>
+								<s:param>upload</s:param>
+								<s:param>userEmail.id.email.strContent</s:param>
+							</s:fielderror> </SPAN>
 					</Td>
 				</tr>
 				<TR>
-					<TD colspan="1" width="80%">
-						<s:hidden value="1" name="userEmail.type" id="type"></s:hidden>
-						<input type="hidden" name="userEmail.id.email.strContent" value="">
-						<FCK:editor id="userEmail.id.email.strContent" width="75%"
+					<TD colspan="2" bgcolor="d3eaef" class="STYLE6">
+						<s:hidden value="5" name="userEmail.type" id="type"></s:hidden>
+						<s:hidden name="userEmail.id.email.strContent"
+							value="%{#request.email.strContent}"></s:hidden>
+						<FCK:editor id="userEmail.id.email.strContent" width="100%"
 							height="320"
 							fontNames="宋体;黑体;隶书;楷体_GB2312;Arial;Comic Sans MS;Courier 
 New;Tahoma;Times New Roman;Verdana"
@@ -377,64 +464,13 @@ Type=Flash&Connector=connectors/jsp/connector"
 							flashUploadURL="/FCKeditor-2.3/FCKeditor/editor/filemanager/upload/simpleuploader?Type=Flash">
 						</FCK:editor>
 						<div align="center">
-							<input type="button" value="发送" onclick="sub(1)" />
-							<input type="button" value="存草稿" onclick="sub(3);" />
+							<input type="button" value="发送" onclick="sub(5)" />
+							<input type="button" value="存草稿" onclick="alert(1);" />
 							<input type="button" value="清空" onclick="clearHtml();">
-							<input type="button" value="测试" onclick="selectuser();">
 						</div>
 					</td>
-
-					<td>
-
-
-
-
-
-						<table>
-							<tr>
-								<td>
-									<input type="checkbox" name="m1" onClick="selectChild(this);"
-										id="all">
-									<span onClick="setDisplay(m1_menu);" style="cursor: hand">全部</span>
-								</td>
-							</tr>
-							<tr id="m1_menu" style="">
-								<td>
-									<table>
-										<s:iterator value="#session.departmentUsers" var="dept"
-											status="s">
-											<tr>
-												<td>
-													&nbsp;&nbsp;
-													<input type="checkbox" name="m11"
-														onClick="selectChild(this);selectRoot(this);">
-													<span
-														onClick="setDisplay(name<s:property value='%{#s.index}'/>);"
-														style="cursor: hand"><s:property
-															value="#dept.dataname" /> </span>
-												</td>
-											</tr>
-											<tr id="name<s:property value='%{#s.index}'/>">
-												<td>
-													<s:iterator value="#dept.departmentUsers" var="user">
-													&nbsp;&nbsp;&nbsp;&nbsp;
-												<input type="checkbox" name="m11_chk"
-															onClick="selectParent(this);">
-														<s:property value="#user.userid" />
-														<br>
-													</s:iterator>
-												</td>
-
-											</tr>
-										</s:iterator>
-
-									</table>
-								</td>
-							</tr>
-						</table>
-
-					</TD>
 				</TR>
+
 			</table>
 		</form>
 	</body>

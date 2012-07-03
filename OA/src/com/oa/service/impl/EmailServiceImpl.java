@@ -126,13 +126,101 @@ public class EmailServiceImpl implements EmailService {
 
 	@Override
 	public TEmail getSingleEmail(TUserEmail userEmail) {
-		// TODO Auto-generated method stub
 		return emailDao.getSingleEmail(userEmail);
 	}
 
 	@Override
 	public void deleteEmailFile(TEmailFile emailFile) {
 		emailDao.deleteEmailFile(emailFile);
+		FileUtil.deleteFile(emailFile.getNewname());
+	}
+
+	@Override
+	public void draftSend(TUserEmail userEmail, List<File> upload,
+			List<String> uploadFileName, List<String> uploadContentType,
+			String savePath) {
+
+		TEmail email = userEmail.getId().getEmail();
+		Set<TEmailFile> emailFiles = new HashSet<TEmailFile>();
+		if (null != upload) {
+			email.setHasfile(true);
+			for (int i = 0; i < upload.size(); ++i) {
+				String newFileName = FileUtil.makeNewFileName(uploadFileName
+						.get(i));
+				String newFilePath = savePath + File.separator + newFileName;
+				File newFile = new File(newFilePath);
+				FileUtil.copyFile(upload.get(i), newFile);
+				TEmailFile emailFile = new TEmailFile();
+				emailFile.setDel(false);
+				emailFile.setNewname(newFileName);
+				emailFile.setOldname(uploadFileName.get(i));
+				emailFile.setEmail(email);
+				emailFiles.add(emailFile);
+			}
+		} else {
+			email.setHasfile(false);
+		}
+		email.setEmailFiles(emailFiles);
+
+		// Integer emailid = emailDao.saveEmail(email);
+
+		// email.setEmailid(emailid);
+
+		// emailDao.saveUserEmail(userEmail);
+
+		// 更新草稿邮件
+		emailDao.updateEmail(email);
+		// 草稿改为发件
+
+		emailDao.draftToSend(userEmail);
+
+		String receusers = userEmail.getId().getEmail().getReceusers();
+		for (String userid : receusers.split(";")) {
+			TUser user = new TUser(userid.trim());
+			TUserEmail receUserEmail = new TUserEmail();
+			TUserEmailId id = new TUserEmailId();
+			id.setEmail(email);
+			id.setUser(user);
+			receUserEmail.setId(id);
+			receUserEmail.setType(EmailDao.TYPE_RECE);
+			emailDao.saveUserEmail(receUserEmail);
+		}
+	}
+
+	@Override
+	public void updateDraft(TUserEmail userEmail, List<File> upload,
+			List<String> uploadFileName, List<String> uploadContentType,
+			String savePath) {
+		TEmail email = userEmail.getId().getEmail();
+		Set<TEmailFile> emailFiles = new HashSet<TEmailFile>();
+		if (null != upload) {
+			email.setHasfile(true);
+			for (int i = 0; i < upload.size(); ++i) {
+				String newFileName = FileUtil.makeNewFileName(uploadFileName
+						.get(i));
+				String newFilePath = savePath + File.separator + newFileName;
+				File newFile = new File(newFilePath);
+				FileUtil.copyFile(upload.get(i), newFile);
+				TEmailFile emailFile = new TEmailFile();
+				emailFile.setDel(false);
+				emailFile.setNewname(newFileName);
+				emailFile.setOldname(uploadFileName.get(i));
+				emailFile.setEmail(email);
+				emailFiles.add(emailFile);
+			}
+		} else {
+			email.setHasfile(false);
+		}
+		email.setEmailFiles(emailFiles);
+
+		// Integer emailid = emailDao.saveEmail(email);
+
+		// email.setEmailid(emailid);
+
+		// emailDao.saveUserEmail(userEmail);
+
+		// 更新草稿邮件
+		emailDao.updateEmail(email);
 	}
 
 }
