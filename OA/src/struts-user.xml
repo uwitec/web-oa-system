@@ -20,6 +20,10 @@
 			</result>
 			<result name="login">/login.jsp</result>
 		</action>
+		
+		<action name="logout" class="com.oa.action.UserAction" method="logout">
+			<result name="login">/login.jsp</result>
+		</action>
 
 		<action name="preupdate" class="com.oa.action.UserAction"
 			method="preUpdate">
