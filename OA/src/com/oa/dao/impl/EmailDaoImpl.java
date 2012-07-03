@@ -218,7 +218,7 @@ public class EmailDaoImpl extends HibernateDaoSupport implements EmailDao {
 			public Boolean doInHibernate(Session session)
 					throws HibernateException, SQLException {
 				String hql = "update TUserEmail t set t.type = "
-						+ EmailDao.TYPE_SEND + " where t.id.email.emailid = "
+						+ EmailDao.TYPE_SEND + ", t.sendtime = sysdate where t.id.email.emailid = "
 						+ userEmail.getId().getEmail().getEmailid();
 				Query query = session.createQuery(hql);
 				query.executeUpdate();
