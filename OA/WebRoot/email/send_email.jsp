@@ -258,7 +258,6 @@ function setDisplay(o) {
 	</head>
 
 	<body onload="javascript:init();">
-		<SPAN><s:fielderror></s:fielderror> <s:actionerror /> </SPAN>
 		<form name="form" action='email/saveEmail' method="post"
 			enctype="multipart/form-data">
 			<table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -293,25 +292,30 @@ function setDisplay(o) {
 						<s:textfield name="userEmail.id.email.receusers" id="receusers"
 							readonly="true" value="%{#request.email.receusers}"
 							cssStyle="width :60%"></s:textfield>
+						<span style="color: red"><s:fielderror>
+								<s:param>userEmail.id.email.receusers</s:param>
+							</s:fielderror> </span>
+
 					</td>
 					<td width="20%" rowspan="4" height="100%" bgcolor="d3eaef"
 						class="STYLE6" valign="top">
+						<br/>
+						<p align="center" style="font-size: 14px;">请选择收件人:</p>
 						<table cellpadding="0" cellspacing="0">
 							<tr>
-								<td>
+								<td bgcolor="d3eaef" class="STYLE6">
 									<input type="checkbox" name="m1" onClick="selectChild(this);"
 										id="all">
 									<span onClick="setDisplay(m1_menu);" style="cursor: hand">全部</span>
 								</td>
 							</tr>
-
 							<tr id="m1_menu" style="">
-								<td>
+								<td bgcolor="d3eaef" class="STYLE6">
 									<table cellpadding="0" cellspacing="0">
 										<s:iterator value="#session.departmentUsers" var="dept"
 											status="s">
 											<tr>
-												<td>
+												<td bgcolor="d3eaef" class="STYLE6">
 													&nbsp;&nbsp;
 													<input type="checkbox" name="m11"
 														onClick="selectChild(this);selectRoot(this);">
@@ -322,16 +326,14 @@ function setDisplay(o) {
 												</td>
 											</tr>
 											<tr id="name<s:property value='%{#s.index}'/>">
-												<td>
+												<td bgcolor="d3eaef" class="STYLE6">
 													<s:iterator value="#dept.departmentUsers" var="user">
 													&nbsp;&nbsp;&nbsp;&nbsp;
 												<input type="checkbox" name="m11_chk"
 															onClick="selectParent(this);">
 														<s:property value="#user.userid" />
-														<br>
 													</s:iterator>
 												</td>
-
 											</tr>
 										</s:iterator>
 
@@ -349,12 +351,21 @@ function setDisplay(o) {
 					<td bgcolor="d3eaef" class="STYLE6">
 						<s:textfield name="userEmail.id.email.title"
 							value="%{#request.email.title}" cssStyle="width :60%"></s:textfield>
+
+						<span style="color: red"> <s:fielderror>
+								<s:param>userEmail.id.email.title</s:param>
+							</s:fielderror> </span>
+
 					</td>
 				</tr>
 
 				<tr>
 					<Td colspan="2" id="td" bgcolor="d3eaef" class="STYLE6">
 						<input type="button" value="添加附件" onclick="addMore()" />
+						<SPAN style="color: red"> <s:fielderror>
+						<s:param>upload</s:param>
+						<s:param>userEmail.id.email.strContent</s:param>
+							</s:fielderror> </SPAN>
 					</Td>
 				</tr>
 				<TR>
@@ -379,7 +390,6 @@ Type=Flash&Connector=connectors/jsp/connector"
 							<input type="button" value="发送" onclick="sub(1)" />
 							<input type="button" value="存草稿" onclick="sub(3);" />
 							<input type="button" value="清空" onclick="clearHtml();">
-							<input type="button" value="测试" onclick="selectuser();">
 						</div>
 					</td>
 				</TR>
