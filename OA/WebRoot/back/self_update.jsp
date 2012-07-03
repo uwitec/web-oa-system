@@ -87,9 +87,9 @@ body {
 			var ok6 = true;
 			$(document).ready(function(){
 				$("#realname").blur(function(){
-					ok1 = !isEmpty(this.value);
+					ok1 = !isEmpty(this.value) && (byteLength(this.value) <= 16);
 					if(!ok1){
-						$("#realnamespan").html("姓名不能为空");
+						$("#realnamespan").html("姓名不能为空且长度小于16");
 					} else {
 						$("#realnamespan").html("");
 					}
