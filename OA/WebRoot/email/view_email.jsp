@@ -66,61 +66,62 @@ body {
 	</head>
 
 	<body>
-		<form name="form" action='' method="post"
-			enctype="multipart/form-data">
-			<table align="center" width="100%" height="80%" border="0"
-				cellpadding="0" cellspacing="1" bgcolor="#a8c7ce">
-				<tr height="30">
-					<td width="20%" bgcolor="#FFFFFF" class="STYLE19">
-						收件人:
-					</td>
-					<td bgcolor="#FFFFFF" class="STYLE19">
-						<s:property value="%{#request.email.receusers}" />
-					</td>
-				</tr>
-				<tr bgcolor="#FFFFFF" class="STYLE19" height="30">
-					<td bgcolor="#FFFFFF" class="STYLE19">
-						主题:
-					</td>
-					<td>
-						<s:property value="%{#request.email.title}" />
-					</td>
-				</tr>
-				<tr bgcolor="#FFFFFF" class="STYLE19" height="30">
-					<Td>
-						附件下载
-					</Td>
-					<td>
-						<s:iterator value="#request.email.emailFiles" var="emailFile">
-							<s:a
-								href="email/download?fileName=%{#emailFile.newname}&oldName=%{#emailFile.oldname}">
-								<s:property value="#emailFile.oldname" />
-							</s:a>
-						</s:iterator>
-					</td>
-				</tr>
-				<TR>
-					<TD width="100%" align="center" colspan="2">
-						<s:hidden value="1" name="userEmail.type" id="type"></s:hidden>
-						<s:hidden name="userEmail.id.email.strContent"
-							value="%{#request.email.strContent}"></s:hidden>
-						<FCK:editor id="userEmail.id.email.strContent" width="100%"
-							height="360"
-							fontNames="宋体;黑体;隶书;楷体_GB2312;Arial;Comic Sans MS;Courier 
+		<table align="center" width="100%" height="80%" border="0"
+			cellpadding="0" cellspacing="1" bgcolor="#a8c7ce">
+
+			<tr bgcolor="#FFFFFF" class="STYLE19" height="30">
+				<td width="20%" bgcolor="d3eaef" class="STYLE6" align="center">
+					收件人:
+				</td>
+				<td align="center">
+					<s:property value="%{#request.email.receusers}" />
+				</td>
+			</tr>
+
+			<tr bgcolor="#FFFFFF" class="STYLE19" height="30">
+				<td bgcolor="d3eaef" class="STYLE6" align="center">
+					主题:
+				</td>
+				<td align="center">
+					<s:property value="%{#request.email.title}" />
+				</td>
+			</tr>
+
+			<tr bgcolor="#FFFFFF" class="STYLE6" height="30">
+				<Td bgcolor="d3eaef" class="STYLE6" align="center">
+					附件下载
+				</Td>
+				<td align="center">
+					<s:iterator value="#request.email.emailFiles" var="emailFile">
+						<s:a
+							href="email/download?fileName=%{#emailFile.newname}&oldName=%{#emailFile.oldname}">
+							<s:property value="#emailFile.oldname" />
+						</s:a>
+					</s:iterator>
+				</td>
+			</tr>
+
+			<TR>
+				<TD width="100%" align="center" colspan="2">
+					<s:hidden value="1" name="userEmail.type" id="type"></s:hidden>
+					<s:hidden name="userEmail.id.email.strContent"
+						value="%{#request.email.strContent}"></s:hidden>
+					<FCK:editor id="userEmail.id.email.strContent" width="100%"
+						height="360"
+						fontNames="宋体;黑体;隶书;楷体_GB2312;Arial;Comic Sans MS;Courier 
 New;Tahoma;Times New Roman;Verdana"
-							imageBrowserURL="/FCKeditor-2.3/FCKeditor/editor/filemanager/browser/default/browser.html?
+						imageBrowserURL="/FCKeditor-2.3/FCKeditor/editor/filemanager/browser/default/browser.html?
 Type=Image&Connector=connectors/jsp/connector"
-							linkBrowserURL="/FCKeditor-2.3/FCKeditor/editor/filemanager/browser/default/browser.html?
+						linkBrowserURL="/FCKeditor-2.3/FCKeditor/editor/filemanager/browser/default/browser.html?
 Connector=connectors/jsp/connector"
-							flashBrowserURL="/FCKeditor-2.3/FCKeditor/editor/filemanager/browser/default/browser.html?
+						flashBrowserURL="/FCKeditor-2.3/FCKeditor/editor/filemanager/browser/default/browser.html?
 Type=Flash&Connector=connectors/jsp/connector"
-							imageUploadURL="/FCKeditor-2.3/FCKeditor/editor/filemanager/upload/simpleuploader?Type=Image"
-							linkUploadURL="/FCKeditor-2.3/FCKeditor/editor/filemanager/upload/simpleuploader?Type=File"
-							flashUploadURL="/FCKeditor-2.3/FCKeditor/editor/filemanager/upload/simpleuploader?Type=Flash">
-						</FCK:editor>
-					</td>
-				</TR>
-			</table>
-		</form>
+						imageUploadURL="/FCKeditor-2.3/FCKeditor/editor/filemanager/upload/simpleuploader?Type=Image"
+						linkUploadURL="/FCKeditor-2.3/FCKeditor/editor/filemanager/upload/simpleuploader?Type=File"
+						flashUploadURL="/FCKeditor-2.3/FCKeditor/editor/filemanager/upload/simpleuploader?Type=Flash">
+					</FCK:editor>
+				</td>
+			</TR>
+		</table>
 	</body>
 </html>
