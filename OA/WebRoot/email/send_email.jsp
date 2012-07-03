@@ -23,6 +23,49 @@
 		<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
+		<style type="text/css">
+<!--
+body {
+	margin-left: 3px;
+	margin-top: 0px;
+	margin-right: 3px;
+	margin-bottom: 0px;
+}
+
+.STYLE1 {
+	color: #e1e2e3;
+	font-size: 12px;
+}
+
+.STYLE6 {
+	color: #000000;
+	font-size: 12;
+}
+
+.STYLE10 {
+	color: #000000;
+	font-size: 12px;
+}
+
+.STYLE19 {
+	color: #344b50;
+	font-size: 12px;
+}
+
+.STYLE21 {
+	font-size: 12px;
+	color: #3b6375;
+}
+
+.STYLE22 {
+	font-size: 12px;
+	color: #295568;
+}
+-->
+</style>
+
+
+
 		<script type="text/javascript">
 var i = 0;
 function addMore() {
@@ -218,63 +261,42 @@ function setDisplay(o) {
 		<SPAN><s:fielderror></s:fielderror> <s:actionerror /> </SPAN>
 		<form name="form" action='email/saveEmail' method="post"
 			enctype="multipart/form-data">
-			<table align="center" width="100%" height="80%" border="1">
+			<table width="100%" border="0" cellspacing="0" cellpadding="0">
 				<tr>
-					<td width="20%">
+					<td height="24" bgcolor="#353c44">
+						<table width="100%" border="0" cellspacing="0" cellpadding="0">
+							<tr>
+								<td>
+									<table width="100%" border="0" cellspacing="0" cellpadding="0">
+										<tr>
+											<td width="94%" valign="bottom" align="center">
+												<span class="STYLE1"> 发送邮件</span>
+											</td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+
+			<table align="center" width="100%" height="*" border="0"
+				cellpadding="0" cellspacing="1" bgcolor="#a8c7ce">
+
+				<tr>
+					<td width="20%" bgcolor="d3eaef" class="STYLE6" align="center"
+						height="20px">
 						收件人:
 					</td>
-					<td>
+					<td bgcolor="d3eaef" class="STYLE6">
 						<s:textfield name="userEmail.id.email.receusers" id="receusers"
-							readonly="true" value="%{#request.email.receusers}"></s:textfield>
+							readonly="true" value="%{#request.email.receusers}"
+							cssStyle="width :60%"></s:textfield>
 					</td>
-				</tr>
-				<tr>
-					<td>
-						主题:
-					</td>
-					<td>
-						<s:textfield name="userEmail.id.email.title"
-							value="%{#request.email.title}"></s:textfield>
-					</td>
-				</tr>
-				<tr>
-					<Td colspan="2" id="td">
-						<input type="button" value="添加附件" onclick="addMore()" />
-					</Td>
-				</tr>
-				<TR>
-					<TD colspan="1" width="80%">
-						<s:hidden value="1" name="userEmail.type" id="type"></s:hidden>
-						<input type="hidden" name="userEmail.id.email.content" value="">
-						<FCK:editor id="userEmail.id.email.strContent" width="75%"
-							height="320"
-							fontNames="宋体;黑体;隶书;楷体_GB2312;Arial;Comic Sans MS;Courier 
-New;Tahoma;Times New Roman;Verdana"
-							imageBrowserURL="/FCKeditor-2.3/FCKeditor/editor/filemanager/browser/default/browser.html?
-Type=Image&Connector=connectors/jsp/connector"
-							linkBrowserURL="/FCKeditor-2.3/FCKeditor/editor/filemanager/browser/default/browser.html?
-Connector=connectors/jsp/connector"
-							flashBrowserURL="/FCKeditor-2.3/FCKeditor/editor/filemanager/browser/default/browser.html?
-Type=Flash&Connector=connectors/jsp/connector"
-							imageUploadURL="/FCKeditor-2.3/FCKeditor/editor/filemanager/upload/simpleuploader?Type=Image"
-							linkUploadURL="/FCKeditor-2.3/FCKeditor/editor/filemanager/upload/simpleuploader?Type=File"
-							flashUploadURL="/FCKeditor-2.3/FCKeditor/editor/filemanager/upload/simpleuploader?Type=Flash">
-						</FCK:editor>
-						<div align="center">
-							<input type="button" value="发送" onclick="sub(1)" />
-							<input type="button" value="存草稿" onclick="sub(3);" />
-							<input type="button" value="清空" onclick="clearHtml();">
-							<input type="button" value="测试" onclick="selectuser();">
-						</div>
-					</td>
-
-					<td>
-
-
-
-
-
-						<table>
+					<td width="20%" rowspan="4" height="100%" bgcolor="d3eaef"
+						class="STYLE6" valign="top">
+						<table cellpadding="0" cellspacing="0">
 							<tr>
 								<td>
 									<input type="checkbox" name="m1" onClick="selectChild(this);"
@@ -282,9 +304,10 @@ Type=Flash&Connector=connectors/jsp/connector"
 									<span onClick="setDisplay(m1_menu);" style="cursor: hand">全部</span>
 								</td>
 							</tr>
+
 							<tr id="m1_menu" style="">
 								<td>
-									<table>
+									<table cellpadding="0" cellspacing="0">
 										<s:iterator value="#session.departmentUsers" var="dept"
 											status="s">
 											<tr>
@@ -316,9 +339,51 @@ Type=Flash&Connector=connectors/jsp/connector"
 								</td>
 							</tr>
 						</table>
+					</td>
+				</tr>
 
-					</TD>
+				<tr>
+					<td bgcolor="d3eaef" class="STYLE6" align="center">
+						主题:
+					</td>
+					<td bgcolor="d3eaef" class="STYLE6">
+						<s:textfield name="userEmail.id.email.title"
+							value="%{#request.email.title}" cssStyle="width :60%"></s:textfield>
+					</td>
+				</tr>
+
+				<tr>
+					<Td colspan="2" id="td" bgcolor="d3eaef" class="STYLE6">
+						<input type="button" value="添加附件" onclick="addMore()" />
+					</Td>
+				</tr>
+				<TR>
+					<TD colspan="2" bgcolor="d3eaef" class="STYLE6">
+						<s:hidden value="1" name="userEmail.type" id="type"></s:hidden>
+						<input type="hidden" name="userEmail.id.email.content" value="">
+						<FCK:editor id="userEmail.id.email.strContent" width="100%"
+							height="320"
+							fontNames="宋体;黑体;隶书;楷体_GB2312;Arial;Comic Sans MS;Courier 
+New;Tahoma;Times New Roman;Verdana"
+							imageBrowserURL="/FCKeditor-2.3/FCKeditor/editor/filemanager/browser/default/browser.html?
+Type=Image&Connector=connectors/jsp/connector"
+							linkBrowserURL="/FCKeditor-2.3/FCKeditor/editor/filemanager/browser/default/browser.html?
+Connector=connectors/jsp/connector"
+							flashBrowserURL="/FCKeditor-2.3/FCKeditor/editor/filemanager/browser/default/browser.html?
+Type=Flash&Connector=connectors/jsp/connector"
+							imageUploadURL="/FCKeditor-2.3/FCKeditor/editor/filemanager/upload/simpleuploader?Type=Image"
+							linkUploadURL="/FCKeditor-2.3/FCKeditor/editor/filemanager/upload/simpleuploader?Type=File"
+							flashUploadURL="/FCKeditor-2.3/FCKeditor/editor/filemanager/upload/simpleuploader?Type=Flash">
+						</FCK:editor>
+						<div align="center">
+							<input type="button" value="发送" onclick="sub(1)" />
+							<input type="button" value="存草稿" onclick="sub(3);" />
+							<input type="button" value="清空" onclick="clearHtml();">
+							<input type="button" value="测试" onclick="selectuser();">
+						</div>
+					</td>
 				</TR>
+
 			</table>
 		</form>
 	</body>
