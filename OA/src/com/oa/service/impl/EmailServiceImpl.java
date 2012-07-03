@@ -208,8 +208,6 @@ public class EmailServiceImpl implements EmailService {
 				emailFile.setEmail(email);
 				emailFiles.add(emailFile);
 			}
-		} else {
-			email.setHasfile(false);
 		}
 		email.setEmailFiles(emailFiles);
 

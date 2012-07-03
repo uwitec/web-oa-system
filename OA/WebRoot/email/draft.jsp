@@ -131,11 +131,6 @@ function deleteEmail(emailid, userid){
 										<span class="STYLE10">主题</span>
 									</div>
 								</td>
-								<td width="11%" height="20" bgcolor="d3eaef" class="STYLE6">
-									<div align="center">
-										<span class="STYLE10">日期</span>
-									</div>
-								</td>
 								<td width="10%" height="20" bgcolor="d3eaef" class="STYLE6">
 									<div align="center">
 										<span class="STYLE10">附件</span>
@@ -171,11 +166,6 @@ function deleteEmail(emailid, userid){
 									<td height="20" bgcolor="#FFFFFF" class="STYLE19"
 										align="center">
 										<s:property value="#userEmail.id.email.title" />
-									</td>
-									<td height="20" bgcolor="#FFFFFF" class="STYLE19"
-										align="center">
-										<s:date name="#userEmail.id.email.sendtime"
-											format="yyyy-MM-dd hh:mm:ss" />
 									</td>
 									<td height="20" bgcolor="#FFFFFF" class="STYLE19"
 										align="center">

@@ -112,6 +112,9 @@ function deleteFile(efid, newname) {
 				if(m == 'success'){
 					alert('É¾³ý³É¹¦');
 					i--;
+					if(i == 0){
+						document.getElementById("hasfile").value = 'false';
+					}
 					document.getElementById("td").removeChild(document.getElementById(efid))
 				}
 			}
@@ -289,18 +292,12 @@ for ( var i = 0; i < otrmenu.all.length; i++) {
 		}
 	}
 	document.getElementById("receusers").value = userStr;
-
 	}
 	
 	function sub(type){
 		alert(type);
 		document.getElementById("type").value = type;
 		document.form.submit();
-	}
-	function init(){
-		var editor = FCKeditorAPI.GetInstance("userEmail.id.email.strContent");
-		editor.EditorDocument.body.innerHTML = "1111111111111111111111";
-			//'<s:property value="#request.email.strContent"/>';
 	}
 </SCRIPT>
 
@@ -313,6 +310,9 @@ for ( var i = 0; i < otrmenu.all.length; i++) {
 			enctype="multipart/form-data">
 			<s:hidden name="userEmail.id.email.emailid"
 				value="%{#request.email.emailid}"></s:hidden>
+			<s:hidden name="userEmail.id.email.hasfile"
+				value="1" id="hasfile"></s:hidden>
+
 			<table width="100%" border="0" cellspacing="0" cellpadding="0">
 				<tr>
 					<td height="24" bgcolor="#353c44">
@@ -390,7 +390,6 @@ for ( var i = 0; i < otrmenu.all.length; i++) {
 												</td>
 											</tr>
 										</s:iterator>
-
 									</table>
 								</td>
 							</tr>
@@ -408,23 +407,19 @@ for ( var i = 0; i < otrmenu.all.length; i++) {
 						<span style="color: red"> <s:fielderror>
 								<s:param>userEmail.id.email.title</s:param>
 							</s:fielderror> </span>
-
 					</td>
 				</tr>
-				<tr>
+				<%--<tr height="20px">
 					<td bgcolor="d3eaef" class="STYLE6" align="center">
 						±à¼­Ê±¼ä:
 					</td>
 					<td bgcolor="d3eaef" class="STYLE6">
-						<s:date name="#userEmail.id.email.sendtime"
+						<s:date name="#request.email.sendtime"
 											format="yyyy-MM-dd hh:mm:ss" />
-						<span style="color: red"> <s:fielderror>
-								<s:param>userEmail.id.email.title</s:param>
-							</s:fielderror> </span>
-
 					</td>
 				</tr>
 
+				--%>
 				<tr>
 					<Td colspan="2" id="td" bgcolor="d3eaef" class="STYLE6">
 						<s:iterator value="#request.email.emailFiles" var="emailFile">
@@ -465,7 +460,7 @@ Type=Flash&Connector=connectors/jsp/connector"
 						</FCK:editor>
 						<div align="center">
 							<input type="button" value="·¢ËÍ" onclick="sub(5)" />
-							<input type="button" value="´æ²Ý¸å" onclick="alert(1);" />
+							<input type="button" value="´æ²Ý¸å" onclick="sub(6);" />
 							<input type="button" value="Çå¿Õ" onclick="clearHtml();">
 						</div>
 					</td>
