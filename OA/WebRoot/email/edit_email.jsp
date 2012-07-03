@@ -23,6 +23,49 @@
 		<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
+
+		<style type="text/css">
+<!--
+body {
+	margin-left: 3px;
+	margin-top: 0px;
+	margin-right: 3px;
+	margin-bottom: 0px;
+}
+
+.STYLE1 {
+	color: #e1e2e3;
+	font-size: 12px;
+}
+
+.STYLE6 {
+	color: #000000;
+	font-size: 12;
+}
+
+.STYLE10 {
+	color: #000000;
+	font-size: 12px;
+}
+
+.STYLE19 {
+	color: #344b50;
+	font-size: 12px;
+}
+
+.STYLE21 {
+	font-size: 12px;
+	color: #3b6375;
+}
+
+.STYLE22 {
+	font-size: 12px;
+	color: #295568;
+}
+-->
+</style>
+
+
 		<SCRIPT type="text/javascript" src="js/oa/jquery-1.7.2.js">
 		</SCRIPT>
 
@@ -243,25 +286,58 @@ function setDisplay(o) {
 
 	<body onload="javascript:init();">
 		<SPAN><s:fielderror></s:fielderror> <s:actionerror /> </SPAN>
+
 		<form name="form" action='email/saveEmail' method="post"
 			enctype="multipart/form-data">
-			<table align="center" width="100%" height="80%" border="1">
+
+			<table width="100%" border="0" cellspacing="0" cellpadding="0">
 				<tr>
-					<td>
+					<td height="24" bgcolor="#353c44">
+						<table width="100%" border="0" cellspacing="0" cellpadding="0">
+							<tr>
+								<td>
+									<table width="100%" border="0" cellspacing="0" cellpadding="0">
+										<tr>
+											<td width="94%" valign="bottom" align="center">
+												<span class="STYLE1"> 草稿箱编辑</span>
+											</td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+
+			<table align="center" width="100%" height="*" border="0"
+				cellpadding="0" cellspacing="1" bgcolor="#a8c7ce">
+				<tr>
+					<td width="20%" bgcolor="d3eaef" class="STYLE6" align="center"
+						height="20px">
 						收件人:
 					</td>
-					<td>
+					<td bgcolor="d3eaef" class="STYLE6">
 						<s:textfield name="userEmail.id.email.receusers" id="receusers"
-							readonly="true" value="%{#request.email.receusers}"></s:textfield>
+							readonly="true" value="%{#request.email.receusers}"
+							cssStyle="width :60%"></s:textfield>
+						<span style="color: red"><s:fielderror>
+								<s:param>userEmail.id.email.receusers</s:param>
+							</s:fielderror> </span>
 					</td>
 				</tr>
 				<tr>
-					<td>
+					<td bgcolor="d3eaef" class="STYLE6" align="center">
 						主题:
 					</td>
-					<td>
+					<td bgcolor="d3eaef" class="STYLE6">
 						<s:textfield name="userEmail.id.email.title"
-							value="%{#request.email.title}"></s:textfield>
+							value="%{#request.email.title}" cssStyle="width :60%"></s:textfield>
+
+						<span style="color: red"> <s:fielderror>
+								<s:param>userEmail.id.email.title</s:param>
+							</s:fielderror> </span>
+
 					</td>
 				</tr>
 				<Tr>
