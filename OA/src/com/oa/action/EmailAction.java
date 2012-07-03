@@ -113,7 +113,6 @@ public class EmailAction extends BaseAction implements ModelDriven<UserInfo> {
 	// ajaxÉ¾³ý²Ý¸å¸½¼þ
 	public String deleteEmailFile() {
 		emailService.deleteEmailFile(emailFile);
-		
 		return SUCCESS;
 	}
 
