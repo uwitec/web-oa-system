@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC 
+"-//OpenSymphony Group//XWork Validator 1.0.3//EN" 
+"http://www.opensymphony.com/xwork/xwork-validator-1.0.3.dtd">
+
+<validators>
+	<field name="userEmail.id.email.receusers">
+		<field-validator type="requiredstring">
+			<param name="trim">true</param>
+			<message>收件人不能为空</message>
+		</field-validator>
+	</field>
+	<field name="userEmail.id.email.title">
+		<field-validator type="requiredstring">
+			<param name="trim">true</param>
+			<message>邮件主题不能为空</message>
+		</field-validator>
+		<field-validator type="stringlength">
+			<param name="maxLength">30</param>
+			<message>邮件主题小于${maxLength}个字符</message>
+		</field-validator>
+	</field>
+	<field name="userEmail.id.email.strContent">
+		<field-validator type="requiredstring">
+			<param name="trim">true</param>
+			<message>邮件内容不能为空</message>
+		</field-validator>
+	</field>
+</validators>
