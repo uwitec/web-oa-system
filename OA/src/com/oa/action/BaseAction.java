@@ -25,6 +25,8 @@ public class BaseAction extends ActionSupport implements ServletRequestAware,
 	public static String ROLE_ID = "roleid";
 	public static String SINGLE_ROLE = "singlerole";
 	public static String USER_EMAILS = "userEmails";
+	public static String SINGLE_MENU = "singlemenu";
+	public static String P_MENU = "pmenu";
 	public static String EMAIL = "email";
 	public static String SELECTED_ROLES= "selectedRoles";
 

@@ -1,37 +1,88 @@
 package com.oa.action;
 
-import com.oa.service.inf.DataService;
+import com.oa.common.UserInfo;
+import com.oa.dao.pojo.TMenu;
+import com.oa.dao.pojo.TRole;
+import com.oa.dao.pojo.TRoleMenu;
 import com.oa.service.inf.MenuService;
-import com.oa.service.inf.RoleService;
 
 public class MenuAction extends BaseAction {
-	private RoleService roleService;
-	private DataService dataService;
+	private TMenu menu;
+	private TRoleMenu roleMenu;
 	private MenuService menuService;
 	
-	public RoleService getRoleService() {
-		return roleService;
+	private UserInfo userInfo = new UserInfo();
+	
+	public TMenu getMenu() {
+		return menu;
 	}
-	public void setRoleService(RoleService roleService) {
-		this.roleService = roleService;
+
+	public void setMenu(TMenu menu) {
+		this.menu = menu;
 	}
-	public DataService getDataService() {
-		return dataService;
+
+	public TRoleMenu getRoleMenu() {
+		return roleMenu;
 	}
-	public void setDataService(DataService dataService) {
-		this.dataService = dataService;
+
+	public void setRoleMenu(TRoleMenu roleMenu) {
+		this.roleMenu = roleMenu;
 	}
+
 	public MenuService getMenuService() {
 		return menuService;
 	}
+
 	public void setMenuService(MenuService menuService) {
 		this.menuService = menuService;
 	}
-//
-//	public String getRoles(){
-//		menuService.getMenus(null);
-//		return SUCCESS;
-//	}
+
+	public UserInfo getUserInfo() {
+		return userInfo;
+	}
+
+	public void setUserInfo(UserInfo userInfo) {
+		this.userInfo = userInfo;
+	}
+
+	public String getMenus(){
+		menuService.getMenus(userInfo);
+		request.setAttribute("userInfo",userInfo);
+		return SUCCESS;
+	}
 	
+	public String getSingleMenu(){
+		TMenu menu = menuService.getMenu(userInfo.getMenu().getMenuid());
+		while(menu.getPmenu() != null){
+			TMenu pmenu = menuService.getMenu(menu.getPmenu().getMenuid());
+			menu.setPmenu(pmenu);
+		}
+		request.setAttribute(SINGLE_MENU, menu);
+		return SUCCESS;
+	}
 	
+	public String addMenu(){
+		TRole role = (TRole) request.getSession().getAttribute(LOGIN_USER);
+		roleMenu.getId().setTRole(role);
+		roleMenu.getId().getTMenu().setMenuid(menu.getMenuid());
+		
+		menuService.addMenu(userInfo.getMenu());
+		return SUCCESS;
+	}
+	
+	public String deleteMenu(){
+		menuService.deleteMenu(userInfo.getMenu());
+		return SUCCESS;
+	}
+	
+	public String updateMenu(){
+		menuService.updateMenu(userInfo.getMenu());
+		return SUCCESS;
+	}
+	
+	public String preUpdateMenu() {
+		TMenu menu = menuService.getMenu(userInfo.getMenu().getMenuid());
+		request.setAttribute(SINGLE_MENU, menu);
+		return SUCCESS;
+	}
 }

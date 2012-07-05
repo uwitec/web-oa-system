@@ -20,64 +20,115 @@
 		<meta http-equiv="expires" content="0">
 		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 		<meta http-equiv="description" content="This is my page">
-		<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
 		<style type="text/css">
-<!--
-body {
-	margin-left: 3px;
-	margin-top: 0px;
-	margin-right: 3px;
-	margin-bottom: 0px;
-}
-
-.STYLE1 {
-	color: #e1e2e3;
-	font-size: 12px;
-}
-
-.STYLE6 {
-	color: #000000;
-	font-size: 12;
-}
-
-.STYLE10 {
-	color: #000000;
-	font-size: 12px;
-}
-
-.STYLE19 {
-	color: #344b50;
-	font-size: 12px;
-}
-
-.STYLE21 {
-	font-size: 12px;
-	color: #3b6375;
-}
-
-.STYLE22 {
-	font-size: 12px;
-	color: #295568;
-}
--->
 </style>
-
-		<script type="text/javascript" src="js/oa/jquery-1.7.2.js">
+		<script type="text/javascript" src="js/oa/jquery-1.7.2.js" />
 </script>
-
-	
-
 		<SCRIPT type="text/javascript">
-	function deleteRole(rolename){
+	function selectCheck(){
+			
+		}
+		//选中孩子
+		function selectChild(o){
+			//获得本菜单的tr
+			var otr = o.parentElement.parentElement;
+			//获得子菜单的tr
+			var otrmenu = otr.nextSibling;
+			//遍历子菜单的checkbox
+			for(var i=0;i<otrmenu.all.length;i++)	{
+				if(otrmenu.all[i].type=="checkbox"){
+					otrmenu.all[i].checked = o.checked;
+				}
+			}		
+
+
+		}	
+		
+		//选中父类(适用二级)
+		function selectParent(o){
+			//t=true默认找到
+			var t= false;
+			//获得本菜单的tr
+			var otr = o.parentElement.parentElement;
+			//获得父菜单的tr
+			var otrmenu = otr.previousSibling;
+			//遍历子菜单的checkbox,验证是有选
+			for(var i=0;i<otr.all.length;i++)	{
+				if(otr.all[i].type=="checkbox" && otr.all[i].checked){
+					t = true;
+					break;
+				}
+			}		
+			//设置父类的checkbox状态
+			if(t){
+				for(var i=0;i<otrmenu.all.length;i++)	{
+				if(otrmenu.all[i].type=="checkbox"){
+					otrmenu.all[i].checked = "checked";				
+					selectRoot(otrmenu.all[i]);	
+					break;
+					}
+				}
+			}else{
+				for(var i=0;i<otrmenu.all.length;i++)	{
+				if(otrmenu.all[i].type=="checkbox"){
+					otrmenu.all[i].checked = "";
+					selectRoot(otrmenu.all[i]);	
+					break;
+					}
+				}
+			}		
+			
+		}
+		
+		
+		//选中根点节(适用一级)
+		function selectRoot(o){
+			//t=true默认找到
+			var t= false;
+			//获得本菜单的tr
+			var otr = o.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement
+
+			//获得父菜单的tr
+			var otrmenu = otr.previousSibling;
+
+			//遍历子菜单的checkbox,验证是否全选
+			for(var i=0;i<otr.all.length;i++)	{
+				if(otr.all[i].type=="checkbox" && otr.all[i].checked){
+					t = true;
+					break;
+				}
+			}		
+				//设置父类的checkbox状态
+			if(t){
+				for(var i=0;i<otrmenu.all.length;i++)	{
+				if(otrmenu.all[i].type=="checkbox"){
+					otrmenu.all[i].checked = "checked";				
+					break;
+					}
+				}
+			}else{
+				for(var i=0;i<otrmenu.all.length;i++)	{
+				if(otrmenu.all[i].type=="checkbox"){
+					otrmenu.all[i].checked = "";
+					break;
+					}
+				}
+			}		
+			
+		}
+		//菜单的显示与隐藏
+		function setDisplay(o){
+			if(o.style.display==""){
+				o.style.display="none";
+			}else{
+				o.style.display="";
+			}
+		}
+	function deleteMenu(menuid){
 		if(confirm('确认删除?')){
-			window.location.href = "<%=path%>/role/delrole?userInfo.role.roleid=" + roleid;
+			window.location.href = "<%=path%>/menu/delmenu?userInfo.menu.menuid=" + menuid;
 		}
 	}
-	
-	
-	
 </SCRIPT>
 	</head>
 
@@ -108,18 +159,6 @@ body {
 					</table>
 				</td>
 			</tr>
-			<s:form action="role/rolelist" method="post" id="form" theme="simple">
-				<table width="100%" border="0" cellpadding="0" cellspacing="1">
-					<tr>
-						<TD height="20" bgcolor="d3eaef" class="STYLE6" align="center">
-							角色名:
-							<s:textfield label="用户名" name="userInfo.role.rolename"></s:textfield>
-							&nbsp; &nbsp; &nbsp;
-							<s:submit value="查询" />
-						</TD>
-					</tr>
-				</table>
-			</s:form>
 			<tr>
 				<td>
 					<table width="100%" border="0" cellpadding="0" cellspacing="1"
@@ -139,33 +178,33 @@ body {
 							
 							<td width="18%" height="20" bgcolor="d3eaef" class="STYLE6">
 								<div align="center">
-									<span class="STYLE10">基本操作[<s:a href="role/preadd">添加角色</s:a>]</span>
+									<span class="STYLE10">基本操作[<s:a href="menu/preadd">添加菜单</s:a>]</span>
 								</div>
 							</td>
 						</tr>
 
-						<s:iterator value="#request.userInfo.roleList" var="role">
+						<s:iterator value="#request.userInfo.menuList" var="menu">
 							<tr>
 
 								<td height="20" bgcolor="#FFFFFF" class="STYLE6">
 									<div align="center">
-										<span class="STYLE19"><s:property value="#role.rolename" />
+										<span class="STYLE19"><s:property value="#menu.menuname" />
 										</span>
 									</div>
 								</td>
 								<td height="20" bgcolor="#FFFFFF" class="STYLE19">
 									<div align="center">
-										<s:property value="#role.roleinfo" />
+										<s:property value="#menu.menuinfo" />
 									</div>
 								</td>
 								<td height="20" bgcolor="#FFFFFF">
 									<div align="center" class="STYLE21">
 										<a
-											href="role/getrole?userInfo.role.roleid=<s:property value="%{#role.roleid}"/>">查看</a>|
+											href="menu/getmenu?userInfo.menu.menuid=<s:property value="%{#menu.menuid}"/>">查看</a>|
 										<a
-											href="role/preupdaterole?userInfo.role.roleid=<s:property value="%{#role.roleid}"/>">修改</a>|
+											href="menu/preupdatemenu?userInfo.menu.menuid=<s:property value="%{#menu.menuid}"/>">修改</a>|
 										<a
-											href="javascript:deleteRole('<s:property value='#role.roleid'/>')">删除</a>
+											href="javascript:deleteMenu('<s:property value='#menu.menuid'/>')">删除</a>
 									</div>
 								</td>
 							</tr>

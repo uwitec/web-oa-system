@@ -9,6 +9,7 @@ import org.hibernate.Session;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
+import com.oa.common.UserInfo;
 import com.oa.dao.inf.MenuDao;
 import com.oa.dao.pojo.TMenu;
 
@@ -27,7 +28,6 @@ public class MenuDaoImpl extends HibernateDaoSupport implements MenuDao {
 			@Override
 			public Integer doInHibernate(Session session)
 					throws HibernateException, SQLException {
-				// TODO Auto-generated method stub
 				String hql = "update TMenu menu set menu.del = 1"
 						+ "where menu.menuid = :menuid";
 				Query query = session.createQuery(hql);
@@ -38,9 +38,17 @@ public class MenuDaoImpl extends HibernateDaoSupport implements MenuDao {
 	}
 
 	@Override
-	public TMenu getMenu(Integer menuid) {
-		// TODO Auto-generated method stub
-		return null;
+	public TMenu getMenu(final Integer menuid) {
+		return getHibernateTemplate().execute(new HibernateCallback<TMenu>() {
+			@Override
+			public TMenu doInHibernate(Session session)
+					throws HibernateException, SQLException {
+				String hql = "from TMenu menu where menu.menuid = :menuid";
+				Query query = session.createQuery(hql);
+				query.setInteger("menuid", menuid);
+				return (TMenu) query.uniqueResult();
+			}
+		});
 	}
 
 	@SuppressWarnings("unchecked")
@@ -53,33 +61,9 @@ public class MenuDaoImpl extends HibernateDaoSupport implements MenuDao {
 					public List<TMenu> doInHibernate(Session session)
 							throws HibernateException, SQLException {
 						StringBuffer pHql = new StringBuffer(
-						"select new TMenu(menu.menuid, menu.menuname, menu.menuinfo," +
-						"menu.menulink,menu.orderid) from TMenu menu where " +
-						"menu.del != 1 and premenuid =: premenuid");
-						
-						Query query = session.createQuery(pHql.toString());
-						return query.list();
-					}
-				}
-		);
-		return menuList;
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<TMenu> getMenus(final String menuname) {
-		List<TMenu> menuList = getHibernateTemplate().executeFind(
-				new HibernateCallback<List<TMenu>>() {
-					@Override
-					public List<TMenu> doInHibernate(Session session)
-							throws HibernateException, SQLException {
-
-						StringBuffer pHql = new StringBuffer(
-								"select new TMenu(menu.menuid, menu.menuname, menu.menuinfo,menu.menulink,menu.orderid) from TMenu menu where menu.del != 1 ");
-						if (null != menuname && !"".equals(menuname)) {
-							pHql.append(" and menu.menuname like '%" + menuname
-									+ "%'");
-						}
+								"select new TMenu(menu.menuid, menu.menuname, menu.menuinfo,"
+										+ "menu.menulink,menu.orderid) from TMenu menu where "
+										+ "menu.del != 1 and premenuid =: premenuid");
 
 						Query query = session.createQuery(pHql.toString());
 						return query.list();
@@ -110,5 +94,30 @@ public class MenuDaoImpl extends HibernateDaoSupport implements MenuDao {
 				return query.executeUpdate();
 			}
 		});
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<TMenu> getMenus(final UserInfo userInfo) {
+		return getHibernateTemplate().executeFind(
+				new HibernateCallback<List<TMenu>>() {
+
+					@Override
+					public List<TMenu> doInHibernate(Session session)
+							throws HibernateException, SQLException {
+						StringBuffer hql = new StringBuffer(
+								"from TMenu menu where menu.del != 1");
+						String menuname = userInfo.getMenu().getMenuname();
+						if (null != menuname && !"".equals(menuname)) {
+							hql.append(" and menu.menuname like '%" + menuname
+									+ "%'");
+						}
+						hql.append(" order by menu.orderid");
+						Query query = session.createQuery(hql.toString());
+						List<TMenu> menuList = query.list();
+						userInfo.setMenuList(menuList);
+						return menuList;
+					}
+				});
 	}
 }
