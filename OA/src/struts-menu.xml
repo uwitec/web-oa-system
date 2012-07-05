@@ -12,6 +12,22 @@
 
 	<package name="menuPack" extends="struts-default" namespace="/menu">
 
-		
+		<action name="menulist" class="com.oa.action.MenuAction"
+			method="getMenus">
+			<result name="success">/back/menulist.jsp</result>
+		</action>
+		<action name="getmenu" class="com.oa.action.MenuAction" method="getSingleMenu">
+			<result name="success">/back/checkmenu.jsp</result>
+		</action>
+		<action name="preupdatemenu" class="com.oa.action.MenuAction"
+			method="preUpdateMenu">
+			<result name="success">/back/update_menu.jsp</result>
+		</action>
+		<action name="delmenu" class="com.oa.action.MenuAction" method="deleteMenu">
+			<result name="success" type="redirectAction">
+				<param name="actionName">menulist</param>
+			</result>
+		</action>
+
 	</package>
 </struts>

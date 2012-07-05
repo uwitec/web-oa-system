@@ -2,10 +2,11 @@ package com.oa.service.inf;
 
 import java.util.List;
 
+import com.oa.common.UserInfo;
 import com.oa.dao.pojo.TMenu;
 
 public interface MenuService {
-	List<TMenu> getMenus(String menuname);
+	List<TMenu> getMenus(UserInfo userInfo);
 	
 	TMenu getMenu(Integer menuid);
 	

@@ -2,6 +2,7 @@ package com.oa.service.impl;
 
 import java.util.List;
 
+import com.oa.common.UserInfo;
 import com.oa.dao.inf.MenuDao;
 import com.oa.dao.pojo.TMenu;
 import com.oa.service.inf.MenuService;
@@ -32,10 +33,6 @@ public class MenuServiceImpl implements MenuService {
 		return menuDao.getMenu(menuid);
 	}
 
-	@Override
-	public List<TMenu> getMenus(String menuname) {
-		return (List<TMenu>)menuDao.getMenus(menuname);
-	}
 
 	@Override
 	public void sortMenu(TMenu menu) {
@@ -53,4 +50,8 @@ public class MenuServiceImpl implements MenuService {
 		return (List<TMenu>) menuDao.getMenuByPre(premenuid);
 	}
 
+	@Override
+	public List<TMenu> getMenus(UserInfo userInfo) {
+		return menuDao.getMenus(userInfo);
+	}
 }

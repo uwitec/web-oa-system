@@ -37,12 +37,13 @@ public class TMenu implements java.io.Serializable {
 
 	/** full constructor */
 	public TMenu(Integer menuid, String menuname, String menuinfo,
-			String menulink, Integer orderid) {
+			String menulink, Integer orderid,TMenu pmenu) {
 		this.menuid = menuid;
 		this.menuname = menuname;
 		this.menuinfo = menuinfo;
 		this.menulink = menulink;
 		this.orderid = orderid;
+		this.pmenu = pmenu;
 	}
 
 	public Integer getMenuid() {

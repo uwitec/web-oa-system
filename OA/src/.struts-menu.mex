@@ -1,56 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Struts2Diagram version="2.0">
-  <package name="rolePack" location="179,10" size="770,875">
-    <action name="preupdate" location="555,57" size="150,41">
+  <package name="menuPack" location="0,0" size="0,0">
+    <action name="menulist" location="0,0" size="0,0">
       <result name="success">
-        <resourceEdge source="success" routing="0" target="self_update.jsp" />
+        <resourceEdge source="success" routing="0" target="menulist.jsp" />
       </result>
     </action>
-    <action name="selfupdate" location="555,232" size="150,41">
+    <action name="getmenu" location="0,0" size="0,0">
       <result name="success">
-        <resourceEdge source="success" routing="0" target="self_updatea_succ.jsp" />
+        <resourceEdge source="success" routing="0" target="checkmenu.jsp" />
       </result>
-    </action>
-    <action name="updaterole" location="555,337" size="150,41">
-      <result name="success">
-        <resourceEdge source="success" routing="0" target="self_updatea_succ.jsp" />
-      </result>
-    </action>
-    <action name="preupdaterole" location="555,442" size="150,41">
-      <result name="success">
-        <resourceEdge source="success" routing="0" target="update_role.jsp" />
-      </result>
-    </action>
-    <action name="rolelist" location="555,617" size="150,41">
-      <result name="success">
-        <resourceEdge source="success" routing="0" target="rolelist.jsp" />
-      </result>
-    </action>
-    <action name="getrole" location="555,792" size="150,41">
-      <result name="success">
-        <resourceEdge source="success" routing="0" target="checkrole.jsp" />
-      </result>
-    </action>
-    <action name="delrole" location="310,792" size="150,41">
-      <result name="success" />
-    </action>
-    <action name="preadd" location="310,687" size="150,41">
-      <result name="success">
-        <resourceEdge source="success" routing="0" target="addrole.jsp" />
-      </result>
-    </action>
-    <action name="addrole" location="65,677" size="150,62">
-      <result name="success" />
-      <result name="input">
-        <resourceEdge source="input" routing="0" target="addrole.jsp" />
-      </result>
-    </action>
-    <action name="vcode" location="65,583" size="150,40" />
-  </package>
-  <package name="ajaxPack2" location="12,979" size="180,92">
-    <action name="checkrolename" location="15,23" size="150,62">
-      <result name="true" />
-      <result name="false" />
     </action>
   </package>
   <webResource name="self_update.jsp" path="/back/self_update.jsp" location="1015,30" size="150,55" />
@@ -59,5 +18,7 @@
   <webResource name="rolelist.jsp" path="/back/rolelist.jsp" location="993,590" size="150,55" />
   <webResource name="checkrole.jsp" path="/back/checkrole.jsp" location="985,765" size="150,55" />
   <webResource name="addrole.jsp" path="/back/addrole.jsp" location="10,485" size="150,55" />
+  <webResource name="menulist.jsp" path="/back/menulist.jsp" location="0,0" size="0,0" />
+  <webResource name="checkmenu.jsp" path="/back/checkmenu.jsp" location="0,0" size="0,0" />
 </Struts2Diagram>
 

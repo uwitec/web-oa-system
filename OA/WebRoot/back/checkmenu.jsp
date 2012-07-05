@@ -12,7 +12,7 @@
 	<head>
 		<base href="<%=basePath%>">
 
-		<title>My JSP 'update_user.jsp' starting page</title>
+		<title>My JSP 'checkuser.jsp' starting page</title>
 
 		<meta http-equiv="pragma" content="no-cache">
 		<meta http-equiv="cache-control" content="no-cache">
@@ -21,37 +21,6 @@
 		<meta http-equiv="description" content="This is my page">
 		<style type="text/css">
 </style>
-<SCRIPT type="text/javascript" src="js/oa/jquery-1.7.2.js">
-		</SCRIPT>
-		<SCRIPT type="text/javascript" src="js/oa/jquery.validate.js">
-		</SCRIPT>
-		<script type="text/javascript">
-$(document).ready(function() {
-	var ok = true;
-
-	$("#rolename").blur(function() {
-		var rolename = $(this).val();
-
-		var params = 'userInfo.role.rolename=' + rolename;
-		$.ajax( {
-			url : 'checkrolename',
-			type : 'post',
-			dataType : 'json',
-			data : params,
-			success : callback
-		});
-
-	});
-	$("#roleinfo").blur(function() {
-		var userinfo = $(this).val();
-	});
-
-	function callback(json) {
-		$("#rolenamespan").html(json.userInfo.message);
-	}
-});
-</script>
-
 	</head>
 
 	<body>
@@ -71,7 +40,7 @@ $(document).ready(function() {
 
 													<td width="100%" valign="bottom">
 														<div align="center">
-															<span class="STYLE1">角色信息修改</span>
+															<span class="STYLE1">查看菜单信息</span>
 														</div>
 													</td>
 												</tr>
@@ -92,42 +61,62 @@ $(document).ready(function() {
 				<td width="10%" height="20" bgcolor="d3eaef" class="STYLE6"
 					colspan="3">
 					<div align="center">
-						<span class="STYLE10">角色信息编辑</span>
+						<span class="STYLE10">菜单信息</span>
 					</div>
 				</td>
 			</tr>
-			<s:form action="updaterole" namespace="/role" method="post" id="updaterole" name="updaterole">
-			<s:hidden value="%{#request.singlerole.roleid}"
-							name="userInfo.role.roleid"></s:hidden>
 			<tr bgcolor="#FFFFFF">
 				<td height="20" bgcolor="#FFFFFF" class="STYLE6" width="45%"
 					align="right">
-					角色名:
+					菜单名:
 				</td>
 				<td height="20" class="STYLE6">
 					&nbsp;
-					<s:textfield value="%{#request.singlerole.rolename}" name="rolename" required="true" id="rolename" name="userInfo.role.rolename"/>
+					<s:property value="%{#request.singlemenu.menuname}" />
+				</td>
+				<td height="20" class="STYLE6"></td>
+			</tr>
+			<tr bgcolor="#FFFFFF">
+				<td height="20" bgcolor="#FFFFFF" class="STYLE6" width="45%"
+					align="right">
+					菜单信息:
+				</td>
+				<td height="20" class="STYLE6">
+					&nbsp;
+					<s:property value="%{#request.singlemenu.menuinfo}" />
 				</td>
 				<td height="20" class="STYLE6"></td>
 			</tr>
 			<tr bgcolor="#FFFFFF">
 				<td height="20" class="STYLE6" width="45%" align="right">
-					备注信息:
+					菜单链接:
 				</td>
 				<td height="20" class="STYLE6">
 					&nbsp;
-					<s:textfield value="%{#request.singlerole.roleinfo}" required="true" id="roleinfo" name="userInfo.role.roleinfo"/>
+					<s:property value="%{#request.singlemenu.menulink}" />
 				</td>
 				<td height="20" class="STYLE6"></td>
 			</tr>
-			<tr>
-				<td></td>
-				<td height="20" bgcolor="d3eaef" class="STYLE6" align="left">
-					<s:submit value="提交" />
+			<tr bgcolor="#FFFFFF">
+				<td height="20" class="STYLE6" width="45%" align="right">
+					所属菜单:
 				</td>
+				<td height="20" class="STYLE6">
+					&nbsp;
+					<s:property value="#request.singlemenu.pmenu.menuname" />
+				</td>
+				<td height="20" class="STYLE6"></td>
 			</tr>
-			</s:form>
+			<tr bgcolor="#FFFFFF">
+				<td height="20" class="STYLE6" width="45%" align="right">
+					序号:
+				</td>
+				<td height="20" class="STYLE6">
+					&nbsp;
+					<s:property value="%{#request.singlemenu.orderid}" />
+				</td>
+				<td height="20" class="STYLE6"></td>
+			</tr>
 		</table>
-
 	</body>
 </html>

@@ -24,12 +24,10 @@ public class MenuTest {
 		ApplicationContext context = new ClassPathXmlApplicationContext(PATH);
 		MenuDao menuDao = (MenuDao) context.getBean("menuDao");
 		
-		TMenu menu = new TMenu();
-		menu.setMenuname("");
-		menu.setMenuid(null);
-		List<TMenu> tmenu = menuDao.getMenus(menu.getMenuname());
-		for (TMenu amenu : tmenu) {
-			System.out.println(amenu.getMenuname());
+		UserInfo userInfo = new UserInfo();
+		List<TMenu> menu = menuDao.getMenus(userInfo);
+		for(TMenu tMenu : menu){
+			System.out.println(tMenu.getMenuname());
 		}
 	}
 	
