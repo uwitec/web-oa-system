@@ -29,9 +29,7 @@ public interface PostServiceInf {
 				List<String> uploadFileName, List<String> uploadContentType,
 				String savePath);
 		
-		void updatePost(TUserPost tUserPost, List<File> upload,
-				List<String> uploadFileName, List<String> uploadContentType,
-				String savePath);
+ 
 		/*
 		 * π‹¿Ì‘±…Û∫À
 		 */
@@ -46,5 +44,5 @@ public interface PostServiceInf {
 		void deletePostFile(TPostFile postFile);
 		void deletePost(TPost tPost);
 		void deletePost(int postid);
-		void deletePost(TUserPost tUserPost);
+	 
 }
