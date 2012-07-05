@@ -43,6 +43,7 @@ public interface PostServiceInf {
 		TPost selectSinglePost(int postid);
 		List<TPostFile> findAll(int postid);
 		
+		void deletePostFile(TPostFile postFile);
 		void deletePost(TPost tPost);
 		void deletePost(int postid);
 		void deletePost(TUserPost tUserPost);

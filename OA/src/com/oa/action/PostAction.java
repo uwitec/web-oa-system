@@ -42,7 +42,17 @@ public class PostAction extends BaseAction   {
 	private List<String> uploadContentType;
 	private List<TPost> selectedPosts;
 	private String savePath;
+	private TPostFile postFile;
 	private UserInfo userInfo = new UserInfo();
+
+	
+	public TPostFile getPostFile() {
+		return postFile;
+	}
+
+	public void setPostFile(TPostFile postFile) {
+		this.postFile = postFile;
+	}
 
 	public String getFileName() {
 		return fileName;
@@ -194,6 +204,17 @@ public class PostAction extends BaseAction   {
 	
 		return "edit";
 	}
+	
+	// ajax删除附件
+	public String deleteTPostFile() {
+		postFile.setNewname(getSavePath() + File.separator
+				+ postFile.getNewname());
+		postServiceInf.deletePostFile(postFile);
+		userInfo.setMessage("success");
+		return SUCCESS;
+	}
+	
+	
 	//管理员对某个公告审核通过
 	public String passPost(){
 		postServiceInf.passPost(post);

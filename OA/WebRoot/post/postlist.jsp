@@ -175,8 +175,11 @@ body {
 						 href="post/passpost?post.status=1&post.postid=<s:property value="postid"/>">通过</a><!--
 						<s:a
 						href="javascript:deletePost('%{#post.postid}');">不通过</s:a>					 								
-						 --><s:a 
-						href="post/deletepost?post.postid=%{#post.postid}">不通过</s:a>	
+						 -->
+						&nbsp;
+						
+						<s:a 
+						href="post/deletepost?post.postid=%{#post.postid}"> 不通过</s:a>	
 								</s:if>							 
 							<s:else>----</s:else>
 						</td>

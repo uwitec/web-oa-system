@@ -120,9 +120,6 @@ function deleteFile(efid, newname) {
 			}
 		});
 	}
-	
-
-
 </script>
 
 		<script type="text/javascript">

@@ -34,10 +34,13 @@
         <resourceEdge source="postlist" routing="0" target="post_update.jsp" />
       </result>
     </action>
-    <action name="updatepost" location="0,0" size="0,0">
-      <result name="edit">
-        <resourceEdge source="edit" routing="0" target="post_edit.jsp" />
+    <action name="updatebefore" location="0,0" size="0,0">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="post_edit.jsp" />
       </result>
+    </action>
+    <action name="updatepost" location="0,0" size="0,0">
+      <result name="edit" />
     </action>
     <action name="download" location="0,0" size="0,0">
       <result name="download" />

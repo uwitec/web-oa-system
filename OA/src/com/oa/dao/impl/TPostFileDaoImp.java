@@ -38,7 +38,7 @@ public class TPostFileDaoImp extends HibernateDaoSupport implements TPostFileDao
 //				Query query =session.createQuery(hql);
 //				query.setInteger("postid", id);
 				
-				String hql = "delete from TPostFile where postid="+id;
+				String hql = "delete from TPostFile where pfid="+id;
 				Query query =session.createQuery(hql);
 				  query.executeUpdate();
 				return false;

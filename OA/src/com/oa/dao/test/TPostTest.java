@@ -90,7 +90,7 @@ public class TPostTest {
 		Set<TPostFile> tPostFiles = new HashSet<TPostFile>();
 		TPostFile tPostFile = new TPostFile(tpost, "old", "new", false);
 		tPostFiles.add(tPostFile);
-		tpost.settPostFiles(tPostFiles);
+		tpost.setTpostfiles(tPostFiles);
 		
 		//对中间表的操作
 		TUserPost userPost= new TUserPost();
@@ -167,7 +167,7 @@ public class TPostTest {
 			TPostFile tPostFile1 = new TPostFile(tpost, "old21", "new21", false);
 			tPostFiles.add(tPostFile);
 			tPostFiles.add(tPostFile1);
-			tpost.settPostFiles(tPostFiles);
+			tpost.setTpostfiles(tPostFiles);
  		
 			 String str="nono超级大字段";			 
 			tpost.setStrContent(str);

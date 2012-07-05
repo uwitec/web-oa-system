@@ -105,5 +105,20 @@
 			</result>
 		</action>
 
+	<action name="deleteTPostFile" class="com.oa.action.PostAction"
+		method="deleteTPostFile">
+		<param name="savePath">/upload/post</param>
+		<result name="success" type="json">
+			<param name="includeProperties">
+				userInfo\.message
+				</param>
+		</result>
+		<result name="false" type="json">
+			<param name="includeProperties">
+				userInfo\.message
+				</param>
+		</result>
+	</action>
+
 	</package>
 </struts>

@@ -194,7 +194,9 @@ public class TPostDaoImpl extends HibernateDaoSupport implements TPostDao{
 						String title = userInfo.getTpost().getTitle();
 
 						Date begin = userInfo.getTpost().getBegindate();
+						System.out.println(begin);
 						Date end = userInfo.getTpost().getEnddate();
+						System.out.println(end);
 //						SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 //						 String strBegin=df.format(begin);
 						int currPage = userInfo.getCurrPage();
@@ -207,15 +209,25 @@ public class TPostDaoImpl extends HibernateDaoSupport implements TPostDao{
 									+ "%'");
 						}
 						if (null != begin && !"".equals(begin)) {
-							hql.append(" and tpost.begindate >" + begin);
-							countHql.append(" and tpost.begindate >" + begin);
+							
+							//unexpected token: ? near line 1, column 108 [select count(*)
+							//from com.oa.dao.pojo.TPost tpost where 1 = 1 and tpost.status=1 and tpost.begindate >05-10?-2012]; nested exception is org.hibernate.hql.ast.QuerySyntaxException:
+							SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd");
+							 String strBegin=df.format(begin);	
+							 System.out.println(strBegin);	
+							 
+							hql.append(" and tpost.begindate >to_date('" + strBegin+"','yyyy-MM-dd')");
+							countHql.append(" and tpost.begindate >to_date('" + strBegin+"','yyyy-MM-dd')");
 						}
 						if (null != end && !"".equals(end)) {
-							hql.append(" and tpost.enddate <" + end);
-							countHql.append(" and tpost.enddate <" + end);
+							SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd");
+							 String strEnd=df.format(end);	
+							 System.out.println(strEnd);	
+							hql.append(" and tpost.enddate <to_date('" + strEnd+"','yyyy-MM-dd')");
+							countHql.append(" and tpost.enddate <to_date('" + strEnd+"','yyyy-MM-dd')");
 						}
 							hql.append(" order by tpost.addtime desc");
-
+							System.out.println(hql);
 						Query countQuery = session.createQuery(countHql
 								.toString());
 						userInfo.setTotalCount(((Long) countQuery
@@ -247,39 +259,13 @@ public class TPostDaoImpl extends HibernateDaoSupport implements TPostDao{
 					@Override
 					public List<TPost> doInHibernate(Session session)
 							throws HibernateException, SQLException {
-						//select new TPost(tpost.postid, tpost.title, tpost.content,tpost.begindate,tpost.enddate,tpost.status,tpost.adduser, tpost.addtime) from TPost tpost where 1 = 1
 								StringBuffer hql = new StringBuffer(
-								"from TPost tpost where 1 = 1");
+								"from TPost tpost where 1 = 1 order by tpost.addtime desc");
 						StringBuffer countHql = new StringBuffer(
-								"select count(*) from TPost tpost where 1 = 1");
-						//根据标题查询和有效时间查询
-						String title = userInfo.getTpost().getTitle();
-						Date begin = userInfo.getTpost().getBegindate();
-						Date end = userInfo.getTpost().getEnddate();
-						int currPage = userInfo.getCurrPage();
-						currPage = currPage == 0 ? 1 : currPage;
+								"select count(*) from TPost tpost where 1 = 1  ");
 						
- 
-						if (null != begin && !"".equals(begin)) {
-							hql.append(" and tpost.begindate >" + begin);
-							countHql.append(" and tpost.begindate >" + begin);
-						}
-						if (null != title && !"".equals(title)) {
-							hql.append(" and tpost.title like '%" + title
-									+ "%'");
-							countHql.append(" and tpost.title like '%" + title
-									+ "%'");
-						}
-						if (null != begin && !"".equals(begin)) {
-							hql.append(" and tpost.begindate >" + begin);
-							countHql.append(" and tpost.begindate >" + begin);
-						}
-						if (null != end && !"".equals(end)) {
-							hql.append(" and tpost.enddate >" + begin);
-							countHql.append(" and tpost.enddate >" + begin);
-						}
-							hql.append(" order by tpost.addtime desc");
-
+						int currPage = userInfo.getCurrPage();
+						currPage = currPage == 0 ? 1 : currPage;												 
 						Query countQuery = session.createQuery(countHql
 								.toString());
 						userInfo.setTotalCount(((Long) countQuery

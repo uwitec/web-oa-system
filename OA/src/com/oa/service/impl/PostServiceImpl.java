@@ -73,7 +73,7 @@ public class PostServiceImpl implements PostServiceInf {
 		} else {
 			tPost.setHasfile(false);
 		}
-		tPost.settPostFiles(tPostFiles);
+		tPost.setTpostfiles(tPostFiles);
 
 		Integer postid = tPostDao.savePost(tPost);
 
@@ -143,7 +143,7 @@ public class PostServiceImpl implements PostServiceInf {
 		} else {
 			tPost.setHasfile(false);
 		}
-		tPost.settPostFiles(tPostFiles);
+		tPost.setTpostfiles(tPostFiles);
 //利用更新操作来改变TPost表中hasfile字段
 		tPostDao.upadtePost(tPost);
 		
@@ -157,7 +157,8 @@ public class PostServiceImpl implements PostServiceInf {
 			String savePath) {
 
 		Set<TPostFile> tPostFiles = new HashSet<TPostFile>();
-		if (null != upload) {
+		System.out.println(tPost.getTitle()+tPost.getHasfile());
+		if (null != upload ) {
 			tPost.setHasfile(true);
 			for (int i = 0; i < upload.size(); ++i) {
 				String newFileName = FileUtil.makeNewFileName(uploadFileName
@@ -175,7 +176,7 @@ public class PostServiceImpl implements PostServiceInf {
 		} else {
 			tPost.setHasfile(false);
 		}
-		tPost.settPostFiles(tPostFiles);
+		tPost.setTpostfiles(tPostFiles);
 
 		tPostDao.upadtePost(tPost);
 	}
@@ -202,6 +203,13 @@ public class PostServiceImpl implements PostServiceInf {
 	public List<TPostFile> findAll(int postid) {
 		 
 		return postFileDao.selectTPostFiles(postid);
+	}
+
+	@Override
+	public void deletePostFile(TPostFile postFile) {
+		postFileDao.deletePostFile(postFile.getPfid());
+		FileUtil.deleteFile(postFile.getNewname());
+		
 	}
 
 
