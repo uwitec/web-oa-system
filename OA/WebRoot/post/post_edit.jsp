@@ -109,25 +109,24 @@ var i= <s:property value='#request.post.tpostfiles.size()'/>;
 
 function deleteFile(pfid,newname){
 		var params = 'postFile.pfid=' + pfid + '&postFile.newname=' + newname;
-		 
-		$.ajax({
-			url : 'deleteTPostFile',
+		 $.ajax({
+		 	url : 'deleteTPostFile',
 			type : 'post',
 			dataType : 'json',
 			data : params,
-			success : function(json){
-				var m = json.userInfo.message;
-				if(m == 'success'){
-					alert('删除成功');
-					i--;					 
+			 success : function(json){
+			 var m = json.userInfo.message;
+				 if(m == 'success'){
+					 alert('删除成功');
+						i--;					 
 					 if(i == 0){
-					 	document.getElementById("hasfile").value = 'false';
+						 	document.getElementById("hasfile").value = 'false';
 					 }
-					 document.getElementById("ttt").removeChild(document.getElementById(pfid))
+					  document.getElementById("ttt").removeChild(document.getElementById(pfid))
 				}
 			}
-		});
-		}
+		 });
+}
 	</SCRIPT>
 	
 	
@@ -195,9 +194,9 @@ function deleteFile(pfid,newname){
 						<strong> 失效时间 </strong>
 					</td>
 					<td>
-						<strong><input name="post.enddate" class="Wdate"
+						 <input name="post.enddate" class="Wdate" 
 								value =<s:property value ="#request.post.enddate"/>/>
-						</strong>
+						 
 					</td>
 				</tr>
 
@@ -217,10 +216,10 @@ function deleteFile(pfid,newname){
 					</td>
 				</Tr>
 				<tr>
-					<Td colspan="2">
-						<strong><input type="button" value="添加附件"
+					<Td colspan="2" id="td">
+						 <input type="button" value="添加附件"
 								onclick="addMore()">
-						</strong>
+												 
 					</Td>
 				</tr>
 				<TR>
