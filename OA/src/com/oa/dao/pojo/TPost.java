@@ -26,7 +26,7 @@ public class TPost implements java.io.Serializable {
 	private Date addtime;
 	private Date updatetime;
 	private Set<TUserPost> tUserPosts = new HashSet<TUserPost> (0);
-	private Set<TPostFile> tPostFiles = new HashSet<TPostFile>(0);
+	private Set<TPostFile> tpostfiles = new HashSet<TPostFile>(0);
 
 	// Constructors
 
@@ -50,7 +50,7 @@ public class TPost implements java.io.Serializable {
 		this.addtime = addtime;
 		this.updatetime = updatetime;
 		this.tUserPosts = tUserPosts;
-		this.tPostFiles = tPostFiles;
+		this.tpostfiles = tpostfiles;
 	}
 
 	// Property accessors
@@ -151,12 +151,14 @@ public class TPost implements java.io.Serializable {
 		this.tUserPosts = tUserPosts;
 	}
 
-	public Set<TPostFile> gettPostFiles() {
-		return tPostFiles;
+
+
+	public Set<TPostFile> getTpostfiles() {
+		return tpostfiles;
 	}
 
-	public void settPostFiles(Set<TPostFile> tPostFiles) {
-		this.tPostFiles = tPostFiles;
+	public void setTpostfiles(Set<TPostFile> tpostfiles) {
+		this.tpostfiles = tpostfiles;
 	}
 
 	public void setUpdateUser(TUser updateUser) {

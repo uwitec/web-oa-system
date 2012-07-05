@@ -1,6 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="GBK"%>
 <%@ taglib uri="http://fckeditor.net/tags-fckeditor" prefix="FCK"%>
- 
+
 <%@ taglib uri="/struts-tags" prefix="s"%>
 
 <%
@@ -21,7 +21,7 @@
 		<meta http-equiv="expires" content="0">
 		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 		<meta http-equiv="description" content="This is my page">
-	<style type="text/css">
+		<style type="text/css">
 <!--
 body {
 	margin-left: 3px;
@@ -64,6 +64,8 @@ body {
 		<s:head />
 		<script language="javascript" type="text/javascript"
 			src="<%=path%>/My97DatePicker/WdatePicker.js">
+<script language="javascript" type="text/javascript"
+			src="<%=path%>/js/oa/jquery-1.7.2.js">
 </script>
 
 
@@ -143,7 +145,7 @@ body {
 				<tr>
 				<td height="20" bgcolor="d3eaef" class="STYLE6" align="left">
 				公告标题
-				<input type="text" name="post.title" id="titile">
+				<input type="text" name="post.title"  id="titile">
 				</td><!--
 					<TD height="20" bgcolor="d3eaef" class="STYLE6" align="left">
 						<s:textfield label="公告标题" name="post.title" id="title"

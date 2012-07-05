@@ -72,6 +72,10 @@
       <result name="success" />
       <result name="false" />
     </action>
+    <action name="deletePostFile" location="0,0" size="0,0">
+      <result name="success" />
+      <result name="false" />
+    </action>
   </package>
   <webResource name="index.jsp" path="/index.jsp" location="0,0" size="0,0" />
   <webResource name="login.jsp" path="/login.jsp" location="0,0" size="0,0" />
