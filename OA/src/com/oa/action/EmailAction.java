@@ -20,6 +20,7 @@ import com.oa.service.inf.EmailService;
 import com.opensymphony.xwork2.ModelDriven;
 
 public class EmailAction extends BaseAction implements ModelDriven<UserInfo> {
+	
 	private DataService dataService;
 	private EmailService emailService;
 
