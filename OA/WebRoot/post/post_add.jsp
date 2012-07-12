@@ -61,7 +61,6 @@ body {
 }
 -->
 </style>
-		<s:head />
 		<script language="javascript" type="text/javascript"
 			src="<%=path%>/My97DatePicker/WdatePicker.js">
 <script language="javascript" type="text/javascript"
