@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+    "http://struts.apache.org/dtds/struts-2.1.7.dtd">
+
+<struts>
+	<package name="ajaxPack" extends="json-default">
+		<action name="checkuserid" class="com.oa.action.UserAction"
+			method="isUserIdExists">
+			<result name="true" type="json">
+				<param name="includeProperties">
+					userInfo\.message
+				</param>
+			</result>
+			<result name="false" type="json">
+				<param name="includeProperties">
+					userInfo\.message
+				</param>
+			</result>
+		</action>
+
+		<action name="deleteEmailFile" class="com.oa.action.EmailAction"
+			method="deleteEmailFile">
+			<param name="savePath">/upload/email</param>
+			<result name="success" type="json">
+				<param name="includeProperties">
+					userInfo\.message
+				</param>
+			</result>
+			<result name="false" type="json">
+				<param name="includeProperties">
+					userInfo\.message
+				</param>
+			</result>
+		</action>
+
+		<action name="count" class="com.oa.action.TipsAction" method="countEmailAndPost">
+			<result name="success" type="json">
+				<param name="includeProperties">
+					userInfo\.numbers
+				</param>
+			</result>
+		</action>
+
+	</package>
+</struts>
