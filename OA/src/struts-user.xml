@@ -75,7 +75,7 @@
 
 
 
-	<package name="ajaxPack" extends="json-default">
+	<!--<package name="ajaxPack" extends="json-default">
 		<action name="checkuserid" class="com.oa.action.UserAction"
 			method="isUserIdExists">
 			<result name="true" type="json">
@@ -121,4 +121,4 @@
 	</action>
 
 	</package>
-</struts>
+--></struts>
