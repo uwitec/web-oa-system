@@ -57,6 +57,8 @@ a img {
 </style>
 
 
+		<SCRIPT type="text/javascript" src="js/oa/jquery-1.7.2.js">
+		</SCRIPT>
 
 
 
@@ -67,8 +69,7 @@ a img {
 
 		<script type="text/javascript">
 
-var interval= <s:property value="#session.user.tips.interval"/>;
-alert(interval);
+var interval= <s:property value="#session.user.tips.interval"/>;//间隔时间
 var oPopup = window.createPopup();//创建动态窗口
 var popTop = 50;
 var width = 226;
@@ -77,12 +78,14 @@ var width = 226;
 //【注意：判断是否要显示小贴士由数据库读取】
 
 popmsg();//加载该页面即执行该函数，该函数往动态窗口输出内容。
-window.setInterval("popmsg();", Number.valueOf(interval) * 1000);//间隔10秒循环执行popmsg()函数，【注意：10秒的间隔数由数据库读取。】
+window.setInterval("popmsg();", interval * 1000);//间隔10秒循环执行popmsg()函数，【注意：10秒的间隔数由数据库读取。】
+
 
 //未读邮件和未读公告的数量由数据库读取，并利用AJAX动态变化。
 function popmsg() {
-	var showTips = <s:property value="#session.user.tips.showtips"/>;
+	var showTips = <s:property value="#session.user.tips.showtips"/>;//是否显示
 	if (showTips == true) {
+		
 		var winstr = "<table width=\"226\" height=\"151\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" background=\"images/taobao_msg.gif\">  <tr>    <td width=\"27\" height=\"20\">&nbsp;</td>    <td width=\"168\">&nbsp;</td>    <td width=\"29\"><div align=\"center\"><img src=\"images/close.gif\" width=\"14\" height=\"13\"  style=\"cursor:hand\" onclick=\"alert(\'close me!\')\"/></div></td>  </tr>  <tr>    <td width=\"50\" height=\"100\">&nbsp;</td>    <td><br>		<div align=\"center\" style=\"line-height:22px;\">			<font size=\"2\">				<a href=\"#\" id=\"amail\">你有未读邮件 " +
 	"<font color=\"#FF0000\">"+ 1 +"</font> 封</a> <br />        	  <a href=\"#\" id=\"ameet\">你有未读 <font color=\"#FF0000\">N</font> 个</a> <br />        	  <a href=\"#\" id=\"atrans\">你待处理事务 <font color=\"#FF0000\">N</font> 个</a> <br />    		设置 关闭</font></div>		</td>    <td>&nbsp;</td>  </tr>  <tr>    <td height=\"5\">&nbsp;</td>    <td>&nbsp;</td>    <td>&nbsp;</td>  </tr></table>";
 	
@@ -93,7 +96,14 @@ function popmsg() {
 	
 	if(showEmail) {
 		//ajax读邮件数目 拼strEmail
-		
+		$.ajax({
+			url : 'count',
+			type : 'post',
+			dataType : 'json',
+			success : function(json){
+				alert(json.userInfo.numbers);
+			}
+		});
 	}
 	
 	oPopup.document.body.innerHTML = winstr;
@@ -104,13 +114,13 @@ function popmsg() {
 	//【注意：是否显示邮件和公告由数据库读取】
 	if (oPopup.document.getElementById("amail") != null) {
 		oPopup.document.getElementById("amail").onclick = function() {
-			parent.mainFrame.location = "main1.html";
+			parent.rightFrame.location = "main1.html";
 		}
 	}
 
 	if (oPopup.document.getElementById("ameet") != null) {
 		oPopup.document.getElementById("ameet").onclick = function() {
-			parent.mainFrame.location = "main2.html";
+			parent.rightFrame.location = "main2.html";
 		}
 	}
 	}
@@ -186,7 +196,7 @@ function popshow() {
 														</div>
 													--%>
 														<div align="right">
-															<a href="<%=path %>/user/logout" target="_parent"><img
+															<a href="<%=path%>/user/logout" target="_parent"><img
 																	src="images/quit.gif" alt=" " width="69" height="17" />
 															</a>
 														</div>
