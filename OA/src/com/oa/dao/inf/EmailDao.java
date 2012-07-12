@@ -47,13 +47,16 @@ public interface EmailDao {
 	void deleteEmail(TUserEmail userEmail);
 
 	void deleteEmailFile(TEmailFile emailFile);
+
 	/**
 	 * 草稿改发件
 	 * */
 	void draftToSend(TUserEmail userEmail);
-	
+
 	/**
 	 * 草稿邮件修改
 	 * */
 	void updateEmail(TEmail email);
+
+	Integer countEmail(TUser user);
 }
