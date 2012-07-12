@@ -30,6 +30,8 @@ public class UserInfo implements Serializable {
 	private TRole role = new TRole();
 	private TPost tpost =new TPost();
 	private TMenu menu = new TMenu();
+	private List<Integer> numbers;
+	
 
 	public TMenu getMenu() {
 		return menu;
@@ -161,6 +163,14 @@ public class UserInfo implements Serializable {
 
 	public String getUrl() {
 		return url;
+	}
+
+	public void setNumbers(List<Integer> numbers) {
+		this.numbers = numbers;
+	}
+
+	public List<Integer> getNumbers() {
+		return numbers;
 	}
 
 }
