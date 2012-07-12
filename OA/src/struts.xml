@@ -16,4 +16,5 @@
 	<include file="struts_post.xml"></include>
 	<include file="struts-email.xml"></include>
 	<include file="struts-questionnaire.xml"></include>
+	<include file="struts-ajax.xml"></include>
 </struts>
