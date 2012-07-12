@@ -218,7 +218,8 @@ public class EmailDaoImpl extends HibernateDaoSupport implements EmailDao {
 			public Boolean doInHibernate(Session session)
 					throws HibernateException, SQLException {
 				String hql = "update TUserEmail t set t.type = "
-						+ EmailDao.TYPE_SEND + ", t.sendtime = sysdate where t.id.email.emailid = "
+						+ EmailDao.TYPE_SEND
+						+ ", t.sendtime = sysdate where t.id.email.emailid = "
 						+ userEmail.getId().getEmail().getEmailid();
 				Query query = session.createQuery(hql);
 				query.executeUpdate();
@@ -259,5 +260,24 @@ public class EmailDaoImpl extends HibernateDaoSupport implements EmailDao {
 			}
 		});
 
+	}
+
+	@Override
+	public Integer countEmail(final TUser user) {
+		Integer emailCount = getHibernateTemplate().execute(
+				new HibernateCallback<Integer>() {
+
+					@Override
+					public Integer doInHibernate(Session session)
+							throws HibernateException, SQLException {
+						String hql = "from TUserEmail t where t.id.user.userid = :userid and t.type = :type and t.isread = :isread";
+						Query query = session.createQuery(hql);
+						query.setParameter("userid", user.getUserid());
+						query.setParameter("type", EmailDao.TYPE_RECE);// ÊÕ¼þ
+						query.setParameter("isread", 0);// Î´¶Á
+						return (Integer) query.uniqueResult();
+					}
+				});
+		return emailCount;
 	}
 }
