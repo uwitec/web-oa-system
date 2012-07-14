@@ -30,7 +30,8 @@ public class UserInfo implements Serializable {
 	private TRole role = new TRole();
 	private TPost tpost =new TPost();
 	private TMenu menu = new TMenu();
-	private List<Integer> numbers;
+	
+	private int emailCount;
 	
 
 	public TMenu getMenu() {
@@ -165,12 +166,13 @@ public class UserInfo implements Serializable {
 		return url;
 	}
 
-	public void setNumbers(List<Integer> numbers) {
-		this.numbers = numbers;
+	public void setEmailCount(int emailCount) {
+		this.emailCount = emailCount;
 	}
 
-	public List<Integer> getNumbers() {
-		return numbers;
+	public int getEmailCount() {
+		return emailCount;
 	}
+
 
 }

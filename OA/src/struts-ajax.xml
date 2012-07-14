@@ -38,7 +38,7 @@
 		<action name="count" class="com.oa.action.TipsAction" method="countEmailAndPost">
 			<result name="success" type="json">
 				<param name="includeProperties">
-					userInfo\.numbers
+					userInfo\.emailCount
 				</param>
 			</result>
 		</action>

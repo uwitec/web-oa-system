@@ -86,13 +86,14 @@ function popmsg() {
 	var showTips = <s:property value="#session.user.tips.showtips"/>;//是否显示
 	if (showTips == true) {
 		
-		var winstr = "<table width=\"226\" height=\"151\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" background=\"images/taobao_msg.gif\">  <tr>    <td width=\"27\" height=\"20\">&nbsp;</td>    <td width=\"168\">&nbsp;</td>    <td width=\"29\"><div align=\"center\"><img src=\"images/close.gif\" width=\"14\" height=\"13\"  style=\"cursor:hand\" onclick=\"alert(\'close me!\')\"/></div></td>  </tr>  <tr>    <td width=\"50\" height=\"100\">&nbsp;</td>    <td><br>		<div align=\"center\" style=\"line-height:22px;\">			<font size=\"2\">				<a href=\"#\" id=\"amail\">你有未读邮件 " +
-	"<font color=\"#FF0000\">"+ 1 +"</font> 封</a> <br />        	  <a href=\"#\" id=\"ameet\">你有未读 <font color=\"#FF0000\">N</font> 个</a> <br />        	  <a href=\"#\" id=\"atrans\">你待处理事务 <font color=\"#FF0000\">N</font> 个</a> <br />    		设置 关闭</font></div>		</td>    <td>&nbsp;</td>  </tr>  <tr>    <td height=\"5\">&nbsp;</td>    <td>&nbsp;</td>    <td>&nbsp;</td>  </tr></table>";
-	
+		
 	var showEmail = <s:property value="#session.user.tips.showemail"/>;
 	var showPost = <s:property value="#session.user.tips.showpost"/>;
 	
 	var strEmail = "<a href=\"#\" id=\"ameet\">你有未读邮件 <font color=\"#FF0000\">N</font> 个</a> <br />";
+	
+	var emailCount = 0;
+	var postCount = 0;
 	
 	if(showEmail) {
 		//ajax读邮件数目 拼strEmail
@@ -101,10 +102,13 @@ function popmsg() {
 			type : 'post',
 			dataType : 'json',
 			success : function(json){
-				alert(json.userInfo.numbers);
+				emailCount = json.userInfo.emailCount;
+				alert(json.userInfo.emailCount);
 			}
 		});
 	}
+	var winstr = "<table width=\"226\" height=\"151\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" background=\"images/taobao_msg.gif\">  <tr>    <td width=\"27\" height=\"20\">&nbsp;</td>    <td width=\"168\">&nbsp;</td>    <td width=\"29\"><div align=\"center\"><img src=\"images/close.gif\" width=\"14\" height=\"13\"  style=\"cursor:hand\" onclick=\"alert(\'close me!\')\"/></div></td>  </tr>  <tr>    <td width=\"50\" height=\"100\">&nbsp;</td>    <td><br>		<div align=\"center\" style=\"line-height:22px;\">			<font size=\"2\">				<a href=\"email\/getemail?userEmail.type=2\" id=\"amail\">你有未读邮件 " +
+	"<font color=\"#FF0000\">"+ emailCount +"</font> 封</a> <br />        	  <a href=\"#\" id=\"ameet\">你有未读 <font color=\"#FF0000\">N</font> 个</a> <br />        	  <a href=\"#\" id=\"atrans\">你待处理事务 <font color=\"#FF0000\">N</font> 个</a> <br />    		设置 关闭</font></div>		</td>    <td>&nbsp;</td>  </tr>  <tr>    <td height=\"5\">&nbsp;</td>    <td>&nbsp;</td>    <td>&nbsp;</td>  </tr></table>";
 	
 	oPopup.document.body.innerHTML = winstr;
 	popshow();
@@ -114,7 +118,7 @@ function popmsg() {
 	//【注意：是否显示邮件和公告由数据库读取】
 	if (oPopup.document.getElementById("amail") != null) {
 		oPopup.document.getElementById("amail").onclick = function() {
-			parent.rightFrame.location = "main1.html";
+			parent.mainFrame.rightFrame.location = "email/getemail?userEmail.type=2";
 		}
 	}
 
