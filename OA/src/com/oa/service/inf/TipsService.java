@@ -9,5 +9,9 @@ public interface TipsService {
 	
 	void updateTips(TTips tips);
 
-	List<Integer> countEmailAndPost(TUser user);
+//	List<Integer> countEmailAndPost(TUser user);
+	
+	String countEmail(TUser user);
+	
+	String countPost(TUser user);
 }

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Struts2Diagram version="2.0">
+  <package name="ajaxPack" location="0,0" size="0,0">
+    <action name="checkuserid" location="0,0" size="0,0">
+      <result name="true" />
+      <result name="false" />
+    </action>
+    <action name="deleteEmailFile" location="0,0" size="0,0">
+      <result name="success" />
+      <result name="false" />
+    </action>
+    <action name="count" location="0,0" size="0,0">
+      <result name="success" />
+    </action>
+    <action name="deleteTPostFile" location="0,0" size="0,0">
+      <result name="success" />
+      <result name="false" />
+    </action>
+  </package>
+</Struts2Diagram>
+

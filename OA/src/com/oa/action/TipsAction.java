@@ -21,10 +21,7 @@ public class TipsAction extends BaseAction implements ModelDriven<UserInfo> {
 
 	public String countEmailAndPost() {
 		TUser user = (TUser) request.getSession().getAttribute(LOGIN_USER);
-		List<Integer> numbers = new ArrayList<Integer>();
-		numbers.add(1);
-		userInfo.setNumbers(numbers);
-		System.out.println(numbers.size());
+		userInfo.setEmailCount(1111);
 		return SUCCESS;
 	}
 

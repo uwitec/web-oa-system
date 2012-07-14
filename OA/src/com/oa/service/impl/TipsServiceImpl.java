@@ -13,13 +13,13 @@ public class TipsServiceImpl implements TipsService {
 	private EmailDao emailDao;
 	private TPostDao postDao;
 
-	@Override
-	public List<Integer> countEmailAndPost(TUser user) {
-		List<Integer> numbers = new ArrayList<Integer>();
-		Integer emailCount = emailDao.countEmail(user);
-		numbers.add(emailCount);
-		return numbers;
-	}
+	// @Override
+	// public List<Integer> countEmailAndPost(TUser user) {
+	// List<Integer> numbers = new ArrayList<Integer>();
+	// Integer emailCount = emailDao.countEmail(user);
+	// numbers.add(emailCount);
+	// return numbers;
+	// }
 
 	@Override
 	public void updateTips(TTips tips) {
@@ -40,6 +40,18 @@ public class TipsServiceImpl implements TipsService {
 
 	public TPostDao getPostDao() {
 		return postDao;
+	}
+
+	@Override
+	public String countEmail(TUser user) {
+
+		return emailDao.countEmail(user).toString();
+	}
+
+	@Override
+	public String countPost(TUser user) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
